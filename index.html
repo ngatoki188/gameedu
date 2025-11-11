@@ -1,184 +1,225 @@
 <!DOCTYPE html>
 <html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GameEDU - Wireframe Navigation</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        
-        .container {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            max-width: 600px;
-            width: 100%;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-        }
-        
-        h1 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 10px;
-            font-size: 32px;
-        }
-        
-        .subtitle {
-            text-align: center;
-            color: #666;
-            margin-bottom: 40px;
-            font-size: 16px;
-        }
-        
-        .menu {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 16px;
-        }
-        
-        .menu-item {
-            background: linear-gradient(135deg, #007AFF 0%, #34C759 100%);
-            color: white;
-            padding: 24px;
-            border-radius: 12px;
-            text-decoration: none;
-            text-align: center;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
-        }
-        
-        .menu-item:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0, 122, 255, 0.4);
-        }
-        
-        .menu-item:active {
-            transform: translateY(-2px);
-        }
-        
-        .menu-icon {
-            font-size: 48px;
-            margin-bottom: 12px;
-        }
-        
-        .menu-title {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 4px;
-        }
-        
-        .menu-desc {
-            font-size: 12px;
-            opacity: 0.9;
-        }
-        
-        .flow-info {
-            margin-top: 40px;
-            padding: 20px;
-            background: #F5F5F5;
-            border-radius: 12px;
-        }
-        
-        .flow-title {
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 12px;
-            font-size: 16px;
-        }
-        
-        .flow-steps {
-            list-style: none;
-            counter-reset: step-counter;
-        }
-        
-        .flow-steps li {
-            counter-increment: step-counter;
-            margin-bottom: 8px;
-            padding-left: 30px;
-            position: relative;
-            color: #666;
-            font-size: 14px;
-        }
-        
-        .flow-steps li::before {
-            content: counter(step-counter);
-            position: absolute;
-            left: 0;
-            background: #007AFF;
-            color: white;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 12px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>🎮 GameEDU Wireframe</h1>
-        <p class="subtitle">Thiết kế wireframe cho ứng dụng thi tiếng Anh</p>
-        
-        <div class="menu">
-            <a href="home.html" class="menu-item">
-                <div class="menu-icon">🏠</div>
-                <div class="menu-title">Trang chủ</div>
-                <div class="menu-desc">Dashboard chính với nút PLAY</div>
-            </a>
-            
-            <a href="instructions.html" class="menu-item">
-                <div class="menu-icon">📝</div>
-                <div class="menu-title">Hướng dẫn thi</div>
-                <div class="menu-desc">Xem quy định trước khi thi</div>
-            </a>
-            
-            <a href="exam.html" class="menu-item">
-                <div class="menu-icon">✍️</div>
-                <div class="menu-title">Làm bài thi</div>
-                <div class="menu-desc">Màn hình thi với timer</div>
-            </a>
-            
-            <a href="result.html" class="menu-item">
-                <div class="menu-icon">🏆</div>
-                <div class="menu-title">Kết quả</div>
-                <div class="menu-desc">Hiển thị điểm và xếp hạng</div>
-            </a>
-            
-            <a href="leaderboard.html" class="menu-item">
-                <div class="menu-icon">📊</div>
-                <div class="menu-title">Bảng xếp hạng</div>
-                <div class="menu-desc">Top 3 và danh sách</div>
-            </a>
-        </div>
-        
-        <div class="flow-info">
-            <div class="flow-title">📱 Luồng sử dụng:</div>
-            <ol class="flow-steps">
-                <li>Trang chủ → Xem kỳ thi đang diễn ra</li>
-                <li>Bấm "BẮT ĐẦU THI" → Màn hình hướng dẫn</li>
-                <li>Đọc quy định → Tích checkbox → Bắt đầu thi</li>
-                <li>Làm bài thi → Xem danh sách câu → Nộp bài</li>
-                <li>Xem kết quả → Xem bảng xếp hạng</li>
-            </ol>
-        </div>
-    </div>
-</body>
-</html>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .container {
+        background: white;
+        border-radius: 20px;
+        padding: 40px;
+        max-width: 600px;
+        width: 100%;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      }
+
+      h1 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 10px;
+        font-size: 32px;
+      }
+
+      .subtitle {
+        text-align: center;
+        color: #666;
+        margin-bottom: 40px;
+        font-size: 16px;
+      }
+
+      .menu {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+      }
+
+      .menu-item {
+        background: linear-gradient(135deg, #007aff 0%, #34c759 100%);
+        color: white;
+        padding: 24px;
+        border-radius: 12px;
+        text-decoration: none;
+        text-align: center;
+        transition: transform 0.2s, box-shadow 0.2s;
+        box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+      }
+
+      .menu-item:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(0, 122, 255, 0.4);
+      }
+
+      .menu-item:active {
+        transform: translateY(-2px);
+      }
+
+      .menu-icon {
+        font-size: 48px;
+        margin-bottom: 12px;
+      }
+
+      .menu-title {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 4px;
+      }
+
+      .menu-desc {
+        font-size: 12px;
+        opacity: 0.9;
+      }
+
+      .flow-info {
+        margin-top: 40px;
+        padding: 20px;
+        background: #f5f5f5;
+        border-radius: 12px;
+      }
+
+      .flow-title {
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 12px;
+        font-size: 16px;
+      }
+
+      .flow-steps {
+        list-style: none;
+        counter-reset: step-counter;
+      }
+
+      .flow-steps li {
+        counter-increment: step-counter;
+        margin-bottom: 8px;
+        padding-left: 30px;
+        position: relative;
+        color: #666;
+        font-size: 14px;
+      }
+
+      .flow-steps li::before {
+        content: counter(step-counter);
+        position: absolute;
+        left: 0;
+        background: #007aff;
+        color: white;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 12px;
+      }
+
+      .section-divider {
+        margin: 40px 0 20px;
+        text-align: center;
+        font-weight: bold;
+        font-size: 18px;
+        color: #333;
+        padding: 12px;
+        background: rgba(255, 255, 255, 0.5);
+        border-radius: 8px;
+      }
+
+      .menu-item.admin {
+        background: linear-gradient(135deg, #FF9500 0%, #FF3B30 100%);
+        box-shadow: 0 4px 12px rgba(255, 149, 0, 0.3);
+      }
+
+      .menu-item.admin:hover {
+        box-shadow: 0 8px 24px rgba(255, 149, 0, 0.4);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🎮 GameEDU Wireframe</h1>
+      <p class="subtitle">Thiết kế wireframe cho ứng dụng thi tiếng Anh</p>
+
+      <div class="section-divider">👤 Màn hình Học sinh</div>
+      <div class="menu">
+        <a href="home.html" class="menu-item">
+          <div class="menu-icon">🏠</div>
+          <div class="menu-title">Trang chủ</div>
+          <div class="menu-desc">Dashboard chính với nút PLAY</div>
+        </a>
+
+        <a href="instructions.html" class="menu-item">
+          <div class="menu-icon">📝</div>
+          <div class="menu-title">Hướng dẫn thi</div>
+          <div class="menu-desc">Xem quy định trước khi thi</div>
+        </a>
+
+        <a href="exam.html" class="menu-item">
+          <div class="menu-icon">✍️</div>
+          <div class="menu-title">Làm bài thi</div>
+          <div class="menu-desc">Màn hình thi với timer</div>
+        </a>
+
+        <a href="result.html" class="menu-item">
+          <div class="menu-icon">🏆</div>
+          <div class="menu-title">Kết quả</div>
+          <div class="menu-desc">Hiển thị điểm và xếp hạng</div>
+        </a>
+
+        <a href="leaderboard.html" class="menu-item">
+          <div class="menu-icon">📊</div>
+          <div class="menu-title">Bảng xếp hạng</div>
+          <div class="menu-desc">Top 3 và danh sách</div>
+        </a>
+      </div>
+
+      <div class="section-divider">👨‍💼 Màn hình Admin</div>
+      <div class="menu">
+        <a href="admin-dashboard.html" class="menu-item admin">
+          <div class="menu-icon">🏠</div>
+          <div class="menu-title">Admin Dashboard</div>
+          <div class="menu-desc">Trang chủ admin với thống kê</div>
+        </a>
+
+        <a href="admin-create-contest.html" class="menu-item admin">
+          <div class="menu-icon">➕</div>
+          <div class="menu-title">Tạo kỳ thi</div>
+          <div class="menu-desc">Tạo và cấu hình kỳ thi mới</div>
+        </a>
+
+        <a href="admin-question-bank.html" class="menu-item admin">
+          <div class="menu-icon">📚</div>
+          <div class="menu-title">Ngân hàng câu hỏi</div>
+          <div class="menu-desc">Quản lý câu hỏi</div>
+        </a>
+      </div>
+
+      <div class="flow-info">
+        <div class="flow-title">📱 Luồng sử dụng (Học sinh):</div>
+        <ol class="flow-steps">
+          <li>Trang chủ → Xem kỳ thi đang diễn ra</li>
+          <li>Bấm "BẮT ĐẦU THI" → Màn hình hướng dẫn</li>
+          <li>Đọc quy định → Tích checkbox → Bắt đầu thi</li>
+          <li>Làm bài thi → Xem danh sách câu → Nộp bài</li>
+          <li>Xem kết quả → Xem bảng xếp hạng</li>
+        </ol>
+      </div>
+    </div>
+  </body>
+</html>

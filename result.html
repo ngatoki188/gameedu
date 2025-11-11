@@ -1,365 +1,387 @@
 <!DOCTYPE html>
 <html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kết quả - GameEDU</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #E3F2FD 0%, #E8F5E9 100%);
-            width: 375px;
-            margin: 0 auto;
-            min-height: 100vh;
-            padding-bottom: 100px;
-        }
-        
-        /* Header */
-        .header {
-            background: white;
-            padding: 12px 16px;
-            text-align: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .header-icon {
-            font-size: 48px;
-            margin-bottom: 8px;
-        }
-        
-        .header-title {
-            font-size: 20px;
-            font-weight: bold;
-            color: #333;
-        }
-        
-        /* Celebration Section */
-        .celebration {
-            text-align: center;
-            padding: 30px 20px;
-        }
-        
-        .score-display {
-            font-size: 64px;
-            font-weight: bold;
-            background: linear-gradient(135deg, #007AFF 0%, #34C759 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 8px;
-        }
-        
-        .score-label {
-            font-size: 20px;
-            font-weight: bold;
-            color: #FFD700;
-            margin-bottom: 12px;
-        }
-        
-        .stars {
-            font-size: 32px;
-            color: #FFD700;
-            margin-bottom: 20px;
-        }
-        
-        /* Results Card */
-        .results-card {
-            background: white;
-            margin: 0 16px 20px;
-            border-radius: 16px;
-            padding: 20px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-        
-        .card-title {
-            font-size: 18px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-        
-        .stat-item {
-            text-align: center;
-            padding: 12px;
-            background: #F5F5F5;
-            border-radius: 12px;
-        }
-        
-        .stat-icon {
-            font-size: 24px;
-            margin-bottom: 4px;
-        }
-        
-        .stat-label {
-            font-size: 12px;
-            color: #666;
-            margin-bottom: 4px;
-        }
-        
-        .stat-value {
-            font-size: 16px;
-            font-weight: bold;
-            color: #333;
-        }
-        
-        .progress-bar-container {
-            width: 100%;
-            height: 8px;
-            background: #E5E5EA;
-            border-radius: 4px;
-            overflow: hidden;
-            margin-top: 8px;
-        }
-        
-        .progress-bar-fill {
-            height: 100%;
-            background: #34C759;
-            width: 84%;
-        }
-        
-        /* Ranking Section */
-        .ranking-section {
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid #E5E5EA;
-        }
-        
-        .ranking-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 12px;
-            font-size: 14px;
-        }
-        
-        .ranking-icon {
-            font-size: 20px;
-        }
-        
-        .ranking-label {
-            color: #666;
-            flex: 1;
-        }
-        
-        .ranking-value {
-            font-weight: bold;
-            color: #007AFF;
-        }
-        
-        .ranking-value.highlight {
-            color: #FFD700;
-        }
-        
-        /* Achievement Card */
-        .achievement-card {
-            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
-            margin: 0 16px 20px;
-            border-radius: 16px;
-            padding: 20px;
-            text-align: center;
-            color: #333;
-        }
-        
-        .achievement-title {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-        
-        .achievement-badge {
-            font-size: 48px;
-            margin: 12px 0;
-        }
-        
-        .achievement-desc {
-            font-size: 14px;
-            color: #666;
-        }
-        
-        /* Prize Card */
-        .prize-card {
-            background: #FFF9C4;
-            margin: 0 16px 20px;
-            border-radius: 16px;
-            padding: 20px;
-            border: 2px solid #FFD700;
-        }
-        
-        .prize-title {
-            font-size: 18px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 8px;
-        }
-        
-        .prize-text {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 4px;
-        }
-        
-        /* Action Buttons */
-        .action-buttons {
-            padding: 0 16px 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        
-        .action-btn {
-            width: 100%;
-            padding: 16px;
-            border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        
-        .action-btn:active {
-            transform: scale(0.98);
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, #007AFF 0%, #34C759 100%);
-            color: white;
-        }
-        
-        .btn-secondary {
-            background: white;
-            color: #666;
-            border: 1px solid #E5E5EA;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #e3f2fd 0%, #e8f5e9 100%);
+        width: 375px;
+        margin: 0 auto;
+        min-height: 100vh;
+        padding-bottom: 100px;
+      }
+
+      /* Header */
+      .header {
+        background: white;
+        padding: 12px 16px;
+        text-align: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .header-icon {
+        font-size: 48px;
+        margin-bottom: 8px;
+      }
+
+      .header-title {
+        font-size: 20px;
+        font-weight: bold;
+        color: #333;
+      }
+
+      /* Celebration Section */
+      .celebration {
+        text-align: center;
+        padding: 30px 20px;
+      }
+
+      .score-display {
+        font-size: 64px;
+        font-weight: bold;
+        background: linear-gradient(135deg, #007aff 0%, #34c759 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 8px;
+      }
+
+      .score-label {
+        font-size: 20px;
+        font-weight: bold;
+        color: #ffd700;
+        margin-bottom: 12px;
+      }
+
+      .stars {
+        font-size: 32px;
+        color: #ffd700;
+        margin-bottom: 20px;
+      }
+
+      /* Results Card */
+      .results-card {
+        background: white;
+        margin: 0 16px 20px;
+        border-radius: 16px;
+        padding: 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .card-title {
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-bottom: 20px;
+      }
+
+      .stat-item {
+        text-align: center;
+        padding: 12px;
+        background: #f5f5f5;
+        border-radius: 12px;
+      }
+
+      .stat-icon {
+        font-size: 24px;
+        margin-bottom: 4px;
+      }
+
+      .stat-label {
+        font-size: 12px;
+        color: #666;
+        margin-bottom: 4px;
+      }
+
+      .stat-value {
+        font-size: 16px;
+        font-weight: bold;
+        color: #333;
+      }
+
+      .progress-bar-container {
+        width: 100%;
+        height: 8px;
+        background: #e5e5ea;
+        border-radius: 4px;
+        overflow: hidden;
+        margin-top: 8px;
+      }
+
+      .progress-bar-fill {
+        height: 100%;
+        background: #34c759;
+        width: 84%;
+      }
+
+      /* Ranking Section */
+      .ranking-section {
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid #e5e5ea;
+      }
+
+      .ranking-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 12px;
+        font-size: 14px;
+      }
+
+      .ranking-icon {
+        font-size: 20px;
+      }
+
+      .ranking-label {
+        color: #666;
+        flex: 1;
+      }
+
+      .ranking-value {
+        font-weight: bold;
+        color: #007aff;
+      }
+
+      .ranking-value.highlight {
+        color: #ffd700;
+      }
+
+      /* Achievement Card */
+      .achievement-card {
+        background: linear-gradient(135deg, #ffd700 0%, #ffa500 100%);
+        margin: 0 16px 20px;
+        border-radius: 16px;
+        padding: 20px;
+        text-align: center;
+        color: #333;
+      }
+
+      .achievement-title {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 8px;
+      }
+
+      .achievement-badge {
+        font-size: 48px;
+        margin: 12px 0;
+      }
+
+      .achievement-desc {
+        font-size: 14px;
+        color: #666;
+      }
+
+      /* Prize Card */
+      .prize-card {
+        background: #fff9c4;
+        margin: 0 16px 20px;
+        border-radius: 16px;
+        padding: 20px;
+        border: 2px solid #ffd700;
+      }
+
+      .prize-title {
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 8px;
+      }
+
+      .prize-text {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 4px;
+      }
+
+      /* Action Buttons */
+      .action-buttons {
+        padding: 0 16px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .action-btn {
+        width: 100%;
+        padding: 16px;
+        border: none;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+
+      .action-btn:active {
+        transform: scale(0.98);
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #007aff 0%, #34c759 100%);
+        color: white;
+      }
+
+      .btn-secondary {
+        background: white;
+        color: #666;
+        border: 1px solid #e5e5ea;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Header -->
     <div class="header">
-        <div class="header-icon">🏆</div>
-        <div class="header-title">Hoàn thành bài thi!</div>
+      <div class="header-icon">🏆</div>
+      <div class="header-title">Hoàn thành bài thi!</div>
     </div>
-    
+
     <!-- Celebration Section -->
     <div class="celebration">
-        <div class="score-display">85/100</div>
-        <div class="score-label">XUẤT SẮC!</div>
-        <div class="stars">⭐⭐⭐⭐⭐</div>
+      <div class="score-display">85/100</div>
+      <div class="score-label">XUẤT SẮC!</div>
+      <div class="stars">⭐⭐⭐⭐⭐</div>
     </div>
-    
+
     <!-- Results Card -->
     <div class="results-card">
-        <div class="card-title">
-            <span>📊</span>
-            <span>Kết quả của bạn</span>
+      <div class="card-title">
+        <span>📊</span>
+        <span>Kết quả của bạn</span>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-icon">⏱️</div>
+          <div class="stat-label">Thời gian</div>
+          <div class="stat-value">38:15</div>
         </div>
-        
-        <div class="stats-grid">
-            <div class="stat-item">
-                <div class="stat-icon">⏱️</div>
-                <div class="stat-label">Thời gian</div>
-                <div class="stat-value">38:15</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-icon">✓</div>
-                <div class="stat-label">Đúng</div>
-                <div class="stat-value">42/50</div>
-                <div class="progress-bar-container">
-                    <div class="progress-bar-fill"></div>
-                </div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-icon">📈</div>
-                <div class="stat-label">Độ chính xác</div>
-                <div class="stat-value">84%</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-icon">🏆</div>
-                <div class="stat-label">Xếp hạng</div>
-                <div class="stat-value">#25</div>
-            </div>
+        <div class="stat-item">
+          <div class="stat-icon">✓</div>
+          <div class="stat-label">Đúng</div>
+          <div class="stat-value">42/50</div>
+          <div class="progress-bar-container">
+            <div class="progress-bar-fill"></div>
+          </div>
         </div>
-        
-        <div class="ranking-section">
-            <div class="ranking-item">
-                <span class="ranking-icon">🌍</span>
-                <span class="ranking-label">Toàn quốc</span>
-                <span class="ranking-value">#125</span>
-            </div>
-            <div class="ranking-item">
-                <span class="ranking-icon">🏠</span>
-                <span class="ranking-label">Tỉnh</span>
-                <span class="ranking-value">#25</span>
-            </div>
-            <div class="ranking-item">
-                <span class="ranking-icon">🏫</span>
-                <span class="ranking-label">Trường</span>
-                <span class="ranking-value highlight">#5</span>
-            </div>
+        <div class="stat-item">
+          <div class="stat-icon">📈</div>
+          <div class="stat-label">Độ chính xác</div>
+          <div class="stat-value">84%</div>
         </div>
-        
-        <div style="margin-top: 16px; padding: 12px; background: #E3F2FD; border-radius: 8px; text-align: center;">
-            <div style="font-size: 14px; font-weight: bold; color: #007AFF; margin-bottom: 4px;">
-                Bạn thuộc top 5%!
-            </div>
-            <div class="progress-bar-container" style="margin-top: 8px;">
-                <div class="progress-bar-fill" style="width: 5%;"></div>
-            </div>
+        <div class="stat-item">
+          <div class="stat-icon">🏆</div>
+          <div class="stat-label">Xếp hạng</div>
+          <div class="stat-value">#25</div>
         </div>
+      </div>
+
+      <div class="ranking-section">
+        <div class="ranking-item">
+          <span class="ranking-icon">🌍</span>
+          <span class="ranking-label">Toàn quốc</span>
+          <span class="ranking-value">#125</span>
+        </div>
+        <div class="ranking-item">
+          <span class="ranking-icon">🏠</span>
+          <span class="ranking-label">Tỉnh</span>
+          <span class="ranking-value">#25</span>
+        </div>
+        <div class="ranking-item">
+          <span class="ranking-icon">🏫</span>
+          <span class="ranking-label">Trường</span>
+          <span class="ranking-value highlight">#5</span>
+        </div>
+      </div>
+
+      <div
+        style="
+          margin-top: 16px;
+          padding: 12px;
+          background: #e3f2fd;
+          border-radius: 8px;
+          text-align: center;
+        "
+      >
+        <div
+          style="
+            font-size: 14px;
+            font-weight: bold;
+            color: #007aff;
+            margin-bottom: 4px;
+          "
+        >
+          Bạn thuộc top 5%!
+        </div>
+        <div class="progress-bar-container" style="margin-top: 8px">
+          <div class="progress-bar-fill" style="width: 5%"></div>
+        </div>
+      </div>
     </div>
-    
+
     <!-- Achievement Card (if applicable) -->
     <div class="achievement-card">
-        <div class="achievement-title">🏆 MỞ KHÓA THÀNH TÍCH!</div>
-        <div class="achievement-badge">🥇</div>
-        <div style="font-size: 16px; font-weight: bold; margin-bottom: 4px;">Top 10%</div>
-        <div class="achievement-desc">Đạt xếp hạng top 10%</div>
+      <div class="achievement-title">🏆 MỞ KHÓA THÀNH TÍCH!</div>
+      <div class="achievement-badge">🥇</div>
+      <div style="font-size: 16px; font-weight: bold; margin-bottom: 4px">
+        Top 10%
+      </div>
+      <div class="achievement-desc">Đạt xếp hạng top 10%</div>
     </div>
-    
+
     <!-- Prize Card -->
     <div class="prize-card">
-        <div class="prize-title">🏅 Đủ điều kiện nhận giải</div>
-        <div class="prize-text" style="font-weight: bold; color: #333; margin-bottom: 8px;">
-            Bạn thuộc top 10%!
-        </div>
-        <div class="prize-text">
-            Giải thưởng sẽ được công bố sau khi kết thúc cuộc thi
-        </div>
-        <div class="prize-text" style="margin-top: 4px;">
-            Kiểm tra lại vào 19/01/2024
-        </div>
+      <div class="prize-title">🏅 Đủ điều kiện nhận giải</div>
+      <div
+        class="prize-text"
+        style="font-weight: bold; color: #333; margin-bottom: 8px"
+      >
+        Bạn thuộc top 10%!
+      </div>
+      <div class="prize-text">
+        Giải thưởng sẽ được công bố sau khi kết thúc cuộc thi
+      </div>
+      <div class="prize-text" style="margin-top: 4px">
+        Kiểm tra lại vào 19/01/2024
+      </div>
     </div>
-    
+
     <!-- Action Buttons -->
     <div class="action-buttons">
-        <button class="action-btn btn-primary" onclick="window.location.href='leaderboard.html'">
-            Xem bảng xếp hạng
-        </button>
-        <button class="action-btn btn-secondary" onclick="reviewAnswers()">
-            Xem lại đáp án
-        </button>
+      <button
+        class="action-btn btn-primary"
+        onclick="window.location.href='leaderboard.html'"
+      >
+        Xem bảng xếp hạng
+      </button>
+      <button class="action-btn btn-secondary" onclick="reviewAnswers()">
+        Xem lại đáp án
+      </button>
     </div>
-    
-    <script>
-        function reviewAnswers() {
-            alert('Tính năng xem lại đáp án sẽ được hiển thị ở đây');
-        }
-    </script>
-</body>
-</html>
 
+    <script>
+      function reviewAnswers() {
+        alert("Tính năng xem lại đáp án sẽ được hiển thị ở đây");
+      }
+    </script>
+  </body>
+</html>

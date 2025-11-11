@@ -1,408 +1,416 @@
 <!DOCTYPE html>
 <html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home - GameEDU</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: #f5f5f5;
+        width: 375px;
+        margin: 0 auto;
+        min-height: 100vh;
+        position: relative;
+        padding-bottom: 70px;
+      }
+
+      /* Header */
+      .header {
+        background: white;
+        padding: 12px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+      }
+
+      .app-name {
+        font-weight: bold;
+        font-size: 18px;
+        color: #333;
+      }
+
+      .notif-icon {
+        position: relative;
+        font-size: 24px;
+      }
+
+      .notif-badge {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background: #ff3b30;
+        color: white;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: bold;
+      }
+
+      /* Winner Banner */
+      .winner-banner {
+        background: linear-gradient(135deg, #ffd700 0%, #ffa500 100%);
+        padding: 12px 16px;
+        margin: 0;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .winner-content {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        white-space: nowrap;
+        animation: scroll 20s linear infinite;
+      }
+
+      @keyframes scroll {
+        0% {
+          transform: translateX(100%);
         }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f5f5f5;
-            width: 375px;
-            margin: 0 auto;
-            min-height: 100vh;
-            position: relative;
-            padding-bottom: 70px;
+        100% {
+          transform: translateX(-100%);
         }
-        
-        /* Header */
-        .header {
-            background: white;
-            padding: 12px 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        
-        .avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-        }
-        
-        .app-name {
-            font-weight: bold;
-            font-size: 18px;
-            color: #333;
-        }
-        
-        .notif-icon {
-            position: relative;
-            font-size: 24px;
-        }
-        
-        .notif-badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background: #ff3b30;
-            color: white;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: bold;
-        }
-        
-        /* Winner Banner */
-        .winner-banner {
-            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
-            padding: 12px 16px;
-            margin: 0;
-            overflow: hidden;
-            position: relative;
-        }
-        
-        .winner-content {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            white-space: nowrap;
-            animation: scroll 20s linear infinite;
-        }
-        
-        @keyframes scroll {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-        }
-        
-        .winner-text {
-            font-weight: bold;
-            color: #333;
-            font-size: 14px;
-        }
-        
-        .winner-list {
-            display: inline-flex;
-            gap: 16px;
-            margin-left: 16px;
-        }
-        
-        .winner-item {
-            font-size: 13px;
-            color: #333;
-        }
-        
-        .view-results-link {
-            color: #007AFF;
-            text-decoration: underline;
-            margin-left: auto;
-            font-size: 13px;
-        }
-        
-        /* Welcome */
-        .welcome {
-            padding: 16px;
-            font-size: 16px;
-            color: #333;
-        }
-        
-        /* Active Contest Card */
-        .contest-card {
-            background: white;
-            margin: 0 16px 16px;
-            border-radius: 16px;
-            padding: 20px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-        
-        .contest-badge {
-            background: #34C759;
-            color: white;
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: bold;
-            display: inline-block;
-            margin-bottom: 12px;
-        }
-        
-        .contest-title {
-            font-size: 20px;
-            font-weight: bold;
-            color: #000;
-            margin-bottom: 12px;
-        }
-        
-        .contest-info {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin-bottom: 16px;
-            font-size: 14px;
-            color: #666;
-        }
-        
-        .info-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .status-badge {
-            background: #E5E5EA;
-            color: #666;
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-size: 12px;
-            display: inline-block;
-            margin-bottom: 20px;
-        }
-        
-        /* Play Button */
-        .play-button {
-            width: 100%;
-            height: 70px;
-            background: linear-gradient(135deg, #007AFF 0%, #34C759 100%);
-            border: none;
-            border-radius: 16px;
-            color: white;
-            font-size: 22px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            box-shadow: 0 8px 24px rgba(0, 122, 255, 0.4);
-            cursor: pointer;
-            transition: transform 0.2s;
-            margin-top: 20px;
-            margin-bottom: 12px;
-        }
-        
-        .play-button:active {
-            transform: scale(0.98);
-        }
-        
-        .warning-text {
-            font-size: 12px;
-            color: #666;
-            font-style: italic;
-            text-align: center;
-        }
-        
-        /* Upcoming Contest */
-        .upcoming-card {
-            background: white;
-            margin: 0 16px 16px;
-            border-radius: 16px;
-            padding: 16px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        
-        .upcoming-header {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 8px;
-        }
-        
-        .upcoming-info {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 12px;
-        }
-        
-        .view-details-btn {
-            background: transparent;
-            border: 1px solid #007AFF;
-            color: #007AFF;
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-size: 14px;
-            cursor: pointer;
-        }
-        
-        /* Stats */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin: 0 16px 16px;
-        }
-        
-        .stat-card {
-            background: white;
-            padding: 16px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        
-        .stat-label {
-            font-size: 12px;
-            color: #666;
-            margin-bottom: 4px;
-        }
-        
-        .stat-value {
-            font-size: 20px;
-            font-weight: bold;
-            color: #007AFF;
-        }
-        
-        /* Bottom Navigation */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 375px;
-            background: white;
-            border-top: 1px solid #E5E5EA;
-            display: flex;
-            justify-content: space-around;
-            padding: 8px 0;
-            box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
-        }
-        
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-            padding: 8px;
-            cursor: pointer;
-            color: #666;
-            font-size: 12px;
-        }
-        
-        .nav-item.active {
-            color: #007AFF;
-        }
-        
-        .nav-icon {
-            font-size: 24px;
-        }
+      }
+
+      .winner-text {
+        font-weight: bold;
+        color: #333;
+        font-size: 14px;
+      }
+
+      .winner-list {
+        display: inline-flex;
+        gap: 16px;
+        margin-left: 16px;
+      }
+
+      .winner-item {
+        font-size: 13px;
+        color: #333;
+      }
+
+      .view-results-link {
+        color: #007aff;
+        text-decoration: underline;
+        margin-left: auto;
+        font-size: 13px;
+      }
+
+      /* Welcome */
+      .welcome {
+        padding: 16px;
+        font-size: 16px;
+        color: #333;
+      }
+
+      /* Active Contest Card */
+      .contest-card {
+        background: white;
+        margin: 0 16px 16px;
+        border-radius: 16px;
+        padding: 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .contest-badge {
+        background: #34c759;
+        color: white;
+        padding: 6px 12px;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: bold;
+        display: inline-block;
+        margin-bottom: 12px;
+      }
+
+      .contest-title {
+        font-size: 20px;
+        font-weight: bold;
+        color: #000;
+        margin-bottom: 12px;
+      }
+
+      .contest-info {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 16px;
+        font-size: 14px;
+        color: #666;
+      }
+
+      .info-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .status-badge {
+        background: #e5e5ea;
+        color: #666;
+        padding: 4px 8px;
+        border-radius: 6px;
+        font-size: 12px;
+        display: inline-block;
+        margin-bottom: 20px;
+      }
+
+      /* Play Button */
+      .play-button {
+        width: 100%;
+        height: 70px;
+        background: linear-gradient(135deg, #007aff 0%, #34c759 100%);
+        border: none;
+        border-radius: 16px;
+        color: white;
+        font-size: 22px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        box-shadow: 0 8px 24px rgba(0, 122, 255, 0.4);
+        cursor: pointer;
+        transition: transform 0.2s;
+        margin-top: 20px;
+        margin-bottom: 12px;
+      }
+
+      .play-button:active {
+        transform: scale(0.98);
+      }
+
+      .warning-text {
+        font-size: 12px;
+        color: #666;
+        font-style: italic;
+        text-align: center;
+      }
+
+      /* Upcoming Contest */
+      .upcoming-card {
+        background: white;
+        margin: 0 16px 16px;
+        border-radius: 16px;
+        padding: 16px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .upcoming-header {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 8px;
+      }
+
+      .upcoming-info {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 12px;
+      }
+
+      .view-details-btn {
+        background: transparent;
+        border: 1px solid #007aff;
+        color: #007aff;
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-size: 14px;
+        cursor: pointer;
+      }
+
+      /* Stats */
+      .stats-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin: 0 16px 16px;
+      }
+
+      .stat-card {
+        background: white;
+        padding: 16px;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .stat-label {
+        font-size: 12px;
+        color: #666;
+        margin-bottom: 4px;
+      }
+
+      .stat-value {
+        font-size: 20px;
+        font-weight: bold;
+        color: #007aff;
+      }
+
+      /* Bottom Navigation */
+      .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 375px;
+        background: white;
+        border-top: 1px solid #e5e5ea;
+        display: flex;
+        justify-content: space-around;
+        padding: 8px 0;
+        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        padding: 8px;
+        cursor: pointer;
+        color: #666;
+        font-size: 12px;
+      }
+
+      .nav-item.active {
+        color: #007aff;
+      }
+
+      .nav-icon {
+        font-size: 24px;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Header -->
     <div class="header">
-        <div class="avatar">NA</div>
-        <div class="app-name">GameEDU</div>
-        <div class="notif-icon">
-            🔔
-            <span class="notif-badge">3</span>
-        </div>
+      <div class="avatar">NA</div>
+      <div class="app-name">GameEDU</div>
+      <div class="notif-icon">
+        🔔
+        <span class="notif-badge">3</span>
+      </div>
     </div>
-    
+
     <!-- Winner Banner -->
     <div class="winner-banner">
-        <div class="winner-content">
-            <span class="winner-text">🏆 CHÚC MỪNG NGƯỜI ĐẠT GIẢI TUẦN 1</span>
-            <div class="winner-list">
-                <span class="winner-item">🥇 Nguyễn Văn A (98 điểm) - 5,000,000 VNĐ</span>
-                <span class="winner-item">🥈 Trần Thị B (97 điểm) - 3,000,000 VNĐ</span>
-                <span class="winner-item">🥉 Lê Văn C (96 điểm) - 1,000,000 VNĐ</span>
-            </div>
-            <span class="view-results-link">Xem kết quả đầy đủ →</span>
+      <div class="winner-content">
+        <span class="winner-text">🏆 CHÚC MỪNG NGƯỜI ĐẠT GIẢI TUẦN 1</span>
+        <div class="winner-list">
+          <span class="winner-item"
+            >🥇 Nguyễn Văn A (98 điểm) - 5,000,000 VNĐ</span
+          >
+          <span class="winner-item"
+            >🥈 Trần Thị B (97 điểm) - 3,000,000 VNĐ</span
+          >
+          <span class="winner-item">🥉 Lê Văn C (96 điểm) - 1,000,000 VNĐ</span>
         </div>
+        <span class="view-results-link">Xem kết quả đầy đủ →</span>
+      </div>
     </div>
-    
+
     <!-- Welcome -->
-    <div class="welcome">
-        Xin chào, Nguyễn Văn A
-    </div>
-    
+    <div class="welcome">Xin chào, Nguyễn Văn A</div>
+
     <!-- Active Contest Card -->
     <div class="contest-card">
-        <div class="contest-badge">🏆 KỲ THI ĐANG DIỄN RA</div>
-        <div class="contest-title">Olympic Tiếng Anh - Tuần 2</div>
-        
-        <div class="contest-info">
-            <div class="info-item">
-                <span>📅</span>
-                <span>20/01 - 27/01/2024</span>
-            </div>
-            <div class="info-item">
-                <span>⏰</span>
-                <span>Còn lại: 3 ngày 5 giờ</span>
-            </div>
-            <div class="info-item">
-                <span>👥</span>
-                <span>10,000 thí sinh</span>
-            </div>
-            <div class="info-item">
-                <span>🏅</span>
-                <span>Giải nhất: 5,000,000 VNĐ</span>
-            </div>
+      <div class="contest-badge">🏆 KỲ THI ĐANG DIỄN RA</div>
+      <div class="contest-title">Olympic Tiếng Anh - Tuần 2</div>
+
+      <div class="contest-info">
+        <div class="info-item">
+          <span>📅</span>
+          <span>20/01 - 27/01/2024</span>
         </div>
-        
-        <div class="status-badge">Chưa bắt đầu</div>
-        
-        <button class="play-button" onclick="window.location.href='instructions.html'">
-            ▶️ BẮT ĐẦU THI
-        </button>
-        
-        <div class="warning-text">⚠️ Chỉ được thi 1 lần</div>
+        <div class="info-item">
+          <span>⏰</span>
+          <span>Còn lại: 3 ngày 5 giờ</span>
+        </div>
+        <div class="info-item">
+          <span>👥</span>
+          <span>10,000 thí sinh</span>
+        </div>
+        <div class="info-item">
+          <span>🏅</span>
+          <span>Giải nhất: 5,000,000 VNĐ</span>
+        </div>
+      </div>
+
+      <div class="status-badge">Chưa bắt đầu</div>
+
+      <button
+        class="play-button"
+        onclick="window.location.href='instructions.html'"
+      >
+        ▶️ BẮT ĐẦU THI
+      </button>
+
+      <div class="warning-text">⚠️ Chỉ được thi 1 lần</div>
     </div>
-    
+
     <!-- Upcoming Contest -->
     <div class="upcoming-card">
-        <div class="upcoming-header">📅 KỲ THI SẮP TỚI</div>
-        <div class="upcoming-info">Tuần 3 - Bắt đầu 28/01/2024</div>
-        <button class="view-details-btn">Xem chi tiết</button>
+      <div class="upcoming-header">📅 KỲ THI SẮP TỚI</div>
+      <div class="upcoming-info">Tuần 3 - Bắt đầu 28/01/2024</div>
+      <button class="view-details-btn">Xem chi tiết</button>
     </div>
-    
+
     <!-- Stats -->
     <div class="stats-grid">
-        <div class="stat-card">
-            <div class="stat-label">Điểm cao nhất</div>
-            <div class="stat-value">95/100</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-label">Số kỳ thi</div>
-            <div class="stat-value">3</div>
-        </div>
+      <div class="stat-card">
+        <div class="stat-label">Điểm cao nhất</div>
+        <div class="stat-value">95/100</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Số kỳ thi</div>
+        <div class="stat-value">3</div>
+      </div>
     </div>
-    
+
     <!-- Bottom Navigation -->
     <div class="bottom-nav">
-        <div class="nav-item active">
-            <div class="nav-icon">🏠</div>
-            <span>Trang chủ</span>
-        </div>
-        <div class="nav-item" onclick="window.location.href='contests.html'">
-            <div class="nav-icon">📋</div>
-            <span>Kỳ thi</span>
-        </div>
-        <div class="nav-item" onclick="window.location.href='leaderboard.html'">
-            <div class="nav-icon">🏆</div>
-            <span>Xếp hạng</span>
-        </div>
-        <div class="nav-item" onclick="window.location.href='profile.html'">
-            <div class="nav-icon">👤</div>
-            <span>Hồ sơ</span>
-        </div>
+      <div class="nav-item active">
+        <div class="nav-icon">🏠</div>
+        <span>Trang chủ</span>
+      </div>
+      <div class="nav-item" onclick="window.location.href='contests.html'">
+        <div class="nav-icon">📋</div>
+        <span>Kỳ thi</span>
+      </div>
+      <div class="nav-item" onclick="window.location.href='leaderboard.html'">
+        <div class="nav-icon">🏆</div>
+        <span>Xếp hạng</span>
+      </div>
+      <div class="nav-item" onclick="window.location.href='profile.html'">
+        <div class="nav-icon">👤</div>
+        <span>Hồ sơ</span>
+      </div>
     </div>
-</body>
+  </body>
 </html>
-

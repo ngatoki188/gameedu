@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tạo kỳ thi - Admin</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            width: 375px;
+            margin: 0 auto;
+            min-height: 100vh;
+            padding-bottom: 100px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #007AFF 0%, #34C759 100%);
+            color: white;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .back-btn {
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .form-container {
+            padding: 20px 16px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #E5E5EA;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+        
+        .form-textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #E5E5EA;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .form-select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #E5E5EA;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            background: white;
+        }
+        
+        .section-card {
+            background: white;
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .section-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .exam-settings {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        
+        .prize-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .prize-rank {
+            width: 40px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .prize-input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #E5E5EA;
+            border-radius: 6px;
+        }
+        
+        .btn-group {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 375px;
+            background: white;
+            padding: 16px;
+            border-top: 1px solid #E5E5EA;
+            display: flex;
+            gap: 12px;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .btn-cancel {
+            background: #E5E5EA;
+            color: #666;
+        }
+        
+        .btn-submit {
+            background: linear-gradient(135deg, #007AFF 0%, #34C759 100%);
+            color: white;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="back-btn" onclick="window.location.href='admin-dashboard.html'">←</div>
+        <div class="title">Tạo kỳ thi mới</div>
+    </div>
+    
+    <!-- Form -->
+    <div class="form-container">
+        <form id="contestForm" onsubmit="createContest(event)">
+            <!-- Basic Info -->
+            <div class="section-card">
+                <div class="section-title">📝 Thông tin cơ bản</div>
+                
+                <div class="form-group">
+                    <label class="form-label">Tên kỳ thi *</label>
+                    <input type="text" class="form-input" placeholder="Ví dụ: Olympic Tiếng Anh - Tuần 1" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Mô tả</label>
+                    <textarea class="form-textarea" placeholder="Mô tả về kỳ thi..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Thời gian diễn ra *</label>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                        <input type="date" class="form-input" required>
+                        <input type="date" class="form-input" required>
+                    </div>
+                    <div style="font-size: 12px; color: #666; margin-top: 4px;">
+                        Kỳ thi sẽ mở trong 1 tuần (7 ngày)
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Exam Settings -->
+            <div class="section-card">
+                <div class="section-title">⚙️ Cấu hình bài thi</div>
+                
+                <div class="exam-settings">
+                    <div class="form-group">
+                        <label class="form-label">Thời gian làm bài *</label>
+                        <select class="form-select" required>
+                            <option>30 phút</option>
+                            <option>45 phút</option>
+                            <option>60 phút</option>
+                            <option>90 phút</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Số câu hỏi *</label>
+                        <input type="number" class="form-input" placeholder="50" min="10" max="100" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Điểm mỗi câu</label>
+                    <input type="number" class="form-input" placeholder="2" value="2" min="1" max="5">
+                    <div style="font-size: 12px; color: #666; margin-top: 4px;">
+                        Điểm tối đa sẽ tự động tính
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Độ khó</label>
+                    <select class="form-select">
+                        <option>Dễ</option>
+                        <option selected>Trung bình</option>
+                        <option>Khó</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- Prize Settings -->
+            <div class="section-card">
+                <div class="section-title">🏅 Giải thưởng</div>
+                
+                <div class="prize-item">
+                    <div class="prize-rank">🥇 1</div>
+                    <input type="text" class="prize-input" placeholder="5,000,000 VNĐ">
+                </div>
+                
+                <div class="prize-item">
+                    <div class="prize-rank">🥈 2</div>
+                    <input type="text" class="prize-input" placeholder="3,000,000 VNĐ">
+                </div>
+                
+                <div class="prize-item">
+                    <div class="prize-rank">🥉 3</div>
+                    <input type="text" class="prize-input" placeholder="1,000,000 VNĐ">
+                </div>
+                
+                <div class="form-group" style="margin-top: 12px;">
+                    <label class="form-label">Số lượng giải khuyến khích</label>
+                    <input type="number" class="form-input" placeholder="10" min="0">
+                </div>
+            </div>
+            
+            <!-- School Selection -->
+            <div class="section-card">
+                <div class="section-title">🏫 Chọn trường tham gia</div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" class="checkbox" id="allSchools" checked>
+                    <label for="allSchools">Tất cả các trường</label>
+                </div>
+                
+                <div class="form-group" id="schoolSelect" style="display: none;">
+                    <label class="form-label">Chọn trường cụ thể</label>
+                    <select class="form-select" multiple style="height: 100px;">
+                        <option>THPT ABC</option>
+                        <option>THPT XYZ</option>
+                        <option>THPT DEF</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- Advanced Settings -->
+            <div class="section-card">
+                <div class="section-title">🔧 Cài đặt nâng cao</div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" class="checkbox" id="randomQuestions" checked>
+                    <label for="randomQuestions">Xáo trộn câu hỏi cho mỗi thí sinh</label>
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" class="checkbox" id="randomAnswers" checked>
+                    <label for="randomAnswers">Xáo trộn đáp án</label>
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" class="checkbox" id="showResults">
+                    <label for="showResults">Hiển thị kết quả ngay sau khi thi</label>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+    <!-- Buttons -->
+    <div class="btn-group">
+        <button class="btn btn-cancel" onclick="window.location.href='admin-dashboard.html'">Hủy</button>
+        <button class="btn btn-submit" onclick="document.getElementById('contestForm').requestSubmit()">Tạo kỳ thi</button>
+    </div>
+    
+    <script>
+        // Toggle school selection
+        document.getElementById('allSchools').addEventListener('change', function() {
+            const schoolSelect = document.getElementById('schoolSelect');
+            schoolSelect.style.display = this.checked ? 'none' : 'block';
+        });
+        
+        function createContest(event) {
+            event.preventDefault();
+            if (confirm('Bạn có chắc muốn tạo kỳ thi này?')) {
+                alert('Kỳ thi đã được tạo thành công!');
+                window.location.href = 'admin-dashboard.html';
+            }
+        }
+    </script>
+</body>
+</html>
+

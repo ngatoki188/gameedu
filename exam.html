@@ -1,373 +1,443 @@
 <!DOCTYPE html>
 <html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Làm bài thi - GameEDU</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: white;
-            width: 375px;
-            margin: 0 auto;
-            min-height: 100vh;
-            padding-bottom: 80px;
-        }
-        
-        /* Top Bar */
-        .top-bar {
-            background: white;
-            padding: 12px 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        
-        .timer {
-            font-size: 24px;
-            font-weight: bold;
-            color: #007AFF;
-        }
-        
-        .timer.warning {
-            color: #FF3B30;
-        }
-        
-        .progress-info {
-            text-align: center;
-            flex: 1;
-        }
-        
-        .progress-text {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 4px;
-        }
-        
-        .progress-bar {
-            width: 100%;
-            height: 6px;
-            background: #E5E5EA;
-            border-radius: 3px;
-            overflow: hidden;
-        }
-        
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #007AFF 0%, #34C759 100%);
-            width: 10%;
-            transition: width 0.3s;
-        }
-        
-        .pause-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: #F5F5F5;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
-        }
-        
-        /* Main Content */
-        .content {
-            padding: 20px 16px;
-        }
-        
-        .question-number {
-            display: inline-block;
-            background: #007AFF;
-            color: white;
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: bold;
-            margin-bottom: 16px;
-        }
-        
-        .question-text {
-            font-size: 18px;
-            color: #333;
-            line-height: 1.6;
-            margin-bottom: 24px;
-        }
-        
-        .question-label {
-            font-size: 16px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 8px;
-        }
-        
-        /* Answer Options */
-        .answers {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        
-        .answer-btn {
-            width: 100%;
-            padding: 16px;
-            border: 2px solid #007AFF;
-            background: white;
-            border-radius: 12px;
-            font-size: 16px;
-            text-align: left;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .answer-btn:hover {
-            background: #F0F8FF;
-        }
-        
-        .answer-btn.selected {
-            background: #007AFF;
-            color: white;
-            border-color: #007AFF;
-        }
-        
-        /* Bottom Navigation */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 375px;
-            background: white;
-            border-top: 1px solid #E5E5EA;
-            padding: 12px 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
-        }
-        
-        .nav-btn {
-            padding: 8px 16px;
-            border: 1px solid #E5E5EA;
-            background: white;
-            border-radius: 8px;
-            font-size: 14px;
-            cursor: pointer;
-            color: #666;
-        }
-        
-        .nav-btn.primary {
-            background: #007AFF;
-            color: white;
-            border-color: #007AFF;
-        }
-        
-        .question-list-btn {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: #F5F5F5;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
-        }
-        
-        .submit-btn {
-            background: #FF3B30;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: white;
+        width: 375px;
+        margin: 0 auto;
+        min-height: 100vh;
+        padding-bottom: 80px;
+      }
+
+      /* Top Bar */
+      .top-bar {
+        background: white;
+        padding: 12px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .timer {
+        font-size: 24px;
+        font-weight: bold;
+        color: #007aff;
+      }
+
+      .timer.warning {
+        color: #ff3b30;
+      }
+
+      .progress-info {
+        text-align: center;
+        flex: 1;
+      }
+
+      .progress-text {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 4px;
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 6px;
+        background: #e5e5ea;
+        border-radius: 3px;
+        overflow: hidden;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #007aff 0%, #34c759 100%);
+        width: 10%;
+        transition: width 0.3s;
+      }
+
+      .pause-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #f5f5f5;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+      }
+
+      /* Main Content */
+      .content {
+        padding: 20px 16px;
+      }
+
+      .question-number {
+        display: inline-block;
+        background: #007aff;
+        color: white;
+        padding: 6px 12px;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: bold;
+        margin-bottom: 16px;
+      }
+
+      .question-text {
+        font-size: 18px;
+        color: #333;
+        line-height: 1.6;
+        margin-bottom: 24px;
+      }
+
+      .question-label {
+        font-size: 16px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 8px;
+      }
+
+      /* Answer Options */
+      .answers {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .answer-btn {
+        width: 100%;
+        padding: 16px;
+        border: 2px solid #007aff;
+        background: white;
+        border-radius: 12px;
+        font-size: 16px;
+        text-align: left;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .answer-btn:hover {
+        background: #f0f8ff;
+      }
+
+      .answer-btn.selected {
+        background: #007aff;
+        color: white;
+        border-color: #007aff;
+      }
+
+      /* Bottom Navigation */
+      .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 375px;
+        background: white;
+        border-top: 1px solid #e5e5ea;
+        padding: 12px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .nav-btn {
+        padding: 8px 16px;
+        border: 1px solid #e5e5ea;
+        background: white;
+        border-radius: 8px;
+        font-size: 14px;
+        cursor: pointer;
+        color: #666;
+      }
+
+      .nav-btn.primary {
+        background: #007aff;
+        color: white;
+        border-color: #007aff;
+      }
+
+      .question-list-btn {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: #f5f5f5;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+      }
+
+      .submit-btn {
+        background: #ff3b30;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Top Bar -->
     <div class="top-bar">
-        <div class="timer" id="timer">42:15</div>
-        <div class="progress-info">
-            <div class="progress-text">Câu 5/50</div>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill"></div>
-            </div>
+      <div class="timer" id="timer">42:15</div>
+      <div class="progress-info">
+        <div class="progress-text">Câu 5/50</div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
         </div>
-        <button class="pause-btn" onclick="pauseExam()">⏸️</button>
+      </div>
+      <button class="pause-btn" onclick="pauseExam()">⏸️</button>
     </div>
-    
+
     <!-- Main Content -->
     <div class="content">
-        <div class="question-number">Q5</div>
-        <div class="question-label">5. Chọn đáp án đúng nhất</div>
-        <div class="question-text">
-            She _____ to school every day.
-        </div>
-        
-        <div class="answers">
-            <button class="answer-btn" onclick="selectAnswer(this, 'A')">
-                A) go
-            </button>
-            <button class="answer-btn selected" onclick="selectAnswer(this, 'B')">
-                B) goes
-            </button>
-            <button class="answer-btn" onclick="selectAnswer(this, 'C')">
-                C) going
-            </button>
-            <button class="answer-btn" onclick="selectAnswer(this, 'D')">
-                D) went
-            </button>
-        </div>
+      <div class="question-number">Q5</div>
+      <div class="question-label">5. Chọn đáp án đúng nhất</div>
+      <div class="question-text">She _____ to school every day.</div>
+
+      <div class="answers">
+        <button class="answer-btn" onclick="selectAnswer(this, 'A')">
+          A) go
+        </button>
+        <button class="answer-btn selected" onclick="selectAnswer(this, 'B')">
+          B) goes
+        </button>
+        <button class="answer-btn" onclick="selectAnswer(this, 'C')">
+          C) going
+        </button>
+        <button class="answer-btn" onclick="selectAnswer(this, 'D')">
+          D) went
+        </button>
+      </div>
     </div>
-    
+
     <!-- Bottom Navigation -->
     <div class="bottom-nav">
-        <button class="nav-btn" onclick="previousQuestion()">← Trước</button>
-        <button class="question-list-btn" onclick="showQuestionList()">📋</button>
-        <button class="nav-btn primary" onclick="nextQuestion()">Tiếp →</button>
-        <button class="submit-btn" onclick="showReview()">Nộp bài</button>
+      <button class="nav-btn" onclick="previousQuestion()">← Trước</button>
+      <button class="question-list-btn" onclick="showQuestionList()">📋</button>
+      <button class="nav-btn primary" onclick="nextQuestion()">Tiếp →</button>
+      <button class="submit-btn" onclick="showReview()">Nộp bài</button>
     </div>
-    
-    <!-- Question List Modal (hidden by default) -->
-    <div id="questionModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; padding: 20px;">
-        <div style="background: white; border-radius: 20px; padding: 20px; max-height: 80vh; overflow-y: auto;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                <h3>Danh sách câu hỏi</h3>
-                <button onclick="closeQuestionList()" style="background: none; border: none; font-size: 24px; cursor: pointer;">✕</button>
-            </div>
-            <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px;">
-                <!-- Question numbers will be generated here -->
-            </div>
-            <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #E5E5EA;">
-                <div style="font-size: 12px; color: #666;">
-                    <div>✓ = Đã trả lời đúng</div>
-                    <div>✗ = Đã trả lời sai</div>
-                    <div>● = Câu hiện tại</div>
-                    <div>○ = Chưa trả lời</div>
-                </div>
-            </div>
-            <button onclick="closeQuestionList()" style="width: 100%; padding: 12px; margin-top: 20px; background: #E5E5EA; border: none; border-radius: 8px; cursor: pointer;">Đóng</button>
-        </div>
-    </div>
-    
-    <script>
-        let currentQuestion = 5;
-        let totalQuestions = 50;
-        let timeLeft = 42 * 60 + 15; // 42:15 in seconds
-        
-        // Timer
-        function updateTimer() {
-            const minutes = Math.floor(timeLeft / 60);
-            const seconds = timeLeft % 60;
-            const timerEl = document.getElementById('timer');
-            timerEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-            
-            if (timeLeft <= 5 * 60) {
-                timerEl.classList.add('warning');
-            }
-            
-            if (timeLeft > 0) {
-                timeLeft--;
-            } else {
-                // Auto submit
-                alert('Hết thời gian! Tự động nộp bài...');
-                window.location.href = 'result.html';
-            }
-        }
-        
-        setInterval(updateTimer, 1000);
-        updateTimer();
-        
-        // Progress
-        function updateProgress() {
-            const progress = (currentQuestion / totalQuestions) * 100;
-            document.getElementById('progressFill').style.width = progress + '%';
-        }
-        updateProgress();
-        
-        // Select Answer
-        function selectAnswer(btn, answer) {
-            document.querySelectorAll('.answer-btn').forEach(b => b.classList.remove('selected'));
-            btn.classList.add('selected');
-        }
-        
-        // Navigation
-        function previousQuestion() {
-            if (currentQuestion > 1) {
-                currentQuestion--;
-                updateProgress();
-            }
-        }
-        
-        function nextQuestion() {
-            if (currentQuestion < totalQuestions) {
-                currentQuestion++;
-                updateProgress();
-            }
-        }
-        
-        // Question List
-        function showQuestionList() {
-            const modal = document.getElementById('questionModal');
-            const grid = modal.querySelector('div[style*="grid"]');
-            
-            // Generate question numbers
-            let html = '';
-            for (let i = 1; i <= totalQuestions; i++) {
-                let className = 'question-num';
-                let content = i;
-                
-                if (i < currentQuestion) {
-                    className += ' answered';
-                    content = '✓';
-                } else if (i === currentQuestion) {
-                    className += ' current';
-                    content = '●';
-                } else {
-                    className += ' not-answered';
-                    content = '○';
-                }
-                
-                html += `<div class="${className}" style="width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; ${i < currentQuestion ? 'background: #34C759; color: white;' : i === currentQuestion ? 'background: #FF9500; color: white; border: 2px solid #FF9500;' : 'border: 1px solid #E5E5EA; color: #666;'}" onclick="goToQuestion(${i})">${content}</div>`;
-            }
-            
-            grid.innerHTML = html;
-            modal.style.display = 'block';
-        }
-        
-        function closeQuestionList() {
-            document.getElementById('questionModal').style.display = 'none';
-        }
-        
-        function goToQuestion(num) {
-            currentQuestion = num;
-            updateProgress();
-            closeQuestionList();
-        }
-        
-        // Pause
-        function pauseExam() {
-            if (confirm('Tạm dừng bài thi? Đồng hồ sẽ tiếp tục chạy.')) {
-                // Show pause dialog
-            }
-        }
-        
-        // Review
-        function showReview() {
-            if (confirm('Bạn có chắc chắn muốn nộp bài? Bạn không thể thay đổi đáp án sau khi nộp.')) {
-                window.location.href = 'result.html';
-            }
-        }
-    </script>
-</body>
-</html>
 
+    <!-- Question List Modal (hidden by default) -->
+    <div
+      id="questionModal"
+      style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        padding: 20px;
+      "
+    >
+      <div
+        style="
+          background: white;
+          border-radius: 20px;
+          padding: 20px;
+          max-height: 80vh;
+          overflow-y: auto;
+        "
+      >
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+          "
+        >
+          <h3>Danh sách câu hỏi</h3>
+          <button
+            onclick="closeQuestionList()"
+            style="
+              background: none;
+              border: none;
+              font-size: 24px;
+              cursor: pointer;
+            "
+          >
+            ✕
+          </button>
+        </div>
+        <div
+          style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px"
+        >
+          <!-- Question numbers will be generated here -->
+        </div>
+        <div
+          style="
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e5ea;
+          "
+        >
+          <div style="font-size: 12px; color: #666">
+            <div>✓ = Đã trả lời đúng</div>
+            <div>✗ = Đã trả lời sai</div>
+            <div>● = Câu hiện tại</div>
+            <div>○ = Chưa trả lời</div>
+          </div>
+        </div>
+        <button
+          onclick="closeQuestionList()"
+          style="
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            background: #e5e5ea;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+          "
+        >
+          Đóng
+        </button>
+      </div>
+    </div>
+
+    <script>
+      let currentQuestion = 5;
+      let totalQuestions = 50;
+      let timeLeft = 42 * 60 + 15; // 42:15 in seconds
+
+      // Timer
+      function updateTimer() {
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        const timerEl = document.getElementById("timer");
+        timerEl.textContent = `${minutes}:${seconds
+          .toString()
+          .padStart(2, "0")}`;
+
+        if (timeLeft <= 5 * 60) {
+          timerEl.classList.add("warning");
+        }
+
+        if (timeLeft > 0) {
+          timeLeft--;
+        } else {
+          // Auto submit
+          alert("Hết thời gian! Tự động nộp bài...");
+          window.location.href = "result.html";
+        }
+      }
+
+      setInterval(updateTimer, 1000);
+      updateTimer();
+
+      // Progress
+      function updateProgress() {
+        const progress = (currentQuestion / totalQuestions) * 100;
+        document.getElementById("progressFill").style.width = progress + "%";
+      }
+      updateProgress();
+
+      // Select Answer
+      function selectAnswer(btn, answer) {
+        document
+          .querySelectorAll(".answer-btn")
+          .forEach((b) => b.classList.remove("selected"));
+        btn.classList.add("selected");
+      }
+
+      // Navigation
+      function previousQuestion() {
+        if (currentQuestion > 1) {
+          currentQuestion--;
+          updateProgress();
+        }
+      }
+
+      function nextQuestion() {
+        if (currentQuestion < totalQuestions) {
+          currentQuestion++;
+          updateProgress();
+        }
+      }
+
+      // Question List
+      function showQuestionList() {
+        const modal = document.getElementById("questionModal");
+        const grid = modal.querySelector('div[style*="grid"]');
+
+        // Generate question numbers
+        let html = "";
+        for (let i = 1; i <= totalQuestions; i++) {
+          let className = "question-num";
+          let content = i;
+
+          if (i < currentQuestion) {
+            className += " answered";
+            content = "✓";
+          } else if (i === currentQuestion) {
+            className += " current";
+            content = "●";
+          } else {
+            className += " not-answered";
+            content = "○";
+          }
+
+          html += `<div class="${className}" style="width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; ${
+            i < currentQuestion
+              ? "background: #34C759; color: white;"
+              : i === currentQuestion
+              ? "background: #FF9500; color: white; border: 2px solid #FF9500;"
+              : "border: 1px solid #E5E5EA; color: #666;"
+          }" onclick="goToQuestion(${i})">${content}</div>`;
+        }
+
+        grid.innerHTML = html;
+        modal.style.display = "block";
+      }
+
+      function closeQuestionList() {
+        document.getElementById("questionModal").style.display = "none";
+      }
+
+      function goToQuestion(num) {
+        currentQuestion = num;
+        updateProgress();
+        closeQuestionList();
+      }
+
+      // Pause
+      function pauseExam() {
+        if (confirm("Tạm dừng bài thi? Đồng hồ sẽ tiếp tục chạy.")) {
+          // Show pause dialog
+        }
+      }
+
+      // Review
+      function showReview() {
+        if (
+          confirm(
+            "Bạn có chắc chắn muốn nộp bài? Bạn không thể thay đổi đáp án sau khi nộp."
+          )
+        ) {
+          window.location.href = "result.html";
+        }
+      }
+    </script>
+  </body>
+</html>
