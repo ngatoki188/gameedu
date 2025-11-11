@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Làm bài thi - GameEDU</title>
+    <title>Take Exam - GameEDU</title>
     <style>
       * {
         margin: 0;
@@ -197,7 +197,7 @@
     <div class="top-bar">
       <div class="timer" id="timer">42:15</div>
       <div class="progress-info">
-        <div class="progress-text">Câu 5/50</div>
+        <div class="progress-text">Question 5/50</div>
         <div class="progress-bar">
           <div class="progress-fill" id="progressFill"></div>
         </div>
@@ -208,7 +208,7 @@
     <!-- Main Content -->
     <div class="content">
       <div class="question-number">Q5</div>
-      <div class="question-label">5. Chọn đáp án đúng nhất</div>
+      <div class="question-label">5. Choose the best answer</div>
       <div class="question-text">She _____ to school every day.</div>
 
       <div class="answers">
@@ -229,10 +229,10 @@
 
     <!-- Bottom Navigation -->
     <div class="bottom-nav">
-      <button class="nav-btn" onclick="previousQuestion()">← Trước</button>
+      <button class="nav-btn" onclick="previousQuestion()">← Previous</button>
       <button class="question-list-btn" onclick="showQuestionList()">📋</button>
-      <button class="nav-btn primary" onclick="nextQuestion()">Tiếp →</button>
-      <button class="submit-btn" onclick="showReview()">Nộp bài</button>
+      <button class="nav-btn primary" onclick="nextQuestion()">Next →</button>
+      <button class="submit-btn" onclick="showReview()">Submit</button>
     </div>
 
     <!-- Question List Modal (hidden by default) -->
@@ -267,7 +267,7 @@
             margin-bottom: 20px;
           "
         >
-          <h3>Danh sách câu hỏi</h3>
+          <h3>Question List</h3>
           <button
             onclick="closeQuestionList()"
             style="
@@ -293,10 +293,10 @@
           "
         >
           <div style="font-size: 12px; color: #666">
-            <div>✓ = Đã trả lời đúng</div>
-            <div>✗ = Đã trả lời sai</div>
-            <div>● = Câu hiện tại</div>
-            <div>○ = Chưa trả lời</div>
+            <div>✓ = Answered correctly</div>
+            <div>✗ = Answered incorrectly</div>
+            <div>● = Current question</div>
+            <div>○ = Not answered</div>
           </div>
         </div>
         <button
@@ -311,7 +311,7 @@
             cursor: pointer;
           "
         >
-          Đóng
+          Close
         </button>
       </div>
     </div>
@@ -338,7 +338,7 @@
           timeLeft--;
         } else {
           // Auto submit
-          alert("Hết thời gian! Tự động nộp bài...");
+          alert("Time's up! Auto submitting...");
           window.location.href = "result.html";
         }
       }
@@ -423,7 +423,7 @@
 
       // Pause
       function pauseExam() {
-        if (confirm("Tạm dừng bài thi? Đồng hồ sẽ tiếp tục chạy.")) {
+        if (confirm("Pause exam? Timer will continue running.")) {
           // Show pause dialog
         }
       }
@@ -432,7 +432,7 @@
       function showReview() {
         if (
           confirm(
-            "Bạn có chắc chắn muốn nộp bài? Bạn không thể thay đổi đáp án sau khi nộp."
+            "Are you sure you want to submit? You cannot change answers after submitting."
           )
         ) {
           window.location.href = "result.html";
