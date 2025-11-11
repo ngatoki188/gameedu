@@ -18,7 +18,7 @@
         margin: 0 auto;
         min-height: 100vh;
         position: relative;
-        padding-bottom: 70px;
+        padding-bottom: 20px;
       }
 
       /* Game Logo */
@@ -256,38 +256,55 @@
         box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
       }
 
-      /* Bottom Navigation */
-      .bottom-nav {
-        position: fixed;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 375px;
-        background: white;
-        border-top: 1px solid #e5e5ea;
-        display: flex;
-        justify-content: space-around;
-        padding: 8px 0;
-        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
-      }
-
-      .nav-item {
+      /* Menu Buttons (Vertical) */
+      .menu-buttons {
         display: flex;
         flex-direction: column;
-        align-items: center;
-        gap: 4px;
-        padding: 8px;
+        gap: 12px;
+        margin-top: 24px;
+      }
+
+      .menu-btn {
+        width: 100%;
+        padding: 14px;
+        border: none;
+        border-radius: 16px;
+        font-size: 14px;
+        font-weight: bold;
         cursor: pointer;
-        color: #666;
-        font-size: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        transition: transform 0.2s;
       }
 
-      .nav-item.active {
-        color: #007aff;
+      .menu-btn:active {
+        transform: scale(0.95);
       }
 
-      .nav-icon {
-        font-size: 24px;
+      .menu-btn.home {
+        background: linear-gradient(135deg, #007aff 0%, #5ac8fa 100%);
+        color: white;
+        box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+      }
+
+      .menu-btn.events {
+        background: linear-gradient(135deg, #34c759 0%, #30d158 100%);
+        color: white;
+        box-shadow: 0 4px 12px rgba(52, 199, 89, 0.3);
+      }
+
+      .menu-btn.leaderboard {
+        background: linear-gradient(135deg, #ff9500 0%, #ff6b00 100%);
+        color: white;
+        box-shadow: 0 4px 12px rgba(255, 149, 0, 0.3);
+      }
+
+      .menu-btn.profile {
+        background: linear-gradient(135deg, #af52de 0%, #ff2d55 100%);
+        color: white;
+        box-shadow: 0 4px 12px rgba(175, 82, 222, 0.3);
       }
     </style>
   </head>
@@ -351,25 +368,21 @@
           🏅 Giải thưởng
         </button>
       </div>
-    </div>
 
-    <!-- Bottom Navigation -->
-    <div class="bottom-nav">
-      <div class="nav-item active">
-        <div class="nav-icon">🏠</div>
-        <span>Trang chủ</span>
-      </div>
-      <div class="nav-item" onclick="window.location.href='contests.html'">
-        <div class="nav-icon">📋</div>
-        <span>Sự kiện</span>
-      </div>
-      <div class="nav-item" onclick="window.location.href='leaderboard.html'">
-        <div class="nav-icon">🏆</div>
-        <span>Xếp hạng</span>
-      </div>
-      <div class="nav-item" onclick="window.location.href='profile.html'">
-        <div class="nav-icon">👤</div>
-        <span>Hồ sơ</span>
+      <!-- Menu Buttons (Vertical) -->
+      <div class="menu-buttons">
+        <button class="menu-btn home" onclick="window.location.href='home.html'">
+          🏠 Trang chủ
+        </button>
+        <button class="menu-btn events" onclick="window.location.href='contests.html'">
+          📋 Sự kiện
+        </button>
+        <button class="menu-btn leaderboard" onclick="window.location.href='leaderboard.html'">
+          🏆 Xếp hạng
+        </button>
+        <button class="menu-btn profile" onclick="window.location.href='profile.html'">
+          👤 Hồ sơ
+        </button>
       </div>
     </div>
 
