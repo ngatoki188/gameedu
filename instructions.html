@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hướng dẫn thi - GameEDU</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+            width: 375px;
+            margin: 0 auto;
+            min-height: 100vh;
+            padding-bottom: 100px;
+        }
+        
+        /* Header */
+        .header {
+            background: white;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .back-btn {
+            font-size: 24px;
+            cursor: pointer;
+            color: #007AFF;
+        }
+        
+        .title {
+            font-weight: bold;
+            font-size: 18px;
+            color: #333;
+        }
+        
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 40px 20px 30px;
+        }
+        
+        .hero-icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+        }
+        
+        .hero-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .hero-subtitle {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        /* Instructions Card */
+        .instructions-card {
+            background: white;
+            margin: 0 16px 20px;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .section-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .info-list {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 12px;
+            font-size: 14px;
+            color: #333;
+        }
+        
+        .info-item::before {
+            content: "•";
+            color: #007AFF;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        
+        .warning-section {
+            background: #FFF3CD;
+            border-left: 4px solid #FF9500;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .warning-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #FF3B30;
+            margin-bottom: 8px;
+        }
+        
+        /* Checkbox */
+        .checkbox-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin: 20px 0;
+            padding: 16px;
+            background: #F5F5F5;
+            border-radius: 12px;
+        }
+        
+        .checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #007AFF;
+            border-radius: 4px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        
+        .checkbox.checked {
+            background: #007AFF;
+            position: relative;
+        }
+        
+        .checkbox.checked::after {
+            content: "✓";
+            position: absolute;
+            color: white;
+            font-weight: bold;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .checkbox-label {
+            font-size: 14px;
+            color: #333;
+            line-height: 1.5;
+        }
+        
+        /* Start Button */
+        .start-button {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 375px;
+            padding: 16px;
+            background: white;
+            border-top: 1px solid #E5E5EA;
+        }
+        
+        .start-btn {
+            width: 100%;
+            height: 60px;
+            background: linear-gradient(135deg, #007AFF 0%, #34C759 100%);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(0, 122, 255, 0.4);
+            transition: transform 0.2s;
+        }
+        
+        .start-btn:active {
+            transform: scale(0.98);
+        }
+        
+        .start-btn:disabled {
+            background: #E5E5EA;
+            color: #999;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="back-btn" onclick="window.location.href='home.html'">←</div>
+        <div class="title">Hướng dẫn thi</div>
+    </div>
+    
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="hero-icon">📝</div>
+        <div class="hero-title">Sẵn sàng bắt đầu?</div>
+        <div class="hero-subtitle">Đọc kỹ hướng dẫn trước khi thi</div>
+    </div>
+    
+    <!-- Instructions Card -->
+    <div class="instructions-card">
+        <div class="section-title">
+            <span>📝</span>
+            <span>Thông tin bài thi</span>
+        </div>
+        <ul class="info-list">
+            <li class="info-item">
+                <span>⏱️ Thời gian: 45 phút</span>
+            </li>
+            <li class="info-item">
+                <span>📋 Số câu: 50 câu hỏi</span>
+            </li>
+            <li class="info-item">
+                <span>⭐ Điểm: 2 điểm/câu (tối đa 100 điểm)</span>
+            </li>
+            <li class="info-item">
+                <span>📊 Độ khó: Trung bình ⭐⭐⭐</span>
+            </li>
+        </ul>
+        
+        <div class="warning-section">
+            <div class="warning-title">⚠️ CHỈ ĐƯỢC THI 1 LẦN</div>
+            <ul class="info-list" style="margin-bottom: 0;">
+                <li class="info-item" style="color: #FF3B30;">
+                    Bạn chỉ được thi 1 lần duy nhất
+                </li>
+                <li class="info-item" style="color: #FF3B30;">
+                    Không được đóng ứng dụng khi đang thi
+                </li>
+                <li class="info-item" style="color: #FF3B30;">
+                    Tự động nộp bài khi hết thời gian
+                </li>
+                <li class="info-item" style="color: #FF3B30;">
+                    Câu hỏi được xáo trộn để công bằng
+                </li>
+                <li class="info-item" style="color: #FF3B30;">
+                    Không thể quay lại sau khi nộp bài
+                </li>
+            </ul>
+        </div>
+        
+        <div class="section-title" style="margin-top: 20px;">
+            <span>💡</span>
+            <span>Lưu ý</span>
+        </div>
+        <ul class="info-list">
+            <li class="info-item">Trả lời tất cả câu hỏi</li>
+            <li class="info-item">Xem lại trước khi nộp bài</li>
+        </ul>
+    </div>
+    
+    <!-- Checkbox -->
+    <div class="checkbox-container">
+        <div class="checkbox" id="confirmCheckbox" onclick="toggleCheckbox()"></div>
+        <div class="checkbox-label">
+            Tôi đã đọc và hiểu quy định, sẵn sàng bắt đầu
+        </div>
+    </div>
+    
+    <!-- Start Button -->
+    <div class="start-button">
+        <button class="start-btn" id="startBtn" disabled onclick="startExam()">
+            BẮT ĐẦU THI
+        </button>
+    </div>
+    
+    <script>
+        function toggleCheckbox() {
+            const checkbox = document.getElementById('confirmCheckbox');
+            const startBtn = document.getElementById('startBtn');
+            
+            checkbox.classList.toggle('checked');
+            startBtn.disabled = !checkbox.classList.contains('checked');
+        }
+        
+        function startExam() {
+            window.location.href = 'exam.html';
+        }
+    </script>
+</body>
+</html>
+
