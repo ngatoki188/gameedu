@@ -70,6 +70,12 @@
         color: white;
         font-weight: bold;
         border: 2px solid white;
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+
+      .avatar:active {
+        transform: scale(0.95);
       }
 
       .top-actions {
@@ -99,6 +105,17 @@
         justify-content: center;
         font-size: 10px;
         font-weight: bold;
+      }
+
+      .setting-icon {
+        font-size: 20px;
+        color: white;
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+
+      .setting-icon:active {
+        transform: scale(0.95) rotate(90deg);
       }
 
       /* Winner Banner */
@@ -272,10 +289,114 @@
         box-shadow: 0 4px 12px rgba(255, 149, 0, 0.3);
       }
 
-      .menu-btn.profile {
-        background: linear-gradient(135deg, #af52de 0%, #ff2d55 100%);
+      /* Profile Modal */
+      .modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 375px;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .modal-overlay.show {
+        display: flex;
+      }
+
+      .profile-modal {
+        background: white;
+        border-radius: 20px;
+        padding: 24px;
+        width: 90%;
+        max-width: 320px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        position: relative;
+      }
+
+      .modal-close {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        font-size: 24px;
+        color: #666;
+        cursor: pointer;
+        background: none;
+        border: none;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: background 0.2s;
+      }
+
+      .modal-close:hover {
+        background: #f5f5f5;
+      }
+
+      .profile-header {
+        text-align: center;
+        margin-bottom: 24px;
+      }
+
+      .profile-avatar-large {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
         color: white;
-        box-shadow: 0 4px 12px rgba(175, 82, 222, 0.3);
+        font-weight: bold;
+        font-size: 32px;
+        margin: 0 auto 12px;
+        border: 4px solid white;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      .profile-name {
+        font-size: 20px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 4px;
+      }
+
+      .profile-school {
+        font-size: 14px;
+        color: #666;
+      }
+
+      .profile-info {
+        margin-top: 20px;
+      }
+
+      .info-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 0;
+        border-bottom: 1px solid #e5e5ea;
+      }
+
+      .info-row:last-child {
+        border-bottom: none;
+      }
+
+      .info-label {
+        font-size: 14px;
+        color: #666;
+      }
+
+      .info-value {
+        font-size: 14px;
+        font-weight: 500;
+        color: #333;
       }
     </style>
   </head>
@@ -283,7 +404,7 @@
     <!-- Top Bar -->
     <div class="top-bar">
       <div class="user-info">
-        <div class="avatar">NA</div>
+        <div class="avatar" onclick="showProfile()">NA</div>
         <span>Nguyễn Văn A</span>
       </div>
       <div class="top-actions">
@@ -291,6 +412,7 @@
           🔔
           <span class="notif-badge">3</span>
         </div>
+        <div class="setting-icon" onclick="openSettings()">⚙️</div>
       </div>
     </div>
 
@@ -351,18 +473,59 @@
         >
           🏆 Xếp hạng
         </button>
-        <button
-          class="menu-btn profile"
-          onclick="window.location.href='profile.html'"
-        >
-          👤 Hồ sơ
-        </button>
+      </div>
+    </div>
+
+    <!-- Profile Modal -->
+    <div class="modal-overlay" id="profileModal" onclick="closeProfile(event)">
+      <div class="profile-modal" onclick="event.stopPropagation()">
+        <button class="modal-close" onclick="closeProfile()">×</button>
+        <div class="profile-header">
+          <div class="profile-avatar-large">NA</div>
+          <div class="profile-name">Nguyễn Văn A</div>
+          <div class="profile-school">THPT ABC - Lớp 12A1</div>
+        </div>
+        <div class="profile-info">
+          <div class="info-row">
+            <span class="info-label">Email</span>
+            <span class="info-value">nguyenvana@example.com</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Số lượt chơi</span>
+            <span class="info-value">3 lượt</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Điểm cao nhất</span>
+            <span class="info-value">85 điểm</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Xếp hạng tốt nhất</span>
+            <span class="info-value">#25</span>
+          </div>
+        </div>
       </div>
     </div>
 
     <script>
       function openStore() {
         window.location.href = "store.html";
+      }
+
+      function showProfile() {
+        document.getElementById("profileModal").classList.add("show");
+      }
+
+      function closeProfile(event) {
+        if (event && event.target === event.currentTarget) {
+          document.getElementById("profileModal").classList.remove("show");
+        } else if (!event) {
+          document.getElementById("profileModal").classList.remove("show");
+        }
+      }
+
+      function openSettings() {
+        alert("Tính năng cài đặt sẽ được hiển thị ở đây");
+        // window.location.href = "settings.html";
       }
     </script>
   </body>
