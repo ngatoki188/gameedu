@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cửa hàng - GameEDU</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: #f5f5f5;
+        width: 375px;
+        margin: 0 auto;
+        min-height: 100vh;
+      }
+
+      /* Header */
+      .header {
+        background: white;
+        padding: 12px 16px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .back-btn {
+        font-size: 24px;
+        cursor: pointer;
+        color: #007aff;
+      }
+
+      .title {
+        font-weight: bold;
+        font-size: 18px;
+        color: #333;
+        flex: 1;
+      }
+
+      /* Current Balance */
+      .balance-card {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        margin: 16px;
+        border-radius: 16px;
+        padding: 20px;
+        color: white;
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+      }
+
+      .balance-label {
+        font-size: 14px;
+        opacity: 0.9;
+        margin-bottom: 8px;
+      }
+
+      .balance-value {
+        font-size: 32px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .balance-icon {
+        font-size: 28px;
+      }
+
+      /* Packages Section */
+      .packages-section {
+        padding: 0 16px 16px;
+      }
+
+      .section-title {
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 16px;
+      }
+
+      .packages-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .package-card {
+        background: white;
+        border-radius: 16px;
+        padding: 20px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+
+      .package-card:active {
+        transform: scale(0.98);
+      }
+
+      .package-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #007aff 0%, #5ac8fa 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        flex-shrink: 0;
+      }
+
+      .package-info {
+        flex: 1;
+      }
+
+      .package-name {
+        font-size: 16px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 4px;
+      }
+
+      .package-desc {
+        font-size: 13px;
+        color: #666;
+        margin-bottom: 8px;
+      }
+
+      .package-price {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .price-amount {
+        font-size: 20px;
+        font-weight: bold;
+        color: #007aff;
+      }
+
+      .price-unit {
+        font-size: 14px;
+        color: #666;
+      }
+
+      .buy-btn {
+        background: linear-gradient(135deg, #34c759 0%, #30d158 100%);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        padding: 12px 24px;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(52, 199, 89, 0.3);
+        transition: transform 0.2s, box-shadow 0.2s;
+        flex-shrink: 0;
+      }
+
+      .buy-btn:active {
+        transform: scale(0.95);
+      }
+
+      .buy-btn:disabled {
+        background: #e5e5ea;
+        color: #999;
+        cursor: not-allowed;
+        box-shadow: none;
+      }
+
+      /* Popular Badge */
+      .package-card.popular {
+        border: 2px solid #ffd700;
+        position: relative;
+      }
+
+      .popular-badge {
+        position: absolute;
+        top: -8px;
+        right: 16px;
+        background: #ffd700;
+        color: #333;
+        padding: 4px 12px;
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: bold;
+      }
+
+      /* Info Section */
+      .info-section {
+        background: white;
+        margin: 16px;
+        border-radius: 16px;
+        padding: 16px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .info-title {
+        font-size: 16px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .info-list {
+        list-style: none;
+      }
+
+      .info-item {
+        font-size: 13px;
+        color: #666;
+        margin-bottom: 8px;
+        padding-left: 24px;
+        position: relative;
+      }
+
+      .info-item::before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        color: #34c759;
+        font-weight: bold;
+      }
+
+      .info-item:last-child {
+        margin-bottom: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <div class="header">
+      <div class="back-btn" onclick="window.location.href='home.html'">←</div>
+      <div class="title">🛒 Cửa hàng</div>
+    </div>
+
+    <!-- Current Balance -->
+    <div class="balance-card">
+      <div class="balance-label">Lượt chơi hiện có</div>
+      <div class="balance-value">
+        <span class="balance-icon">🎮</span>
+        <span id="currentPlays">3</span>
+        <span style="font-size: 18px; opacity: 0.8">lượt</span>
+      </div>
+    </div>
+
+    <!-- Packages Section -->
+    <div class="packages-section">
+      <div class="section-title">Gói lượt chơi</div>
+      <div class="packages-grid">
+        <!-- Package 1 -->
+        <div class="package-card">
+          <div class="package-icon">🎯</div>
+          <div class="package-info">
+            <div class="package-name">1 Lượt chơi</div>
+            <div class="package-desc">Thêm 1 lượt để tham gia sự kiện</div>
+            <div class="package-price">
+              <span class="price-amount">10.000</span>
+              <span class="price-unit">đ</span>
+            </div>
+          </div>
+          <button class="buy-btn" onclick="buyPackage(1, 10000)">
+            Mua ngay
+          </button>
+        </div>
+
+        <!-- Package 2 -->
+        <div class="package-card">
+          <div class="package-icon">🎮</div>
+          <div class="package-info">
+            <div class="package-name">3 Lượt chơi</div>
+            <div class="package-desc">Tiết kiệm 10% so với mua lẻ</div>
+            <div class="package-price">
+              <span class="price-amount">27.000</span>
+              <span class="price-unit">đ</span>
+            </div>
+          </div>
+          <button class="buy-btn" onclick="buyPackage(3, 27000)">
+            Mua ngay
+          </button>
+        </div>
+
+        <!-- Package 3 - Popular -->
+        <div class="package-card popular">
+          <div class="popular-badge">PHỔ BIẾN</div>
+          <div class="package-icon">🏆</div>
+          <div class="package-info">
+            <div class="package-name">5 Lượt chơi</div>
+            <div class="package-desc">Tiết kiệm 20% - Gói được yêu thích</div>
+            <div class="package-price">
+              <span class="price-amount">40.000</span>
+              <span class="price-unit">đ</span>
+            </div>
+          </div>
+          <button class="buy-btn" onclick="buyPackage(5, 40000)">
+            Mua ngay
+          </button>
+        </div>
+
+        <!-- Package 4 -->
+        <div class="package-card">
+          <div class="package-icon">💎</div>
+          <div class="package-info">
+            <div class="package-name">10 Lượt chơi</div>
+            <div class="package-desc">Tiết kiệm 30% - Gói tốt nhất</div>
+            <div class="package-price">
+              <span class="price-amount">70.000</span>
+              <span class="price-unit">đ</span>
+            </div>
+          </div>
+          <button class="buy-btn" onclick="buyPackage(10, 70000)">
+            Mua ngay
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Info Section -->
+    <div class="info-section">
+      <div class="info-title">ℹ️ Thông tin</div>
+      <ul class="info-list">
+        <li class="info-item">
+          Lượt chơi không có thời hạn, sử dụng bất cứ lúc nào
+        </li>
+        <li class="info-item">
+          Mỗi lượt chơi chỉ được sử dụng cho 1 sự kiện
+        </li>
+        <li class="info-item">
+          Lượt chơi sẽ được cộng vào tài khoản ngay sau khi thanh toán
+        </li>
+        <li class="info-item">
+          Hỗ trợ thanh toán qua ví điện tử, thẻ ngân hàng
+        </li>
+      </ul>
+    </div>
+
+    <script>
+      // Mock data - in real app, this would come from API
+      let currentPlays = 3;
+
+      function buyPackage(plays, price) {
+        // Confirm purchase
+        const confirmMsg = `Bạn có muốn mua ${plays} lượt chơi với giá ${price.toLocaleString("vi-VN")} đ?`;
+        if (confirm(confirmMsg)) {
+          // In real app, this would call payment API
+          // For now, just update the UI
+          currentPlays += plays;
+          document.getElementById("currentPlays").textContent = currentPlays;
+          alert(
+            `Mua thành công! Bạn đã có thêm ${plays} lượt chơi.\nTổng lượt chơi: ${currentPlays}`
+          );
+        }
+      }
+
+      // Update balance display
+      document.getElementById("currentPlays").textContent = currentPlays;
+    </script>
+  </body>
+</html>
+
