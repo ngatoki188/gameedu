@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sự kiện - GameEDU</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: #f5f5f5;
+        width: 375px;
+        margin: 0 auto;
+        min-height: 100vh;
+        padding-bottom: 20px;
+      }
+
+      /* Header */
+      .header {
+        background: white;
+        padding: 12px 16px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .back-btn {
+        font-size: 24px;
+        cursor: pointer;
+        color: #007aff;
+      }
+
+      .title {
+        font-weight: bold;
+        font-size: 18px;
+        color: #333;
+        flex: 1;
+      }
+
+      /* Contest Cards */
+      .contests-container {
+        padding: 16px;
+      }
+
+      .contest-card {
+        background: white;
+        border-radius: 16px;
+        padding: 20px;
+        margin-bottom: 16px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .contest-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background: #007aff;
+      }
+
+      .contest-card.active::before {
+        background: #34c759;
+      }
+
+      .contest-card.upcoming::before {
+        background: #ff9500;
+      }
+
+      .contest-card.ended::before {
+        background: #8e8e93;
+      }
+
+      .contest-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 12px;
+      }
+
+      .contest-title {
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+        flex: 1;
+        margin-right: 12px;
+      }
+
+      .contest-status {
+        padding: 4px 12px;
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: bold;
+        white-space: nowrap;
+      }
+
+      .status-active {
+        background: #d4edda;
+        color: #155724;
+      }
+
+      .status-upcoming {
+        background: #fff3cd;
+        color: #856404;
+      }
+
+      .status-ended {
+        background: #e2e3e5;
+        color: #383d41;
+      }
+
+      .contest-info {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .info-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .info-icon {
+        font-size: 20px;
+        width: 24px;
+        text-align: center;
+      }
+
+      .info-content {
+        flex: 1;
+      }
+
+      .info-label {
+        font-size: 12px;
+        color: #666;
+        margin-bottom: 2px;
+      }
+
+      .info-value {
+        font-size: 14px;
+        font-weight: 500;
+        color: #333;
+      }
+
+      /* Prize Section */
+      .prize-section {
+        margin-top: 16px;
+        padding-top: 16px;
+        border-top: 1px solid #e5e5ea;
+      }
+
+      .prize-title {
+        font-size: 14px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .prize-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .prize-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px;
+        background: #f8f9fa;
+        border-radius: 8px;
+      }
+
+      .prize-rank {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 14px;
+        flex-shrink: 0;
+      }
+
+      .prize-rank.first {
+        background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+        color: #333;
+      }
+
+      .prize-rank.second {
+        background: linear-gradient(135deg, #c0c0c0 0%, #e8e8e8 100%);
+        color: #333;
+      }
+
+      .prize-rank.third {
+        background: linear-gradient(135deg, #cd7f32 0%, #e8a87c 100%);
+        color: white;
+      }
+
+      .prize-rank.other {
+        background: #e5e5ea;
+        color: #666;
+      }
+
+      .prize-desc {
+        flex: 1;
+      }
+
+      .prize-amount {
+        font-size: 15px;
+        font-weight: bold;
+        color: #007aff;
+      }
+
+      /* Action Button */
+      .action-section {
+        margin-top: 16px;
+        padding-top: 16px;
+        border-top: 1px solid #e5e5ea;
+      }
+
+      .action-btn {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+
+      .action-btn:active {
+        transform: scale(0.98);
+      }
+
+      .btn-play {
+        background: linear-gradient(135deg, #007aff 0%, #34c759 100%);
+        color: white;
+      }
+
+      .btn-upcoming {
+        background: #e5e5ea;
+        color: #666;
+        cursor: not-allowed;
+      }
+
+      .btn-ended {
+        background: #e5e5ea;
+        color: #999;
+        cursor: not-allowed;
+      }
+
+      .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+        color: #666;
+      }
+
+      .empty-icon {
+        font-size: 64px;
+        margin-bottom: 16px;
+      }
+
+      .empty-text {
+        font-size: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <div class="header">
+      <div class="back-btn" onclick="window.location.href='home.html'">←</div>
+      <div class="title">📋 Sự kiện</div>
+    </div>
+
+    <!-- Contests Container -->
+    <div class="contests-container">
+      <!-- Active Contest -->
+      <div class="contest-card active">
+        <div class="contest-header">
+          <div class="contest-title">Olympic Tiếng Anh - Tuần 1</div>
+          <div class="contest-status status-active">ĐANG DIỄN RA</div>
+        </div>
+
+        <div class="contest-info">
+          <div class="info-row">
+            <div class="info-icon">📅</div>
+            <div class="info-content">
+              <div class="info-label">Thời gian diễn ra</div>
+              <div class="info-value">15/01/2024 - 22/01/2024</div>
+            </div>
+          </div>
+          <div class="info-row">
+            <div class="info-icon">⏰</div>
+            <div class="info-content">
+              <div class="info-label">Còn lại</div>
+              <div class="info-value">3 ngày 12 giờ</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="prize-section">
+          <div class="prize-title">
+            <span>🏆</span>
+            <span>Giải thưởng học bổng</span>
+          </div>
+          <div class="prize-list">
+            <div class="prize-item">
+              <div class="prize-rank first">1</div>
+              <div class="prize-desc">
+                <div style="font-size: 13px; font-weight: 500; color: #333">
+                  Hạng nhất
+                </div>
+                <div style="font-size: 11px; color: #666">
+                  Điểm cao nhất + thời gian nhanh nhất
+                </div>
+              </div>
+              <div class="prize-amount">5.000.000 đ</div>
+            </div>
+            <div class="prize-item">
+              <div class="prize-rank second">2</div>
+              <div class="prize-desc">
+                <div style="font-size: 13px; font-weight: 500; color: #333">
+                  Hạng nhì
+                </div>
+                <div style="font-size: 11px; color: #666">
+                  Điểm cao thứ 2
+                </div>
+              </div>
+              <div class="prize-amount">3.000.000 đ</div>
+            </div>
+            <div class="prize-item">
+              <div class="prize-rank third">3</div>
+              <div class="prize-desc">
+                <div style="font-size: 13px; font-weight: 500; color: #333">
+                  Hạng ba
+                </div>
+                <div style="font-size: 11px; color: #666">
+                  Điểm cao thứ 3
+                </div>
+              </div>
+              <div class="prize-amount">2.000.000 đ</div>
+            </div>
+            <div class="prize-item">
+              <div class="prize-rank other">4-10</div>
+              <div class="prize-desc">
+                <div style="font-size: 13px; font-weight: 500; color: #333">
+                  Top 10
+                </div>
+                <div style="font-size: 11px; color: #666">
+                  Từ hạng 4 đến hạng 10
+                </div>
+              </div>
+              <div class="prize-amount">500.000 đ</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="action-section">
+          <button class="action-btn btn-play" onclick="playContest(1)">
+            🎮 CHƠI NGAY
+          </button>
+        </div>
+      </div>
+
+      <!-- Upcoming Contest -->
+      <div class="contest-card upcoming">
+        <div class="contest-header">
+          <div class="contest-title">Olympic Tiếng Anh - Tuần 2</div>
+          <div class="contest-status status-upcoming">SẮP DIỄN RA</div>
+        </div>
+
+        <div class="contest-info">
+          <div class="info-row">
+            <div class="info-icon">📅</div>
+            <div class="info-content">
+              <div class="info-label">Thời gian diễn ra</div>
+              <div class="info-value">23/01/2024 - 30/01/2024</div>
+            </div>
+          </div>
+          <div class="info-row">
+            <div class="info-icon">⏰</div>
+            <div class="info-content">
+              <div class="info-label">Bắt đầu sau</div>
+              <div class="info-value">5 ngày</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="prize-section">
+          <div class="prize-title">
+            <span>🏆</span>
+            <span>Giải thưởng học bổng</span>
+          </div>
+          <div class="prize-list">
+            <div class="prize-item">
+              <div class="prize-rank first">1</div>
+              <div class="prize-desc">
+                <div style="font-size: 13px; font-weight: 500; color: #333">
+                  Hạng nhất
+                </div>
+                <div style="font-size: 11px; color: #666">
+                  Điểm cao nhất + thời gian nhanh nhất
+                </div>
+              </div>
+              <div class="prize-amount">5.000.000 đ</div>
+            </div>
+            <div class="prize-item">
+              <div class="prize-rank second">2</div>
+              <div class="prize-desc">
+                <div style="font-size: 13px; font-weight: 500; color: #333">
+                  Hạng nhì
+                </div>
+                <div style="font-size: 11px; color: #666">
+                  Điểm cao thứ 2
+                </div>
+              </div>
+              <div class="prize-amount">3.000.000 đ</div>
+            </div>
+            <div class="prize-item">
+              <div class="prize-rank third">3</div>
+              <div class="prize-desc">
+                <div style="font-size: 13px; font-weight: 500; color: #333">
+                  Hạng ba
+                </div>
+                <div style="font-size: 11px; color: #666">
+                  Điểm cao thứ 3
+                </div>
+              </div>
+              <div class="prize-amount">2.000.000 đ</div>
+            </div>
+            <div class="prize-item">
+              <div class="prize-rank other">4-10</div>
+              <div class="prize-desc">
+                <div style="font-size: 13px; font-weight: 500; color: #333">
+                  Top 10
+                </div>
+                <div style="font-size: 11px; color: #666">
+                  Từ hạng 4 đến hạng 10
+                </div>
+              </div>
+              <div class="prize-amount">500.000 đ</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="action-section">
+          <button class="action-btn btn-upcoming" disabled>
+            ⏳ Sắp diễn ra
+          </button>
+        </div>
+      </div>
+
+      <!-- Ended Contest -->
+      <div class="contest-card ended">
+        <div class="contest-header">
+          <div class="contest-title">Olympic Tiếng Anh - Tuần 0</div>
+          <div class="contest-status status-ended">ĐÃ KẾT THÚC</div>
+        </div>
+
+        <div class="contest-info">
+          <div class="info-row">
+            <div class="info-icon">📅</div>
+            <div class="info-content">
+              <div class="info-label">Thời gian diễn ra</div>
+              <div class="info-value">08/01/2024 - 15/01/2024</div>
+            </div>
+          </div>
+          <div class="info-row">
+            <div class="info-icon">🏆</div>
+            <div class="info-content">
+              <div class="info-label">Người thắng cuộc</div>
+              <div class="info-value">Nguyễn Văn A - THPT ABC</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="prize-section">
+          <div class="prize-title">
+            <span>🏆</span>
+            <span>Giải thưởng học bổng</span>
+          </div>
+          <div class="prize-list">
+            <div class="prize-item">
+              <div class="prize-rank first">1</div>
+              <div class="prize-desc">
+                <div style="font-size: 13px; font-weight: 500; color: #333">
+                  Hạng nhất
+                </div>
+                <div style="font-size: 11px; color: #666">
+                  Điểm cao nhất + thời gian nhanh nhất
+                </div>
+              </div>
+              <div class="prize-amount">5.000.000 đ</div>
+            </div>
+            <div class="prize-item">
+              <div class="prize-rank second">2</div>
+              <div class="prize-desc">
+                <div style="font-size: 13px; font-weight: 500; color: #333">
+                  Hạng nhì
+                </div>
+                <div style="font-size: 11px; color: #666">
+                  Điểm cao thứ 2
+                </div>
+              </div>
+              <div class="prize-amount">3.000.000 đ</div>
+            </div>
+            <div class="prize-item">
+              <div class="prize-rank third">3</div>
+              <div class="prize-desc">
+                <div style="font-size: 13px; font-weight: 500; color: #333">
+                  Hạng ba
+                </div>
+                <div style="font-size: 11px; color: #666">
+                  Điểm cao thứ 3
+                </div>
+              </div>
+              <div class="prize-amount">2.000.000 đ</div>
+            </div>
+            <div class="prize-item">
+              <div class="prize-rank other">4-10</div>
+              <div class="prize-desc">
+                <div style="font-size: 13px; font-weight: 500; color: #333">
+                  Top 10
+                </div>
+                <div style="font-size: 11px; color: #666">
+                  Từ hạng 4 đến hạng 10
+                </div>
+              </div>
+              <div class="prize-amount">500.000 đ</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="action-section">
+          <button
+            class="action-btn btn-ended"
+            disabled
+            onclick="window.location.href='leaderboard.html'"
+          >
+            Xem kết quả
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function playContest(contestId) {
+        // Check if user has plays left
+        // In real app, this would check from API
+        window.location.href = "instructions.html";
+      }
+    </script>
+  </body>
+</html>
+
