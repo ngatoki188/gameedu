@@ -267,13 +267,11 @@
             <div class="package-name">1 Play</div>
             <div class="package-desc">Add 1 play to join events</div>
             <div class="package-price">
-              <span class="price-amount">10,000</span>
-              <span class="price-unit">VND</span>
+              <span class="price-amount">100</span>
+              <span class="price-unit">MMK</span>
             </div>
           </div>
-          <button class="buy-btn" onclick="buyPackage(1, 10000)">
-            Buy Now
-          </button>
+          <button class="buy-btn" onclick="buyPackage(1, 100)">Buy Now</button>
         </div>
 
         <!-- Package 2 -->
@@ -281,15 +279,15 @@
           <div class="package-icon">🎮</div>
           <div class="package-info">
             <div class="package-name">3 Plays</div>
-            <div class="package-desc">Save 10% compared to individual purchase</div>
+            <div class="package-desc">
+              Save 10% compared to individual purchase
+            </div>
             <div class="package-price">
-              <span class="price-amount">27,000</span>
-              <span class="price-unit">VND</span>
+              <span class="price-amount">500</span>
+              <span class="price-unit">MMK</span>
             </div>
           </div>
-          <button class="buy-btn" onclick="buyPackage(3, 27000)">
-            Buy Now
-          </button>
+          <button class="buy-btn" onclick="buyPackage(3, 500)">Buy Now</button>
         </div>
 
         <!-- Package 3 - Popular -->
@@ -300,13 +298,11 @@
             <div class="package-name">5 Plays</div>
             <div class="package-desc">Save 20% - Most popular package</div>
             <div class="package-price">
-              <span class="price-amount">40,000</span>
-              <span class="price-unit">VND</span>
+              <span class="price-amount">400</span>
+              <span class="price-unit">MMK</span>
             </div>
           </div>
-          <button class="buy-btn" onclick="buyPackage(5, 40000)">
-            Buy Now
-          </button>
+          <button class="buy-btn" onclick="buyPackage(5, 400)">Buy Now</button>
         </div>
 
         <!-- Package 4 -->
@@ -316,13 +312,11 @@
             <div class="package-name">10 Plays</div>
             <div class="package-desc">Save 30% - Best package</div>
             <div class="package-price">
-              <span class="price-amount">70,000</span>
-              <span class="price-unit">VND</span>
+              <span class="price-amount">700</span>
+              <span class="price-unit">MMK</span>
             </div>
           </div>
-          <button class="buy-btn" onclick="buyPackage(10, 70000)">
-            Buy Now
-          </button>
+          <button class="buy-btn" onclick="buyPackage(10, 700)">Buy Now</button>
         </div>
       </div>
     </div>
@@ -331,16 +325,12 @@
     <div class="info-section">
       <div class="info-title">ℹ️ Information</div>
       <ul class="info-list">
-        <li class="info-item">
-          Plays have no expiration date, use anytime
-        </li>
+        <li class="info-item">Plays have no expiration date, use anytime</li>
         <li class="info-item">Each play can only be used for 1 event</li>
         <li class="info-item">
           Plays will be added to your account immediately after payment
         </li>
-        <li class="info-item">
-          Payment via e-wallet, bank card supported
-        </li>
+        <li class="info-item">Payment via e-wallet, bank card supported</li>
       </ul>
     </div>
 
@@ -352,7 +342,7 @@
         // Confirm purchase
         const confirmMsg = `Do you want to buy ${plays} play(s) for ${price.toLocaleString(
           "en-US"
-        )} VND?`;
+        )} MMK?`;
         if (confirm(confirmMsg)) {
           // In real app, this would call payment API
           // For now, just update the UI
