@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tạo kỳ thi - Admin</title>
+    <title>Tạo sự kiện - Admin</title>
     <style>
       * {
         margin: 0;
@@ -185,7 +185,7 @@
       >
         ←
       </div>
-      <div class="title">Tạo kỳ thi mới</div>
+      <div class="title">Tạo sự kiện mới</div>
     </div>
 
     <!-- Form -->
@@ -196,7 +196,7 @@
           <div class="section-title">📝 Thông tin cơ bản</div>
 
           <div class="form-group">
-            <label class="form-label">Tên kỳ thi *</label>
+            <label class="form-label">Tên sự kiện *</label>
             <input
               type="text"
               class="form-input"
@@ -209,7 +209,7 @@
             <label class="form-label">Mô tả</label>
             <textarea
               class="form-textarea"
-              placeholder="Mô tả về kỳ thi..."
+              placeholder="Mô tả về sự kiện..."
             ></textarea>
           </div>
 
@@ -382,7 +382,7 @@
         class="btn btn-submit"
         onclick="document.getElementById('contestForm').requestSubmit()"
       >
-        Tạo kỳ thi
+        Tạo sự kiện
       </button>
     </div>
 
@@ -397,7 +397,7 @@
 
       function createContest(event) {
         event.preventDefault();
-        if (confirm("Bạn có chắc muốn tạo kỳ thi này?")) {
+        if (confirm("Bạn có chắc muốn tạo sự kiện này?")) {
           alert("Kỳ thi đã được tạo thành công!");
           window.location.href = "admin-dashboard.html";
         }
