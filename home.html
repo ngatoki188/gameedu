@@ -220,9 +220,6 @@
 
       /* Action Buttons */
       .action-buttons {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 12px;
         margin-top: 24px;
       }
 
@@ -250,11 +247,6 @@
         box-shadow: 0 4px 12px rgba(255, 149, 0, 0.3);
       }
 
-      .prize-btn {
-        background: linear-gradient(135deg, #ffd700 0%, #ffa500 100%);
-        color: #333;
-        box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
-      }
 
       /* Menu Buttons (Vertical) */
       .menu-buttons {
@@ -364,23 +356,32 @@
         <button class="action-btn store-btn" onclick="openStore()">
           🛒 Store
         </button>
-        <button class="action-btn prize-btn" onclick="viewPrizes()">
-          🏅 Giải thưởng
-        </button>
       </div>
 
       <!-- Menu Buttons (Vertical) -->
       <div class="menu-buttons">
-        <button class="menu-btn home" onclick="window.location.href='home.html'">
+        <button
+          class="menu-btn home"
+          onclick="window.location.href='home.html'"
+        >
           🏠 Trang chủ
         </button>
-        <button class="menu-btn events" onclick="window.location.href='contests.html'">
+        <button
+          class="menu-btn events"
+          onclick="window.location.href='contests.html'"
+        >
           📋 Sự kiện
         </button>
-        <button class="menu-btn leaderboard" onclick="window.location.href='leaderboard.html'">
+        <button
+          class="menu-btn leaderboard"
+          onclick="window.location.href='leaderboard.html'"
+        >
           🏆 Xếp hạng
         </button>
-        <button class="menu-btn profile" onclick="window.location.href='profile.html'">
+        <button
+          class="menu-btn profile"
+          onclick="window.location.href='profile.html'"
+        >
           👤 Hồ sơ
         </button>
       </div>
@@ -394,12 +395,6 @@
         // window.location.href = 'store.html';
       }
 
-      function viewPrizes() {
-        alert(
-          "Cơ cấu giải thưởng\n\n🥇 Giải Nhất: 5,000,000 VNĐ\n🥈 Giải Nhì: 3,000,000 VNĐ\n🥉 Giải Ba: 1,000,000 VNĐ\n\nTop 10% nhận giải khuyến khích"
-        );
-        // window.location.href = 'prizes.html';
-      }
     </script>
   </body>
 </html>
