@@ -112,10 +112,20 @@
         border-radius: 12px;
         background: linear-gradient(135deg, #007aff 0%, #5ac8fa 100%);
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
-        font-size: 28px;
+        font-size: 24px;
         flex-shrink: 0;
+        position: relative;
+      }
+
+      .package-icon-count {
+        font-size: 12px;
+        font-weight: bold;
+        color: white;
+        margin-top: 2px;
+        opacity: 0.9;
       }
 
       .package-info {
@@ -248,24 +258,27 @@
 
     <!-- Current Balance -->
     <div class="balance-card">
-      <div class="balance-label">Current Plays</div>
+      <div class="balance-label">Current Turns</div>
       <div class="balance-value">
         <span class="balance-icon">🎮</span>
-        <span id="currentPlays">3</span>
-        <span style="font-size: 18px; opacity: 0.8">plays</span>
+        <span id="currentTurns">3</span>
+        <span style="font-size: 18px; opacity: 0.8">turns</span>
       </div>
     </div>
 
     <!-- Packages Section -->
     <div class="packages-section">
-      <div class="section-title">Play Packages</div>
+      <div class="section-title">Turn Packages</div>
       <div class="packages-grid">
         <!-- Package 1 -->
         <div class="package-card">
-          <div class="package-icon">🎯</div>
+          <div class="package-icon">
+            🎯
+            <div class="package-icon-count">×1</div>
+          </div>
           <div class="package-info">
-            <div class="package-name">1 Play</div>
-            <div class="package-desc">Add 1 play to join events</div>
+            <div class="package-name">1 Turn</div>
+            <div class="package-desc">Add 1 turn to join events</div>
             <div class="package-price">
               <span class="price-amount">100</span>
               <span class="price-unit">MMK</span>
@@ -276,9 +289,12 @@
 
         <!-- Package 2 -->
         <div class="package-card">
-          <div class="package-icon">🎮</div>
+          <div class="package-icon">
+            🎯
+            <div class="package-icon-count">×3</div>
+          </div>
           <div class="package-info">
-            <div class="package-name">3 Plays</div>
+            <div class="package-name">3 Turns</div>
             <div class="package-desc">
               Save 10% compared to individual purchase
             </div>
@@ -293,9 +309,12 @@
         <!-- Package 3 - Popular -->
         <div class="package-card popular">
           <div class="popular-badge">POPULAR</div>
-          <div class="package-icon">🏆</div>
+          <div class="package-icon">
+            🎯
+            <div class="package-icon-count">×5</div>
+          </div>
           <div class="package-info">
-            <div class="package-name">5 Plays</div>
+            <div class="package-name">5 Turns</div>
             <div class="package-desc">Save 20% - Most popular package</div>
             <div class="package-price">
               <span class="price-amount">400</span>
@@ -307,9 +326,12 @@
 
         <!-- Package 4 -->
         <div class="package-card">
-          <div class="package-icon">💎</div>
+          <div class="package-icon">
+            🎯
+            <div class="package-icon-count">×10</div>
+          </div>
           <div class="package-info">
-            <div class="package-name">10 Plays</div>
+            <div class="package-name">10 Turns</div>
             <div class="package-desc">Save 30% - Best package</div>
             <div class="package-price">
               <span class="price-amount">700</span>
@@ -325,10 +347,10 @@
     <div class="info-section">
       <div class="info-title">ℹ️ Information</div>
       <ul class="info-list">
-        <li class="info-item">Plays have no expiration date, use anytime</li>
-        <li class="info-item">Each play can only be used for 1 event</li>
+        <li class="info-item">Turns have no expiration date, use anytime</li>
+        <li class="info-item">Each turn can only be used for 1 event</li>
         <li class="info-item">
-          Plays will be added to your account immediately after payment
+          Turns will be added to your account immediately after payment
         </li>
         <li class="info-item">Payment via e-wallet, bank card supported</li>
       </ul>
@@ -336,26 +358,26 @@
 
     <script>
       // Mock data - in real app, this would come from API
-      let currentPlays = 3;
+      let currentTurns = 3;
 
-      function buyPackage(plays, price) {
+      function buyPackage(turns, price) {
         // Confirm purchase
-        const confirmMsg = `Do you want to buy ${plays} play(s) for ${price.toLocaleString(
+        const confirmMsg = `Do you want to buy ${turns} turn(s) for ${price.toLocaleString(
           "en-US"
         )} MMK?`;
         if (confirm(confirmMsg)) {
           // In real app, this would call payment API
           // For now, just update the UI
-          currentPlays += plays;
-          document.getElementById("currentPlays").textContent = currentPlays;
+          currentTurns += turns;
+          document.getElementById("currentTurns").textContent = currentTurns;
           alert(
-            `Purchase successful! You have ${plays} more play(s).\nTotal plays: ${currentPlays}`
+            `Purchase successful! You have ${turns} more turn(s).\nTotal turns: ${currentTurns}`
           );
         }
       }
 
       // Update balance display
-      document.getElementById("currentPlays").textContent = currentPlays;
+      document.getElementById("currentTurns").textContent = currentTurns;
     </script>
   </body>
 </html>

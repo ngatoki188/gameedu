@@ -78,89 +78,6 @@
         transform: scale(0.95);
       }
 
-      .top-actions {
-        display: flex;
-        gap: 12px;
-        align-items: center;
-      }
-
-      .notif-icon {
-        position: relative;
-        font-size: 20px;
-        color: white;
-        cursor: pointer;
-      }
-
-      .notif-badge {
-        position: absolute;
-        top: -5px;
-        right: -5px;
-        background: #ff3b30;
-        color: white;
-        border-radius: 50%;
-        width: 18px;
-        height: 18px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 10px;
-        font-weight: bold;
-      }
-
-      .setting-icon {
-        font-size: 20px;
-        color: white;
-        cursor: pointer;
-        transition: transform 0.2s;
-      }
-
-      .setting-icon:active {
-        transform: scale(0.95) rotate(90deg);
-      }
-
-      /* Winner Banner */
-      .winner-banner {
-        background: linear-gradient(135deg, #ffd700 0%, #ffa500 100%);
-        padding: 10px 16px;
-        margin: 0;
-        overflow: hidden;
-        position: relative;
-      }
-
-      .winner-content {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        white-space: nowrap;
-        animation: scroll 20s linear infinite;
-      }
-
-      @keyframes scroll {
-        0% {
-          transform: translateX(100%);
-        }
-        100% {
-          transform: translateX(-100%);
-        }
-      }
-
-      .winner-text {
-        font-weight: bold;
-        color: #333;
-        font-size: 12px;
-      }
-
-      .winner-list {
-        display: inline-flex;
-        gap: 16px;
-        margin-left: 16px;
-      }
-
-      .winner-item {
-        font-size: 11px;
-        color: #333;
-      }
-
       /* Main Content */
       .main-content {
         padding: 20px 16px;
@@ -407,31 +324,6 @@
         <div class="avatar" onclick="showProfile()">JD</div>
         <span>John Doe</span>
       </div>
-      <div class="top-actions">
-        <div class="notif-icon">
-          🔔
-          <span class="notif-badge">3</span>
-        </div>
-        <div class="setting-icon" onclick="openSettings()">⚙️</div>
-      </div>
-    </div>
-
-    <!-- Winner Banner -->
-    <div class="winner-banner">
-      <div class="winner-content">
-        <span class="winner-text">🏆 WEEK 1 WINNERS CONGRATULATIONS</span>
-        <div class="winner-list">
-          <span class="winner-item"
-            >🥇 John Doe (98 points) - 5,000,000 VND</span
-          >
-          <span class="winner-item"
-            >🥈 Jane Smith (97 points) - 3,000,000 VND</span
-          >
-          <span class="winner-item"
-            >🥉 Bob Johnson (96 points) - 1,000,000 VND</span
-          >
-        </div>
-      </div>
     </div>
 
     <!-- Game Logo -->
@@ -523,11 +415,6 @@
         } else if (!event) {
           document.getElementById("profileModal").classList.remove("show");
         }
-      }
-
-      function openSettings() {
-        alert("Settings feature will be displayed here");
-        // window.location.href = "settings.html";
       }
     </script>
   </body>

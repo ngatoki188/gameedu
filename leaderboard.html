@@ -124,6 +124,18 @@
       .podium-time {
         font-size: 11px;
         color: #666;
+        margin-bottom: 4px;
+      }
+
+      .podium-prize {
+        font-size: 12px;
+        font-weight: bold;
+        color: #007aff;
+        margin-top: 4px;
+        padding: 4px 8px;
+        background: rgba(0, 122, 255, 0.1);
+        border-radius: 8px;
+        display: inline-block;
       }
 
       /* Your Position */
@@ -267,6 +279,26 @@
       .ranking-score-time {
         font-size: 12px;
         color: #666;
+        margin-bottom: 4px;
+      }
+
+      .ranking-prize {
+        font-size: 11px;
+        font-weight: bold;
+        color: #007aff;
+        padding: 2px 6px;
+        background: rgba(0, 122, 255, 0.1);
+        border-radius: 6px;
+        display: inline-block;
+      }
+
+      .ranking-item.prize-winner {
+        background: #f0f8ff;
+      }
+
+      .ranking-item.your-rank {
+        background: #fff9c4;
+        border: 2px solid #ffd700;
       }
     </style>
   </head>
@@ -286,6 +318,7 @@
         <div class="podium-school">High School XYZ</div>
         <div class="podium-score">97 points</div>
         <div class="podium-time">32 minutes</div>
+        <div class="podium-prize">🎁 30,000 MMK</div>
       </div>
       <div class="podium-item first">
         <div class="podium-badge">🥇</div>
@@ -301,6 +334,7 @@
         <div class="podium-school">High School ABC</div>
         <div class="podium-score">98 points</div>
         <div class="podium-time">35 minutes</div>
+        <div class="podium-prize">🎁 50,000 MMK</div>
       </div>
       <div class="podium-item third">
         <div class="podium-badge">🥉</div>
@@ -309,27 +343,13 @@
         <div class="podium-school">High School DEF</div>
         <div class="podium-score">96 points</div>
         <div class="podium-time">40 minutes</div>
+        <div class="podium-prize">🎁 20,000 MMK</div>
       </div>
-    </div>
-
-    <!-- Your Position -->
-    <div class="your-position">
-      <div class="your-badge">👤 YOUR POSITION: #25</div>
-      <div class="your-info">
-        <div class="your-avatar">JD</div>
-        <div class="your-details">
-          <div class="your-name">John Doe</div>
-          <div class="your-school">High School MNO</div>
-          <div class="your-score">85 points</div>
-          <div class="your-time">38 minutes</div>
-        </div>
-      </div>
-      <div class="progress-text">5 points away from rank 24</div>
     </div>
 
     <!-- Ranking List -->
     <div class="ranking-list">
-      <div class="ranking-item">
+      <div class="ranking-item prize-winner">
         <div class="ranking-number">4</div>
         <div class="ranking-avatar">AB</div>
         <div class="ranking-info">
@@ -339,9 +359,10 @@
         <div class="ranking-score">
           <div class="ranking-score-value">95 points</div>
           <div class="ranking-score-time">38 minutes</div>
+          <div class="ranking-prize">🎁 5,000 MMK</div>
         </div>
       </div>
-      <div class="ranking-item">
+      <div class="ranking-item prize-winner">
         <div class="ranking-number">5</div>
         <div class="ranking-avatar">CW</div>
         <div class="ranking-info">
@@ -351,9 +372,10 @@
         <div class="ranking-score">
           <div class="ranking-score-value">94 points</div>
           <div class="ranking-score-time">36 minutes</div>
+          <div class="ranking-prize">🎁 5,000 MMK</div>
         </div>
       </div>
-      <div class="ranking-item">
+      <div class="ranking-item prize-winner">
         <div class="ranking-number">6</div>
         <div class="ranking-avatar">DL</div>
         <div class="ranking-info">
@@ -363,6 +385,71 @@
         <div class="ranking-score">
           <div class="ranking-score-value">93 points</div>
           <div class="ranking-score-time">40 minutes</div>
+          <div class="ranking-prize">🎁 5,000 MMK</div>
+        </div>
+      </div>
+      <div class="ranking-item prize-winner">
+        <div class="ranking-number">7</div>
+        <div class="ranking-avatar">EM</div>
+        <div class="ranking-info">
+          <div class="ranking-name">Emma Martinez</div>
+          <div class="ranking-school">High School STU</div>
+        </div>
+        <div class="ranking-score">
+          <div class="ranking-score-value">92 points</div>
+          <div class="ranking-score-time">42 minutes</div>
+          <div class="ranking-prize">🎁 5,000 MMK</div>
+        </div>
+      </div>
+      <div class="ranking-item prize-winner">
+        <div class="ranking-number">8</div>
+        <div class="ranking-avatar">FN</div>
+        <div class="ranking-info">
+          <div class="ranking-name">Frank Nguyen</div>
+          <div class="ranking-school">High School VWX</div>
+        </div>
+        <div class="ranking-score">
+          <div class="ranking-score-value">91 points</div>
+          <div class="ranking-score-time">39 minutes</div>
+          <div class="ranking-prize">🎁 5,000 MMK</div>
+        </div>
+      </div>
+      <div class="ranking-item prize-winner">
+        <div class="ranking-number">9</div>
+        <div class="ranking-avatar">GO</div>
+        <div class="ranking-info">
+          <div class="ranking-name">Grace O'Connor</div>
+          <div class="ranking-school">High School YZA</div>
+        </div>
+        <div class="ranking-score">
+          <div class="ranking-score-value">90 points</div>
+          <div class="ranking-score-time">41 minutes</div>
+          <div class="ranking-prize">🎁 5,000 MMK</div>
+        </div>
+      </div>
+      <div class="ranking-item prize-winner">
+        <div class="ranking-number">10</div>
+        <div class="ranking-avatar">HP</div>
+        <div class="ranking-info">
+          <div class="ranking-name">Henry Park</div>
+          <div class="ranking-school">High School BCD</div>
+        </div>
+        <div class="ranking-score">
+          <div class="ranking-score-value">89 points</div>
+          <div class="ranking-score-time">43 minutes</div>
+          <div class="ranking-prize">🎁 5,000 MMK</div>
+        </div>
+      </div>
+      <div class="ranking-item your-rank">
+        <div class="ranking-number">25</div>
+        <div class="ranking-avatar">JD</div>
+        <div class="ranking-info">
+          <div class="ranking-name">John Doe</div>
+          <div class="ranking-school">High School MNO</div>
+        </div>
+        <div class="ranking-score">
+          <div class="ranking-score-value">85 points</div>
+          <div class="ranking-score-time">38 minutes</div>
         </div>
       </div>
       <!-- More items... -->
