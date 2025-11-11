@@ -334,9 +334,7 @@
         <li class="info-item">
           Lượt chơi không có thời hạn, sử dụng bất cứ lúc nào
         </li>
-        <li class="info-item">
-          Mỗi lượt chơi chỉ được sử dụng cho 1 sự kiện
-        </li>
+        <li class="info-item">Mỗi lượt chơi chỉ được sử dụng cho 1 sự kiện</li>
         <li class="info-item">
           Lượt chơi sẽ được cộng vào tài khoản ngay sau khi thanh toán
         </li>
@@ -352,7 +350,9 @@
 
       function buyPackage(plays, price) {
         // Confirm purchase
-        const confirmMsg = `Bạn có muốn mua ${plays} lượt chơi với giá ${price.toLocaleString("vi-VN")} đ?`;
+        const confirmMsg = `Bạn có muốn mua ${plays} lượt chơi với giá ${price.toLocaleString(
+          "vi-VN"
+        )} đ?`;
         if (confirm(confirmMsg)) {
           // In real app, this would call payment API
           // For now, just update the UI
@@ -369,4 +369,3 @@
     </script>
   </body>
 </html>
-
