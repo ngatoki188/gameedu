@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kết quả kỳ thi - Admin</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            width: 375px;
+            margin: 0 auto;
+            min-height: 100vh;
+            padding-bottom: 100px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #007AFF 0%, #34C759 100%);
+            color: white;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .back-btn {
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .contest-selector {
+            background: white;
+            padding: 12px 16px;
+            border-bottom: 1px solid #E5E5EA;
+        }
+        
+        .select-contest {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #E5E5EA;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        
+        /* Winners Section */
+        .winners-section {
+            padding: 16px;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .winner-card {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .winner-card.first {
+            background: linear-gradient(135deg, #FFD700 0%, #FFED4E 100%);
+            border: 3px solid #FFD700;
+        }
+        
+        .winner-card.second {
+            background: linear-gradient(135deg, #C0C0C0 0%, #E8E8E8 100%);
+        }
+        
+        .winner-card.third {
+            background: linear-gradient(135deg, #CD7F32 0%, #E8A87C 100%);
+        }
+        
+        .winner-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .winner-rank {
+            font-size: 32px;
+            font-weight: bold;
+        }
+        
+        .winner-info {
+            flex: 1;
+        }
+        
+        .winner-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+        
+        .winner-school {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 4px;
+        }
+        
+        .winner-score {
+            font-size: 20px;
+            font-weight: bold;
+            color: #007AFF;
+        }
+        
+        .winner-time {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .winner-prize {
+            margin-top: 8px;
+            padding: 8px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        /* Top 10 List */
+        .top-list {
+            padding: 0 16px 16px;
+        }
+        
+        .list-item {
+            background: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+        }
+        
+        .list-rank {
+            width: 40px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 16px;
+            color: #666;
+        }
+        
+        .list-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .list-info {
+            flex: 1;
+        }
+        
+        .list-name {
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 2px;
+        }
+        
+        .list-school {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .list-score {
+            text-align: right;
+        }
+        
+        .list-score-value {
+            font-weight: bold;
+            font-size: 16px;
+            color: #007AFF;
+        }
+        
+        .list-score-time {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        /* Stats Cards */
+        .stats-section {
+            padding: 0 16px 16px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 16px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 4px;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007AFF;
+        }
+        
+        /* Actions */
+        .actions-section {
+            padding: 0 16px 16px;
+        }
+        
+        .action-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 12px;
+        }
+        
+        .btn-announce {
+            background: linear-gradient(135deg, #FF9500 0%, #FF3B30 100%);
+            color: white;
+        }
+        
+        .btn-export {
+            background: #007AFF;
+            color: white;
+        }
+        
+        .btn-view-all {
+            background: white;
+            color: #007AFF;
+            border: 1px solid #007AFF;
+        }
+        
+        /* Announcement Banner */
+        .announcement-banner {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            padding: 16px;
+            margin: 0 16px 16px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        
+        .announcement-text {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .announcement-date {
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="back-btn" onclick="window.location.href='admin-dashboard.html'">←</div>
+        <div class="title">Kết quả kỳ thi</div>
+    </div>
+    
+    <!-- Contest Selector -->
+    <div class="contest-selector">
+        <select class="select-contest" onchange="loadContestResults(this.value)">
+            <option>Olympic Tiếng Anh - Tuần 1</option>
+            <option>Olympic Tiếng Anh - Tuần 2</option>
+            <option>Olympic Tiếng Anh - Tuần 3</option>
+        </select>
+    </div>
+    
+    <!-- Announcement Banner -->
+    <div class="announcement-banner">
+        <div class="announcement-text">🏆 Kết quả đã được công bố</div>
+        <div class="announcement-date">Công bố lúc: 19/01/2024 18:00</div>
+    </div>
+    
+    <!-- Winners Section -->
+    <div class="winners-section">
+        <div class="section-title">🥇 Top 3 Người đạt giải</div>
+        
+        <!-- 1st Place -->
+        <div class="winner-card first">
+            <div class="winner-header">
+                <div class="winner-rank">🥇</div>
+                <div class="winner-info">
+                    <div class="winner-name">Nguyễn Văn A</div>
+                    <div class="winner-school">THPT ABC</div>
+                    <div class="winner-score">98 điểm</div>
+                    <div class="winner-time">Thời gian: 35 phút</div>
+                </div>
+            </div>
+            <div class="winner-prize">
+                🎁 Giải thưởng: 5,000,000 VNĐ
+            </div>
+        </div>
+        
+        <!-- 2nd Place -->
+        <div class="winner-card second">
+            <div class="winner-header">
+                <div class="winner-rank">🥈</div>
+                <div class="winner-info">
+                    <div class="winner-name">Trần Thị B</div>
+                    <div class="winner-school">THPT XYZ</div>
+                    <div class="winner-score">97 điểm</div>
+                    <div class="winner-time">Thời gian: 32 phút</div>
+                </div>
+            </div>
+            <div class="winner-prize">
+                🎁 Giải thưởng: 3,000,000 VNĐ
+            </div>
+        </div>
+        
+        <!-- 3rd Place -->
+        <div class="winner-card third">
+            <div class="winner-header">
+                <div class="winner-rank">🥉</div>
+                <div class="winner-info">
+                    <div class="winner-name">Lê Văn C</div>
+                    <div class="winner-school">THPT DEF</div>
+                    <div class="winner-score">96 điểm</div>
+                    <div class="winner-time">Thời gian: 40 phút</div>
+                </div>
+            </div>
+            <div class="winner-prize">
+                🎁 Giải thưởng: 1,000,000 VNĐ
+            </div>
+        </div>
+    </div>
+    
+    <!-- Stats -->
+    <div class="stats-section">
+        <div class="section-title">📊 Thống kê</div>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Tổng thí sinh</div>
+                <div class="stat-value">8,500</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Điểm trung bình</div>
+                <div class="stat-value">72.5</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Điểm cao nhất</div>
+                <div class="stat-value">98</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Tỷ lệ hoàn thành</div>
+                <div class="stat-value">95%</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Top 10 List -->
+    <div class="top-list">
+        <div class="section-title">📋 Top 10</div>
+        
+        <div class="list-item">
+            <div class="list-rank">4</div>
+            <div class="list-avatar">PTD</div>
+            <div class="list-info">
+                <div class="list-name">Phạm Thị D</div>
+                <div class="list-school">THPT GHI</div>
+            </div>
+            <div class="list-score">
+                <div class="list-score-value">95 điểm</div>
+                <div class="list-score-time">38 phút</div>
+            </div>
+        </div>
+        
+        <div class="list-item">
+            <div class="list-rank">5</div>
+            <div class="list-avatar">HVE</div>
+            <div class="list-info">
+                <div class="list-name">Hoàng Văn E</div>
+                <div class="list-school">THPT JKL</div>
+            </div>
+            <div class="list-score">
+                <div class="list-score-value">94 điểm</div>
+                <div class="list-score-time">36 phút</div>
+            </div>
+        </div>
+        
+        <div class="list-item">
+            <div class="list-rank">6</div>
+            <div class="list-avatar">NTF</div>
+            <div class="list-info">
+                <div class="list-name">Nguyễn Thị F</div>
+                <div class="list-school">THPT PQR</div>
+            </div>
+            <div class="list-score">
+                <div class="list-score-value">93 điểm</div>
+                <div class="list-score-time">40 phút</div>
+            </div>
+        </div>
+        
+        <div class="list-item">
+            <div class="list-rank">7</div>
+            <div class="list-avatar">LVM</div>
+            <div class="list-info">
+                <div class="list-name">Lê Văn M</div>
+                <div class="list-school">THPT STU</div>
+            </div>
+            <div class="list-score">
+                <div class="list-score-value">92 điểm</div>
+                <div class="list-score-time">42 phút</div>
+            </div>
+        </div>
+        
+        <div class="list-item">
+            <div class="list-rank">8</div>
+            <div class="list-avatar">TVN</div>
+            <div class="list-info">
+                <div class="list-name">Trần Văn N</div>
+                <div class="list-school">THPT VWX</div>
+            </div>
+            <div class="list-score">
+                <div class="list-score-value">91 điểm</div>
+                <div class="list-score-time">39 phút</div>
+            </div>
+        </div>
+        
+        <div class="list-item">
+            <div class="list-rank">9</div>
+            <div class="list-avatar">PHO</div>
+            <div class="list-info">
+                <div class="list-name">Phạm Hồng O</div>
+                <div class="list-school">THPT YZA</div>
+            </div>
+            <div class="list-score">
+                <div class="list-score-value">90 điểm</div>
+                <div class="list-score-time">41 phút</div>
+            </div>
+        </div>
+        
+        <div class="list-item">
+            <div class="list-rank">10</div>
+            <div class="list-avatar">NTP</div>
+            <div class="list-info">
+                <div class="list-name">Nguyễn Thị P</div>
+                <div class="list-school">THPT BCD</div>
+            </div>
+            <div class="list-score">
+                <div class="list-score-value">89 điểm</div>
+                <div class="list-score-time">43 phút</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Actions -->
+    <div class="actions-section">
+        <button class="action-btn btn-announce" onclick="announceResults()">
+            📢 Công bố kết quả
+        </button>
+        <button class="action-btn btn-export" onclick="exportResults()">
+            📥 Xuất file Excel
+        </button>
+        <button class="action-btn btn-view-all" onclick="viewAllResults()">
+            📋 Xem tất cả kết quả
+        </button>
+    </div>
+    
+    <script>
+        function loadContestResults(contestId) {
+            // Load results for selected contest
+            console.log('Loading results for:', contestId);
+        }
+        
+        function announceResults() {
+            if (confirm('Bạn có chắc muốn công bố kết quả này? Kết quả sẽ hiển thị trên banner trang chủ.')) {
+                alert('Kết quả đã được công bố thành công!');
+                // Update announcement banner
+            }
+        }
+        
+        function exportResults() {
+            alert('Đang xuất file Excel...');
+            // Export functionality
+        }
+        
+        function viewAllResults() {
+            window.location.href = 'admin-all-results.html';
+        }
+    </script>
+</body>
+</html>
+
