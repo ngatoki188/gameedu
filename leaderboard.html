@@ -17,7 +17,6 @@
         width: 375px;
         margin: 0 auto;
         min-height: 100vh;
-        padding-bottom: 70px;
       }
 
       /* Header */
@@ -340,39 +339,6 @@
         margin: 0 8px;
       }
 
-      /* Bottom Navigation */
-      .bottom-nav {
-        position: fixed;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 375px;
-        background: white;
-        border-top: 1px solid #e5e5ea;
-        display: flex;
-        justify-content: space-around;
-        padding: 8px 0;
-        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
-      }
-
-      .nav-item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 4px;
-        padding: 8px;
-        cursor: pointer;
-        color: #666;
-        font-size: 12px;
-      }
-
-      .nav-item.active {
-        color: #007aff;
-      }
-
-      .nav-icon {
-        font-size: 24px;
-      }
     </style>
   </head>
   <body>
@@ -497,24 +463,5 @@
       <button class="page-btn">Sau →</button>
     </div>
 
-    <!-- Bottom Navigation -->
-    <div class="bottom-nav">
-      <div class="nav-item" onclick="window.location.href='home.html'">
-        <div class="nav-icon">🏠</div>
-        <span>Trang chủ</span>
-      </div>
-      <div class="nav-item" onclick="window.location.href='contests.html'">
-        <div class="nav-icon">📋</div>
-        <span>Sự kiện</span>
-      </div>
-      <div class="nav-item active">
-        <div class="nav-icon">🏆</div>
-        <span>Xếp hạng</span>
-      </div>
-      <div class="nav-item" onclick="window.location.href='profile.html'">
-        <div class="nav-icon">👤</div>
-        <span>Hồ sơ</span>
-      </div>
-    </div>
   </body>
 </html>
