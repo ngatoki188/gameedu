@@ -132,65 +132,6 @@
         width: 84%;
       }
 
-      /* Ranking Section */
-      .ranking-section {
-        margin-top: 20px;
-        padding-top: 20px;
-        border-top: 1px solid #e5e5ea;
-      }
-
-      .ranking-item {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        margin-bottom: 12px;
-        font-size: 14px;
-      }
-
-      .ranking-icon {
-        font-size: 20px;
-      }
-
-      .ranking-label {
-        color: #666;
-        flex: 1;
-      }
-
-      .ranking-value {
-        font-weight: bold;
-        color: #007aff;
-      }
-
-      .ranking-value.highlight {
-        color: #ffd700;
-      }
-
-      /* Achievement Card */
-      .achievement-card {
-        background: linear-gradient(135deg, #ffd700 0%, #ffa500 100%);
-        margin: 0 16px 20px;
-        border-radius: 16px;
-        padding: 20px;
-        text-align: center;
-        color: #333;
-      }
-
-      .achievement-title {
-        font-size: 18px;
-        font-weight: bold;
-        margin-bottom: 8px;
-      }
-
-      .achievement-badge {
-        font-size: 48px;
-        margin: 12px 0;
-      }
-
-      .achievement-desc {
-        font-size: 14px;
-        color: #666;
-      }
-
       /* Prize Card */
       .prize-card {
         background: #fff9c4;
@@ -295,24 +236,6 @@
         </div>
       </div>
 
-      <div class="ranking-section">
-        <div class="ranking-item">
-          <span class="ranking-icon">🌍</span>
-          <span class="ranking-label">Toàn quốc</span>
-          <span class="ranking-value">#125</span>
-        </div>
-        <div class="ranking-item">
-          <span class="ranking-icon">🏠</span>
-          <span class="ranking-label">Tỉnh</span>
-          <span class="ranking-value">#25</span>
-        </div>
-        <div class="ranking-item">
-          <span class="ranking-icon">🏫</span>
-          <span class="ranking-label">Trường</span>
-          <span class="ranking-value highlight">#5</span>
-        </div>
-      </div>
-
       <div
         style="
           margin-top: 16px;
@@ -338,16 +261,6 @@
       </div>
     </div>
 
-    <!-- Achievement Card (if applicable) -->
-    <div class="achievement-card">
-      <div class="achievement-title">🏆 MỞ KHÓA THÀNH TÍCH!</div>
-      <div class="achievement-badge">🥇</div>
-      <div style="font-size: 16px; font-weight: bold; margin-bottom: 4px">
-        Top 10%
-      </div>
-      <div class="achievement-desc">Đạt xếp hạng top 10%</div>
-    </div>
-
     <!-- Prize Card -->
     <div class="prize-card">
       <div class="prize-title">🏅 Đủ điều kiện nhận giải</div>
@@ -369,19 +282,10 @@
     <div class="action-buttons">
       <button
         class="action-btn btn-primary"
-        onclick="window.location.href='leaderboard.html'"
+        onclick="window.location.href='home.html'"
       >
-        Xem bảng xếp hạng
-      </button>
-      <button class="action-btn btn-secondary" onclick="reviewAnswers()">
-        Xem lại đáp án
+        Chơi lại
       </button>
     </div>
-
-    <script>
-      function reviewAnswers() {
-        alert("Tính năng xem lại đáp án sẽ được hiển thị ở đây");
-      }
-    </script>
   </body>
 </html>
