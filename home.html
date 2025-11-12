@@ -78,6 +78,52 @@
         transform: scale(0.95);
       }
 
+      .settings-icon {
+        font-size: 24px;
+        color: white;
+        cursor: pointer;
+        transition: transform 0.2s;
+        padding: 4px;
+      }
+
+      .settings-icon:active {
+        transform: scale(0.9) rotate(90deg);
+      }
+
+      .top-bar-icons {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .notification-icon {
+        font-size: 24px;
+        color: white;
+        cursor: pointer;
+        transition: transform 0.2s;
+        padding: 4px;
+        position: relative;
+      }
+
+      .notification-icon:active {
+        transform: scale(0.9);
+      }
+
+      .notification-badge {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: #ff3b30;
+        color: white;
+        font-size: 10px;
+        font-weight: bold;
+        padding: 2px 6px;
+        border-radius: 10px;
+        min-width: 18px;
+        text-align: center;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+      }
+
       /* Main Content */
       .main-content {
         padding: 20px 16px;
@@ -315,6 +361,216 @@
         font-weight: 500;
         color: #333;
       }
+
+      /* Settings Modal */
+      .settings-modal {
+        background: white;
+        border-radius: 20px;
+        padding: 24px;
+        width: 90%;
+        max-width: 320px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        position: relative;
+      }
+
+      .settings-header {
+        text-align: center;
+        margin-bottom: 24px;
+      }
+
+      .settings-title {
+        font-size: 20px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 4px;
+      }
+
+      .settings-subtitle {
+        font-size: 14px;
+        color: #666;
+      }
+
+      .settings-content {
+        margin-top: 20px;
+      }
+
+      .setting-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 0;
+        border-bottom: 1px solid #e5e5ea;
+      }
+
+      .setting-item:last-child {
+        border-bottom: none;
+      }
+
+      .setting-label {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 16px;
+        color: #333;
+      }
+
+      .setting-icon {
+        font-size: 20px;
+      }
+
+      /* Toggle Switch */
+      .toggle-switch {
+        position: relative;
+        width: 50px;
+        height: 28px;
+      }
+
+      .toggle-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .toggle-slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: 0.3s;
+        border-radius: 28px;
+      }
+
+      .toggle-slider:before {
+        position: absolute;
+        content: "";
+        height: 22px;
+        width: 22px;
+        left: 3px;
+        bottom: 3px;
+        background-color: white;
+        transition: 0.3s;
+        border-radius: 50%;
+      }
+
+      .toggle-switch input:checked + .toggle-slider {
+        background-color: #34c759;
+      }
+
+      .toggle-switch input:checked + .toggle-slider:before {
+        transform: translateX(22px);
+      }
+
+      /* Notification Modal */
+      .notification-modal {
+        background: white;
+        border-radius: 20px;
+        padding: 24px;
+        width: 90%;
+        max-width: 340px;
+        max-height: 80vh;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        position: relative;
+        overflow-y: auto;
+      }
+
+      .notification-header {
+        text-align: center;
+        margin-bottom: 20px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid #e5e5ea;
+      }
+
+      .notification-title {
+        font-size: 20px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 4px;
+      }
+
+      .notification-subtitle {
+        font-size: 14px;
+        color: #666;
+      }
+
+      .notification-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .notification-item {
+        background: #f8f9fa;
+        border-radius: 12px;
+        padding: 16px;
+        border-left: 4px solid #007aff;
+        transition: transform 0.2s;
+      }
+
+      .notification-item:active {
+        transform: scale(0.98);
+      }
+
+      .notification-item.prize {
+        border-left-color: #ffd700;
+        background: linear-gradient(135deg, #fff9c4 0%, #fffef0 100%);
+      }
+
+      .notification-item.event {
+        border-left-color: #34c759;
+        background: linear-gradient(135deg, #e8f5e9 0%, #f1f8f4 100%);
+      }
+
+      .notification-item-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 8px;
+      }
+
+      .notification-icon-large {
+        font-size: 24px;
+      }
+
+      .notification-item-title {
+        font-size: 16px;
+        font-weight: bold;
+        color: #333;
+        flex: 1;
+      }
+
+      .notification-item-time {
+        font-size: 11px;
+        color: #999;
+      }
+
+      .notification-item-content {
+        font-size: 14px;
+        color: #666;
+        line-height: 1.5;
+        margin-bottom: 8px;
+      }
+
+      .notification-item-action {
+        font-size: 12px;
+        color: #007aff;
+        font-weight: 500;
+        margin-top: 8px;
+        cursor: pointer;
+      }
+
+      .notification-item-action:hover {
+        text-decoration: underline;
+      }
+
+      .no-notifications {
+        text-align: center;
+        padding: 40px 20px;
+        color: #999;
+        font-size: 14px;
+      }
     </style>
   </head>
   <body>
@@ -323,6 +579,13 @@
       <div class="user-info">
         <div class="avatar" onclick="showProfile()">JD</div>
         <span>John Doe</span>
+      </div>
+      <div class="top-bar-icons">
+        <div class="notification-icon" onclick="showNotifications()">
+          🔔
+          <span class="notification-badge" id="notificationBadge">2</span>
+        </div>
+        <div class="settings-icon" onclick="showSettings()">⚙️</div>
       </div>
     </div>
 
@@ -400,6 +663,71 @@
       </div>
     </div>
 
+    <!-- Settings Modal -->
+    <div class="modal-overlay" id="settingsModal" onclick="closeSettings(event)">
+      <div class="settings-modal" onclick="event.stopPropagation()">
+        <button class="modal-close" onclick="closeSettings()">×</button>
+        <div class="settings-header">
+          <div class="settings-title">Settings</div>
+          <div class="settings-subtitle">Manage your preferences</div>
+        </div>
+        <div class="settings-content">
+          <div class="setting-item">
+            <div class="setting-label">
+              <span class="setting-icon">🔊</span>
+              <span>Sound</span>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="soundToggle" checked onchange="toggleSound()" />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notification Modal -->
+    <div class="modal-overlay" id="notificationModal" onclick="closeNotifications(event)">
+      <div class="notification-modal" onclick="event.stopPropagation()">
+        <button class="modal-close" onclick="closeNotifications()">×</button>
+        <div class="notification-header">
+          <div class="notification-title">Notifications</div>
+          <div class="notification-subtitle">Stay updated with latest news</div>
+        </div>
+        <div class="notification-list" id="notificationList">
+          <!-- Prize Notification -->
+          <div class="notification-item prize">
+            <div class="notification-item-header">
+              <span class="notification-icon-large">🏆</span>
+              <div class="notification-item-title">Congratulations!</div>
+              <div class="notification-item-time">2 hours ago</div>
+            </div>
+            <div class="notification-item-content">
+              You won the first place in Week 1 event! You have received a prize of 50,000 MMK. Check your leaderboard position.
+            </div>
+            <div class="notification-item-action" onclick="window.location.href='leaderboard.html'">
+              View Leaderboard →
+            </div>
+          </div>
+
+          <!-- Upcoming Event Notification -->
+          <div class="notification-item event">
+            <div class="notification-item-header">
+              <span class="notification-icon-large">📅</span>
+              <div class="notification-item-title">Upcoming Event</div>
+              <div class="notification-item-time">1 day ago</div>
+            </div>
+            <div class="notification-item-content">
+              Week 2 event is starting soon! Get ready to compete and win amazing scholarship prizes. The event begins in 2 days.
+            </div>
+            <div class="notification-item-action" onclick="window.location.href='contests.html'">
+              View Events →
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script>
       function openStore() {
         window.location.href = "store.html";
@@ -416,6 +744,63 @@
           document.getElementById("profileModal").classList.remove("show");
         }
       }
+
+      function showSettings() {
+        document.getElementById("settingsModal").classList.add("show");
+        // Load saved sound setting
+        const savedSound = localStorage.getItem("soundEnabled");
+        if (savedSound !== null) {
+          document.getElementById("soundToggle").checked = savedSound === "true";
+        }
+      }
+
+      function closeSettings(event) {
+        if (event && event.target === event.currentTarget) {
+          document.getElementById("settingsModal").classList.remove("show");
+        } else if (!event) {
+          document.getElementById("settingsModal").classList.remove("show");
+        }
+      }
+
+      function toggleSound() {
+        const soundToggle = document.getElementById("soundToggle");
+        const isEnabled = soundToggle.checked;
+        localStorage.setItem("soundEnabled", isEnabled);
+        // You can add sound control logic here
+        console.log("Sound " + (isEnabled ? "enabled" : "disabled"));
+      }
+
+      function showNotifications() {
+        document.getElementById("notificationModal").classList.add("show");
+        // Mark notifications as read and update badge
+        updateNotificationBadge(0);
+      }
+
+      function closeNotifications(event) {
+        if (event && event.target === event.currentTarget) {
+          document.getElementById("notificationModal").classList.remove("show");
+        } else if (!event) {
+          document.getElementById("notificationModal").classList.remove("show");
+        }
+      }
+
+      function updateNotificationBadge(count) {
+        const badge = document.getElementById("notificationBadge");
+        if (count > 0) {
+          badge.textContent = count;
+          badge.style.display = "block";
+        } else {
+          badge.style.display = "none";
+        }
+      }
+
+      // Initialize notification badge on page load
+      // In a real app, this would come from the server
+      // For demo: showing 2 unread notifications
+      window.addEventListener("DOMContentLoaded", function() {
+        const unreadCount = 2;
+        updateNotificationBadge(unreadCount);
+      });
     </script>
   </body>
 </html>
