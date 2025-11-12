@@ -282,6 +282,179 @@
       .empty-text {
         font-size: 16px;
       }
+
+      /* Results Modal */
+      .modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 375px;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+
+      .modal-overlay.show {
+        display: flex;
+      }
+
+      .results-modal {
+        background: white;
+        border-radius: 20px;
+        padding: 24px;
+        width: 100%;
+        max-width: 340px;
+        max-height: 85vh;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        position: relative;
+        overflow-y: auto;
+      }
+
+      .modal-close {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        font-size: 24px;
+        color: #666;
+        cursor: pointer;
+        background: none;
+        border: none;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: background 0.2s;
+      }
+
+      .modal-close:hover {
+        background: #f5f5f5;
+      }
+
+      .results-modal-title {
+        font-size: 20px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 4px;
+        text-align: center;
+      }
+
+      .results-modal-subtitle {
+        font-size: 14px;
+        color: #666;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .winners-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 16px;
+      }
+
+      .winner-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px;
+        background: #f8f9fa;
+        border-radius: 12px;
+        border-left: 3px solid #007aff;
+      }
+
+      .winner-item.first {
+        background: linear-gradient(135deg, #fff9c4 0%, #fffef0 100%);
+        border-left-color: #ffd700;
+      }
+
+      .winner-item.second {
+        background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
+        border-left-color: #c0c0c0;
+      }
+
+      .winner-item.third {
+        background: linear-gradient(135deg, #fff4e6 0%, #fffaf0 100%);
+        border-left-color: #cd7f32;
+      }
+
+      .winner-rank {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 16px;
+        flex-shrink: 0;
+      }
+
+      .winner-rank.first {
+        background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+        color: #333;
+      }
+
+      .winner-rank.second {
+        background: linear-gradient(135deg, #c0c0c0 0%, #e8e8e8 100%);
+        color: #333;
+      }
+
+      .winner-rank.third {
+        background: linear-gradient(135deg, #cd7f32 0%, #e8a87c 100%);
+        color: white;
+      }
+
+      .winner-rank.other {
+        background: #e5e5ea;
+        color: #666;
+        font-size: 14px;
+      }
+
+      .winner-info {
+        flex: 1;
+      }
+
+      .winner-name {
+        font-size: 15px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 2px;
+      }
+
+      .winner-school {
+        font-size: 12px;
+        color: #666;
+        margin-bottom: 4px;
+      }
+
+      .winner-score {
+        font-size: 12px;
+        color: #007aff;
+        font-weight: 500;
+      }
+
+      .winner-prize {
+        text-align: right;
+      }
+
+      .winner-prize-amount {
+        font-size: 16px;
+        font-weight: bold;
+        color: #34c759;
+        margin-bottom: 2px;
+      }
+
+      .winner-prize-label {
+        font-size: 11px;
+        color: #666;
+      }
     </style>
   </head>
   <body>
@@ -543,11 +716,7 @@
         </div>
 
         <div class="action-section">
-          <button
-            class="action-btn btn-ended"
-            disabled
-            onclick="window.location.href='leaderboard.html'"
-          >
+          <button class="action-btn btn-ended" onclick="showResults(3)">
             View Results
           </button>
         </div>
@@ -633,13 +802,23 @@
         </div>
 
         <div class="action-section">
-          <button
-            class="action-btn btn-ended"
-            disabled
-            onclick="window.location.href='leaderboard.html'"
-          >
+          <button class="action-btn btn-ended" onclick="showResults(4)">
             View Results
           </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results Modal -->
+    <div class="modal-overlay" id="resultsModal" onclick="closeResults(event)">
+      <div class="results-modal" onclick="event.stopPropagation()">
+        <button class="modal-close" onclick="closeResults()">×</button>
+        <div class="results-modal-title" id="resultsModalTitle">Winners</div>
+        <div class="results-modal-subtitle" id="resultsModalSubtitle">
+          Prize Winners
+        </div>
+        <div class="winners-list" id="winnersList">
+          <!-- Winners will be loaded here -->
         </div>
       </div>
     </div>
@@ -649,6 +828,291 @@
         // Check if user has plays left
         // In real app, this would check from API
         window.location.href = "instructions.html";
+      }
+
+      // Winners data for each contest
+      const winnersData = {
+        2: {
+          title: "English Challenge 2",
+          subtitle: "Jan 8, 2024 - Jan 14, 2024",
+          winners: [
+            {
+              rank: 1,
+              name: "Jane Smith",
+              school: "High School XYZ",
+              score: "98 points",
+              prize: "50,000 MMK",
+            },
+            {
+              rank: 2,
+              name: "Alice Brown",
+              school: "High School GHI",
+              score: "97 points",
+              prize: "30,000 MMK",
+            },
+            {
+              rank: 3,
+              name: "Charlie Wilson",
+              school: "High School JKL",
+              score: "96 points",
+              prize: "20,000 MMK",
+            },
+            {
+              rank: 4,
+              name: "Diana Lee",
+              school: "High School PQR",
+              score: "95 points",
+              prize: "5,000 MMK",
+            },
+            {
+              rank: 5,
+              name: "Emma Martinez",
+              school: "High School STU",
+              score: "94 points",
+              prize: "5,000 MMK",
+            },
+            {
+              rank: 6,
+              name: "Frank Nguyen",
+              school: "High School VWX",
+              score: "93 points",
+              prize: "5,000 MMK",
+            },
+            {
+              rank: 7,
+              name: "Grace O'Connor",
+              school: "High School YZA",
+              score: "92 points",
+              prize: "5,000 MMK",
+            },
+            {
+              rank: 8,
+              name: "Henry Park",
+              school: "High School BCD",
+              score: "91 points",
+              prize: "5,000 MMK",
+            },
+            {
+              rank: 9,
+              name: "Ivy Chen",
+              school: "High School EFG",
+              score: "90 points",
+              prize: "5,000 MMK",
+            },
+            {
+              rank: 10,
+              name: "Jack Kim",
+              school: "High School HIJ",
+              score: "89 points",
+              prize: "5,000 MMK",
+            },
+          ],
+        },
+        3: {
+          title: "English Challenge 2",
+          subtitle: "Jan 8, 2024 - Jan 14, 2024",
+          winners: [
+            {
+              rank: 1,
+              name: "Jane Smith",
+              school: "High School XYZ",
+              score: "98 points",
+              prize: "50,000 MMK",
+            },
+            {
+              rank: 2,
+              name: "Alice Brown",
+              school: "High School GHI",
+              score: "97 points",
+              prize: "30,000 MMK",
+            },
+            {
+              rank: 3,
+              name: "Charlie Wilson",
+              school: "High School JKL",
+              score: "96 points",
+              prize: "20,000 MMK",
+            },
+            {
+              rank: 4,
+              name: "Diana Lee",
+              school: "High School PQR",
+              score: "95 points",
+              prize: "5,000 MMK",
+            },
+            {
+              rank: 5,
+              name: "Emma Martinez",
+              school: "High School STU",
+              score: "94 points",
+              prize: "5,000 MMK",
+            },
+            {
+              rank: 6,
+              name: "Frank Nguyen",
+              school: "High School VWX",
+              score: "93 points",
+              prize: "5,000 MMK",
+            },
+            {
+              rank: 7,
+              name: "Grace O'Connor",
+              school: "High School YZA",
+              score: "92 points",
+              prize: "5,000 MMK",
+            },
+            {
+              rank: 8,
+              name: "Henry Park",
+              school: "High School BCD",
+              score: "91 points",
+              prize: "5,000 MMK",
+            },
+            {
+              rank: 9,
+              name: "Ivy Chen",
+              school: "High School EFG",
+              score: "90 points",
+              prize: "5,000 MMK",
+            },
+            {
+              rank: 10,
+              name: "Jack Kim",
+              school: "High School HIJ",
+              score: "89 points",
+              prize: "5,000 MMK",
+            },
+          ],
+        },
+        4: {
+          title: "English Challenge 1",
+          subtitle: "Jan 1, 2024 - Jan 7, 2024",
+          winners: [
+            {
+              rank: 1,
+              name: "Bob Johnson",
+              school: "High School DEF",
+              score: "98 points",
+              prize: "50,000 MMK",
+            },
+            {
+              rank: 2,
+              name: "Sarah Williams",
+              school: "High School MNO",
+              score: "97 points",
+              prize: "30,000 MMK",
+            },
+            {
+              rank: 3,
+              name: "Michael Davis",
+              school: "High School PQR",
+              score: "96 points",
+              prize: "20,000 MMK",
+            },
+            {
+              rank: 4,
+              name: "Lisa Anderson",
+              school: "High School STU",
+              score: "95 points",
+              prize: "5,000 MMK",
+            },
+            {
+              rank: 5,
+              name: "David Taylor",
+              school: "High School VWX",
+              score: "94 points",
+              prize: "5,000 MMK",
+            },
+            {
+              rank: 6,
+              name: "Jennifer White",
+              school: "High School YZA",
+              score: "93 points",
+              prize: "5,000 MMK",
+            },
+            {
+              rank: 7,
+              name: "Robert Harris",
+              school: "High School BCD",
+              score: "92 points",
+              prize: "5,000 MMK",
+            },
+            {
+              rank: 8,
+              name: "Mary Clark",
+              school: "High School EFG",
+              score: "91 points",
+              prize: "5,000 MMK",
+            },
+            {
+              rank: 9,
+              name: "James Lewis",
+              school: "High School HIJ",
+              score: "90 points",
+              prize: "5,000 MMK",
+            },
+            {
+              rank: 10,
+              name: "Patricia Walker",
+              school: "High School KLM",
+              score: "89 points",
+              prize: "5,000 MMK",
+            },
+          ],
+        },
+      };
+
+      function showResults(contestId) {
+        const data = winnersData[contestId];
+        if (!data) return;
+
+        const modal = document.getElementById("resultsModal");
+        const title = document.getElementById("resultsModalTitle");
+        const subtitle = document.getElementById("resultsModalSubtitle");
+        const list = document.getElementById("winnersList");
+
+        title.textContent = data.title;
+        subtitle.textContent = data.subtitle;
+
+        let html = "";
+        data.winners.forEach((winner) => {
+          const rankClass =
+            winner.rank === 1
+              ? "first"
+              : winner.rank === 2
+              ? "second"
+              : winner.rank === 3
+              ? "third"
+              : "other";
+          const rankBadge = winner.rank <= 3 ? winner.rank : winner.rank;
+
+          html += `
+            <div class="winner-item ${rankClass}">
+              <div class="winner-rank ${rankClass}">${rankBadge}</div>
+              <div class="winner-info">
+                <div class="winner-name">${winner.name}</div>
+                <div class="winner-school">${winner.school}</div>
+                <div class="winner-score">${winner.score}</div>
+              </div>
+              <div class="winner-prize">
+                <div class="winner-prize-amount">🎁 ${winner.prize}</div>
+                <div class="winner-prize-label">Prize</div>
+              </div>
+            </div>
+          `;
+        });
+
+        list.innerHTML = html;
+        modal.classList.add("show");
+      }
+
+      function closeResults(event) {
+        const modal = document.getElementById("resultsModal");
+        if (event && event.target === event.currentTarget) {
+          modal.classList.remove("show");
+        } else if (!event) {
+          modal.classList.remove("show");
+        }
       }
     </script>
   </body>
