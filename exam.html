@@ -409,6 +409,7 @@
       let currentQuestion = 5;
       let totalQuestions = 50;
       let timeLeft = 42 * 60 + 15; // 42:15 in seconds
+      let timerInterval;
 
       // Timer
       function updateTimer() {
@@ -427,12 +428,13 @@
           timeLeft--;
         } else {
           // Auto submit
+          clearInterval(timerInterval);
           alert("Time's up! Auto submitting...");
           window.location.href = "result.html";
         }
       }
 
-      setInterval(updateTimer, 1000);
+      timerInterval = setInterval(updateTimer, 1000);
       updateTimer();
 
       // Progress
@@ -524,6 +526,9 @@
             "Are you sure you want to submit? You cannot change answers after submitting."
           )
         ) {
+          // Stop timer
+          clearInterval(timerInterval);
+          // Navigate to result page
           window.location.href = "result.html";
         }
       }
