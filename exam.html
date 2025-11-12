@@ -138,6 +138,93 @@
         border-color: #007aff;
       }
 
+      /* Media Question Types */
+      .question-media {
+        margin: 16px 0;
+        border-radius: 12px;
+        overflow: hidden;
+        background: #f8f9fa;
+      }
+
+      .question-image {
+        width: 100%;
+        height: auto;
+        display: block;
+        max-height: 300px;
+        object-fit: contain;
+        background: #f8f9fa;
+      }
+
+      .question-video {
+        width: 100%;
+        height: auto;
+        max-height: 300px;
+        background: #000;
+      }
+
+      .question-audio {
+        width: 100%;
+        padding: 16px;
+        background: white;
+        border-radius: 12px;
+        border: 2px solid #e5e5ea;
+      }
+
+      .audio-controls {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-top: 12px;
+      }
+
+      .audio-play-btn {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: #007aff;
+        color: white;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      .audio-play-btn:active {
+        transform: scale(0.95);
+      }
+
+      .audio-info {
+        flex: 1;
+        font-size: 14px;
+        color: #666;
+      }
+
+      .audio-progress {
+        width: 100%;
+        height: 4px;
+        background: #e5e5ea;
+        border-radius: 2px;
+        margin-top: 8px;
+        overflow: hidden;
+      }
+
+      .audio-progress-fill {
+        height: 100%;
+        background: #007aff;
+        width: 0%;
+        transition: width 0.1s;
+      }
+
+      .media-label {
+        font-size: 12px;
+        color: #666;
+        margin-bottom: 8px;
+        font-weight: 500;
+      }
+
       /* Bottom Navigation */
       .bottom-nav {
         position: fixed;
@@ -206,7 +293,9 @@
     </div>
 
     <!-- Main Content -->
-    <div class="content">
+    <div class="content" id="questionContent">
+      <!-- Question content will be dynamically loaded here -->
+      <!-- Default question (text only) -->
       <div class="question-number">Q5</div>
       <div class="question-label">5. Choose the best answer</div>
       <div class="question-text">She _____ to school every day.</div>
@@ -438,6 +527,163 @@
           window.location.href = "result.html";
         }
       }
+
+      // Load different question types
+      function loadQuestion(questionNum) {
+        const content = document.getElementById("questionContent");
+        let html = "";
+
+        // Example: Question 5 = text, Question 6 = image, Question 7 = video, Question 8 = audio
+        if (questionNum === 6) {
+          // Image Question
+          html = `
+            <div class="question-number">Q${questionNum}</div>
+            <div class="question-label">${questionNum}. Look at the picture and choose the best answer</div>
+            <div class="question-media">
+              <div class="media-label">📷 Image</div>
+              <img src="https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?w=400&h=300&fit=crop" alt="Question Image" class="question-image" />
+            </div>
+            <div class="question-text">What is shown in the picture?</div>
+            <div class="answers">
+              <button class="answer-btn" onclick="selectAnswer(this, 'A')">A) A cat</button>
+              <button class="answer-btn" onclick="selectAnswer(this, 'B')">B) A dog</button>
+              <button class="answer-btn" onclick="selectAnswer(this, 'C')">C) A bird</button>
+              <button class="answer-btn" onclick="selectAnswer(this, 'D')">D) A pen</button>
+            </div>
+          `;
+        } else if (questionNum === 7) {
+          // Video Question
+          html = `
+            <div class="question-number">Q${questionNum}</div>
+            <div class="question-label">${questionNum}. Watch the video and answer the question</div>
+            <div class="question-media">
+              <div class="media-label">🎥 Video</div>
+              <video class="question-video" controls>
+                <source src="https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            <div class="question-text">What is the main topic of the video?</div>
+            <div class="answers">
+              <button class="answer-btn" onclick="selectAnswer(this, 'A')">A) Science</button>
+              <button class="answer-btn" onclick="selectAnswer(this, 'B')">B) History</button>
+              <button class="answer-btn" onclick="selectAnswer(this, 'C')">C) Literature</button>
+              <button class="answer-btn" onclick="selectAnswer(this, 'D')">D) Mathematics</button>
+            </div>
+          `;
+        } else if (questionNum === 8) {
+          // Audio Question
+          html = `
+            <div class="question-number">Q${questionNum}</div>
+            <div class="question-label">${questionNum}. Listen to the audio and choose the correct answer</div>
+            <div class="question-media">
+              <div class="media-label">🎵 Audio</div>
+              <div class="question-audio">
+                <audio id="questionAudio" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+                <div class="audio-controls">
+                  <button class="audio-play-btn" id="audioPlayBtn" onclick="toggleAudio()">▶</button>
+                  <div class="audio-info">
+                    <div>Click play to listen</div>
+                    <div class="audio-progress">
+                      <div class="audio-progress-fill" id="audioProgress"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="question-text">What did you hear?</div>
+            <div class="answers">
+              <button class="answer-btn" onclick="selectAnswer(this, 'A')">A) A conversation</button>
+              <button class="answer-btn" onclick="selectAnswer(this, 'B')">B) A song</button>
+              <button class="answer-btn" onclick="selectAnswer(this, 'C')">C) A speech</button>
+              <button class="answer-btn" onclick="selectAnswer(this, 'D')">D) A story</button>
+            </div>
+          `;
+        } else {
+          // Default text question
+          html = `
+            <div class="question-number">Q${questionNum}</div>
+            <div class="question-label">${questionNum}. Choose the best answer</div>
+            <div class="question-text">She _____ to school every day.</div>
+            <div class="answers">
+              <button class="answer-btn" onclick="selectAnswer(this, 'A')">A) go</button>
+              <button class="answer-btn" onclick="selectAnswer(this, 'B')">B) goes</button>
+              <button class="answer-btn" onclick="selectAnswer(this, 'C')">C) going</button>
+              <button class="answer-btn" onclick="selectAnswer(this, 'D')">D) went</button>
+            </div>
+          `;
+        }
+
+        content.innerHTML = html;
+      }
+
+      // Audio controls
+      function toggleAudio() {
+        const audio = document.getElementById("questionAudio");
+        const btn = document.getElementById("audioPlayBtn");
+
+        if (audio.paused) {
+          audio.play();
+          btn.textContent = "⏸";
+        } else {
+          audio.pause();
+          btn.textContent = "▶";
+        }
+      }
+
+      // Update audio progress
+      function setupAudioProgress() {
+        const audio = document.getElementById("questionAudio");
+        if (audio) {
+          audio.addEventListener("timeupdate", function () {
+            const progress = (audio.currentTime / audio.duration) * 100;
+            const progressBar = document.getElementById("audioProgress");
+            if (progressBar) {
+              progressBar.style.width = progress + "%";
+            }
+          });
+
+          audio.addEventListener("ended", function () {
+            const btn = document.getElementById("audioPlayBtn");
+            if (btn) btn.textContent = "▶";
+          });
+        }
+      }
+
+      // Override navigation to load question
+      const originalNext = nextQuestion;
+      const originalPrev = previousQuestion;
+      const originalGoTo = goToQuestion;
+
+      function nextQuestion() {
+        if (currentQuestion < totalQuestions) {
+          currentQuestion++;
+          loadQuestion(currentQuestion);
+          updateProgress();
+          setTimeout(setupAudioProgress, 100);
+        }
+      }
+
+      function previousQuestion() {
+        if (currentQuestion > 1) {
+          currentQuestion--;
+          loadQuestion(currentQuestion);
+          updateProgress();
+          setTimeout(setupAudioProgress, 100);
+        }
+      }
+
+      function goToQuestion(num) {
+        currentQuestion = num;
+        loadQuestion(currentQuestion);
+        updateProgress();
+        closeQuestionList();
+        setTimeout(setupAudioProgress, 100);
+      }
+
+      // Initialize
+      loadQuestion(currentQuestion);
+      setTimeout(setupAudioProgress, 100);
     </script>
   </body>
 </html>

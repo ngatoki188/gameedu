@@ -891,6 +891,21 @@
               <span class="toggle-slider"></span>
             </label>
           </div>
+          <div class="setting-item">
+            <div class="setting-label">
+              <span class="setting-icon">📳</span>
+              <span>Vibration</span>
+            </div>
+            <label class="toggle-switch">
+              <input
+                type="checkbox"
+                id="vibrationToggle"
+                checked
+                onchange="toggleVibration()"
+              />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
         </div>
       </div>
     </div>
@@ -974,6 +989,12 @@
           document.getElementById("soundToggle").checked =
             savedSound === "true";
         }
+        // Load saved vibration setting
+        const savedVibration = localStorage.getItem("vibrationEnabled");
+        if (savedVibration !== null) {
+          document.getElementById("vibrationToggle").checked =
+            savedVibration === "true";
+        }
       }
 
       function closeSettings(event) {
@@ -990,6 +1011,17 @@
         localStorage.setItem("soundEnabled", isEnabled);
         // You can add sound control logic here
         console.log("Sound " + (isEnabled ? "enabled" : "disabled"));
+      }
+
+      function toggleVibration() {
+        const vibrationToggle = document.getElementById("vibrationToggle");
+        const isEnabled = vibrationToggle.checked;
+        localStorage.setItem("vibrationEnabled", isEnabled);
+        // Test vibration if enabled
+        if (isEnabled && navigator.vibrate) {
+          navigator.vibrate(50); // Short vibration feedback
+        }
+        console.log("Vibration " + (isEnabled ? "enabled" : "disabled"));
       }
 
       function showNotifications() {

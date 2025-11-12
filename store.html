@@ -45,6 +45,198 @@
         flex: 1;
       }
 
+      /* Hero Section */
+      .hero-section {
+        background: linear-gradient(
+          135deg,
+          #1a237e 0%,
+          #4a148c 50%,
+          #6a1b9a 100%
+        );
+        padding: 2px 2px 3px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-title {
+        font-size: 28px;
+        font-weight: bold;
+        color: white;
+        margin-bottom: 8px;
+      }
+
+      .hero-subtitle {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.9);
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+
+      .hero-graphic {
+        margin-top: -59px;
+        font-size: 191px;
+        position: relative;
+      }
+
+      .hero-sparkle {
+        position: absolute;
+        font-size: 20px;
+        opacity: 0.8;
+      }
+
+      .hero-sparkle.left {
+        left: 20%;
+        top: 20%;
+      }
+
+      .hero-sparkle.right {
+        right: 20%;
+        top: 30%;
+      }
+
+      /* Packages Section */
+      .packages-section {
+        padding: 24px 16px;
+      }
+
+      .package-card {
+        background: white;
+        border-radius: 20px;
+        margin-bottom: 20px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        position: relative;
+      }
+
+      .package-card.recommended {
+        border: 2px solid #ffd700;
+      }
+
+      .recommended-badge {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(135deg, #9c27b0 0%, #4caf50 100%);
+        color: white;
+        padding: 8px;
+        text-align: center;
+        font-size: 11px;
+        font-weight: bold;
+        letter-spacing: 0.5px;
+      }
+
+      .package-content {
+        padding: 20px;
+        padding-top: 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 16px;
+      }
+
+      .package-info {
+        flex: 1;
+      }
+
+      .package-name {
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 8px;
+      }
+
+      .package-desc {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 16px;
+        line-height: 1.4;
+      }
+
+      .package-features {
+        list-style: none;
+        margin-bottom: 20px;
+      }
+
+      .package-feature {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 10px;
+        font-size: 14px;
+        color: #333;
+      }
+
+      .package-feature-icon {
+        color: #007aff;
+        font-size: 16px;
+        flex-shrink: 0;
+      }
+
+      .package-graphic {
+        width: 100px;
+        height: 187px;
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+
+      .package-icon-large {
+        font-size: 50px;
+        margin-bottom: 4px;
+      }
+
+      .package-icon-count {
+        font-size: 14px;
+        font-weight: bold;
+        color: #666;
+      }
+
+      .package-price-section {
+        margin-top: 12px;
+        margin-bottom: 16px;
+      }
+
+      .package-price-display {
+        display: flex;
+        align-items: baseline;
+        gap: 4px;
+      }
+
+      .package-price-amount {
+        font-size: 24px;
+        font-weight: bold;
+        color: #007aff;
+      }
+
+      .package-price-unit {
+        font-size: 14px;
+        color: #666;
+      }
+
+      .package-button {
+        width: 163%;
+        background: #e5e5ea;
+        border: none;
+        border-radius: 12px;
+        padding: 14px;
+        font-size: 14px;
+        font-weight: bold;
+        color: #007aff;
+        cursor: pointer;
+        transition: transform 0.2s, background 0.2s;
+        margin-top: 8px;
+      }
+
+      .package-button:active {
+        transform: scale(0.98);
+        background: #d1d1d6;
+      }
+
       /* Current Balance */
       .balance-card {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -72,181 +264,6 @@
       .balance-icon {
         font-size: 28px;
       }
-
-      /* Packages Section */
-      .packages-section {
-        padding: 0 16px 16px;
-      }
-
-      .section-title {
-        font-size: 18px;
-        font-weight: bold;
-        color: #333;
-        margin-bottom: 16px;
-      }
-
-      .packages-grid {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-      }
-
-      .package-card {
-        background: white;
-        border-radius: 16px;
-        padding: 20px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        transition: transform 0.2s, box-shadow 0.2s;
-      }
-
-      .package-card:active {
-        transform: scale(0.98);
-      }
-
-      .package-icon {
-        width: 60px;
-        height: 60px;
-        border-radius: 12px;
-        background: linear-gradient(135deg, #007aff 0%, #5ac8fa 100%);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        font-size: 24px;
-        flex-shrink: 0;
-        position: relative;
-      }
-
-      .package-icon-count {
-        font-size: 12px;
-        font-weight: bold;
-        color: white;
-        margin-top: 2px;
-        opacity: 0.9;
-      }
-
-      .package-info {
-        flex: 1;
-      }
-
-      .package-name {
-        font-size: 16px;
-        font-weight: bold;
-        color: #333;
-        margin-bottom: 4px;
-      }
-
-      .package-desc {
-        font-size: 13px;
-        color: #666;
-        margin-bottom: 8px;
-      }
-
-      .package-price {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-
-      .price-amount {
-        font-size: 20px;
-        font-weight: bold;
-        color: #007aff;
-      }
-
-      .price-unit {
-        font-size: 14px;
-        color: #666;
-      }
-
-      .buy-btn {
-        background: linear-gradient(135deg, #34c759 0%, #30d158 100%);
-        color: white;
-        border: none;
-        border-radius: 12px;
-        padding: 12px 24px;
-        font-size: 14px;
-        font-weight: bold;
-        cursor: pointer;
-        box-shadow: 0 4px 12px rgba(52, 199, 89, 0.3);
-        transition: transform 0.2s, box-shadow 0.2s;
-        flex-shrink: 0;
-      }
-
-      .buy-btn:active {
-        transform: scale(0.95);
-      }
-
-      .buy-btn:disabled {
-        background: #e5e5ea;
-        color: #999;
-        cursor: not-allowed;
-        box-shadow: none;
-      }
-
-      /* Popular Badge */
-      .package-card.popular {
-        border: 2px solid #ffd700;
-        position: relative;
-      }
-
-      .popular-badge {
-        position: absolute;
-        top: -8px;
-        right: 16px;
-        background: #ffd700;
-        color: #333;
-        padding: 4px 12px;
-        border-radius: 12px;
-        font-size: 11px;
-        font-weight: bold;
-      }
-
-      /* Info Section */
-      .info-section {
-        background: white;
-        margin: 16px;
-        border-radius: 16px;
-        padding: 16px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      }
-
-      .info-title {
-        font-size: 16px;
-        font-weight: bold;
-        color: #333;
-        margin-bottom: 12px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-
-      .info-list {
-        list-style: none;
-      }
-
-      .info-item {
-        font-size: 13px;
-        color: #666;
-        margin-bottom: 8px;
-        padding-left: 24px;
-        position: relative;
-      }
-
-      .info-item::before {
-        content: "✓";
-        position: absolute;
-        left: 0;
-        color: #34c759;
-        font-weight: bold;
-      }
-
-      .info-item:last-child {
-        margin-bottom: 0;
-      }
     </style>
   </head>
   <body>
@@ -254,6 +271,17 @@
     <div class="header">
       <div class="back-btn" onclick="window.location.href='home.html'">←</div>
       <div class="title">🛒 Store</div>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+      <div class="hero-title">Turn Packages</div>
+      <div class="hero-subtitle">Compare Turn Packages</div>
+      <div class="hero-graphic">
+        🎮
+        <span class="hero-sparkle left">✨</span>
+        <span class="hero-sparkle right">✨</span>
+      </div>
     </div>
 
     <!-- Current Balance -->
@@ -268,92 +296,140 @@
 
     <!-- Packages Section -->
     <div class="packages-section">
-      <div class="section-title">Turn Packages</div>
-      <div class="packages-grid">
-        <!-- Package 1 -->
-        <div class="package-card">
-          <div class="package-icon">
-            🎯
-            <div class="package-icon-count">×1</div>
+      <!-- Recommended Package - 5 Turns -->
+      <div class="package-card recommended">
+        <div class="recommended-badge">RECOMMENDED</div>
+        <div class="package-content">
+          <div class="package-info">
+            <div class="package-name">5 Turns</div>
+            <div class="package-desc">Save 20% - Most popular package</div>
+            <ul class="package-features">
+              <li class="package-feature">
+                <span class="package-feature-icon">✓</span>
+                <span>Best value for money</span>
+              </li>
+              <li class="package-feature">
+                <span class="package-feature-icon">✓</span>
+                <span>No expiration date</span>
+              </li>
+            </ul>
+            <div class="package-price-section">
+              <div class="package-price-display">
+                <span class="package-price-amount">400</span>
+                <span class="package-price-unit">MMK</span>
+              </div>
+            </div>
+            <button class="package-button" onclick="buyPackage(5, 400)">
+              Buy Now
+            </button>
           </div>
+          <div class="package-graphic">
+            <div class="package-icon-large">🎯</div>
+            <div class="package-icon-count">×5</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Package 1 Turn -->
+      <div class="package-card">
+        <div class="package-content">
           <div class="package-info">
             <div class="package-name">1 Turn</div>
             <div class="package-desc">Add 1 turn to join events</div>
-            <div class="package-price">
-              <span class="price-amount">100</span>
-              <span class="price-unit">MMK</span>
+            <ul class="package-features">
+              <li class="package-feature">
+                <span class="package-feature-icon">✓</span>
+                <span>Use anytime</span>
+              </li>
+              <li class="package-feature">
+                <span class="package-feature-icon">✓</span>
+                <span>No expiration</span>
+              </li>
+            </ul>
+            <div class="package-price-section">
+              <div class="package-price-display">
+                <span class="package-price-amount">100</span>
+                <span class="package-price-unit">MMK</span>
+              </div>
             </div>
+            <button class="package-button" onclick="buyPackage(1, 100)">
+              Buy Now
+            </button>
           </div>
-          <button class="buy-btn" onclick="buyPackage(1, 100)">Buy Now</button>
+          <div class="package-graphic">
+            <div class="package-icon-large">🎯</div>
+            <div class="package-icon-count">×1</div>
+          </div>
         </div>
+      </div>
 
-        <!-- Package 2 -->
-        <div class="package-card">
-          <div class="package-icon">
-            🎯
-            <div class="package-icon-count">×3</div>
-          </div>
+      <!-- Package 3 Turns -->
+      <div class="package-card">
+        <div class="package-content">
           <div class="package-info">
             <div class="package-name">3 Turns</div>
             <div class="package-desc">
               Save 10% compared to individual purchase
             </div>
-            <div class="package-price">
-              <span class="price-amount">500</span>
-              <span class="price-unit">MMK</span>
+            <ul class="package-features">
+              <li class="package-feature">
+                <span class="package-feature-icon">✓</span>
+                <span>Save 10% discount</span>
+              </li>
+              <li class="package-feature">
+                <span class="package-feature-icon">✓</span>
+                <span>Use anytime</span>
+              </li>
+            </ul>
+            <div class="package-price-section">
+              <div class="package-price-display">
+                <span class="package-price-amount">270</span>
+                <span class="package-price-unit">MMK</span>
+              </div>
             </div>
+            <button class="package-button" onclick="buyPackage(3, 270)">
+              Buy Now
+            </button>
           </div>
-          <button class="buy-btn" onclick="buyPackage(3, 500)">Buy Now</button>
+          <div class="package-graphic">
+            <div class="package-icon-large">🎯</div>
+            <div class="package-icon-count">×3</div>
+          </div>
         </div>
+      </div>
 
-        <!-- Package 3 - Popular -->
-        <div class="package-card popular">
-          <div class="popular-badge">POPULAR</div>
-          <div class="package-icon">
-            🎯
-            <div class="package-icon-count">×5</div>
-          </div>
-          <div class="package-info">
-            <div class="package-name">5 Turns</div>
-            <div class="package-desc">Save 20% - Most popular package</div>
-            <div class="package-price">
-              <span class="price-amount">400</span>
-              <span class="price-unit">MMK</span>
-            </div>
-          </div>
-          <button class="buy-btn" onclick="buyPackage(5, 400)">Buy Now</button>
-        </div>
-
-        <!-- Package 4 -->
-        <div class="package-card">
-          <div class="package-icon">
-            🎯
-            <div class="package-icon-count">×10</div>
-          </div>
+      <!-- Package 10 Turns -->
+      <div class="package-card">
+        <div class="package-content">
           <div class="package-info">
             <div class="package-name">10 Turns</div>
             <div class="package-desc">Save 30% - Best package</div>
-            <div class="package-price">
-              <span class="price-amount">700</span>
-              <span class="price-unit">MMK</span>
+            <ul class="package-features">
+              <li class="package-feature">
+                <span class="package-feature-icon">✓</span>
+                <span>Save 30% discount</span>
+              </li>
+              <li class="package-feature">
+                <span class="package-feature-icon">✓</span>
+                <span>Best value package</span>
+              </li>
+            </ul>
+            <div class="package-price-section">
+              <div class="package-price-display">
+                <span class="package-price-amount">700</span>
+                <span class="package-price-unit">MMK</span>
+              </div>
             </div>
+            <button class="package-button" onclick="buyPackage(10, 700)">
+              Buy Now
+            </button>
           </div>
-          <button class="buy-btn" onclick="buyPackage(10, 700)">Buy Now</button>
+          <div class="package-graphic">
+            <div class="package-icon-large">🎯</div>
+            <div class="package-icon-count">×10</div>
+          </div>
         </div>
       </div>
-    </div>
-
-    <!-- Info Section -->
-    <div class="info-section">
-      <div class="info-title">ℹ️ Information</div>
-      <ul class="info-list">
-        <li class="info-item">Turns have no expiration date, use anytime</li>
-        <li class="info-item">Each turn can only be used for 1 event</li>
-        <li class="info-item">
-          Turns will be added to your account immediately after payment
-        </li>
-        <li class="info-item">Payment via e-wallet, bank card supported</li>
-      </ul>
     </div>
 
     <script>
@@ -361,7 +437,6 @@
       let currentTurns = 3;
 
       function buyPackage(turns, price) {
-        // Confirm purchase
         const confirmMsg = `Do you want to buy ${turns} turn(s) for ${price.toLocaleString(
           "en-US"
         )} MMK?`;

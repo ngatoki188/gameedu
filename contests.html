@@ -293,11 +293,11 @@
 
     <!-- Contests Container -->
     <div class="contests-container">
-      <!-- Week 1 - Active Contest -->
-      <div class="contest-card active">
+      <!-- Week 1 - Upcoming Contest -->
+      <div class="contest-card upcoming">
         <div class="contest-header">
           <div class="contest-title">English Challenge 4</div>
-          <div class="contest-status status-active">ONGOING</div>
+          <div class="contest-status status-upcoming">UPCOMING</div>
         </div>
 
         <div class="contest-info">
@@ -311,7 +311,7 @@
           <div class="info-row">
             <div class="info-icon">⏰</div>
             <div class="info-content">
-              <div class="info-label">Time Left</div>
+              <div class="info-label">Starts In</div>
               <div class="info-value">3 days 12 hours</div>
             </div>
           </div>
@@ -373,17 +373,15 @@
         </div>
 
         <div class="action-section">
-          <button class="action-btn btn-play" onclick="playContest(1)">
-            🎮 PLAY NOW
-          </button>
+          <button class="action-btn btn-upcoming" disabled>Coming Soon</button>
         </div>
       </div>
 
-      <!-- Week 2 - Ended Contest -->
-      <div class="contest-card ended">
+      <!-- Week 2 - Active Contest -->
+      <div class="contest-card active">
         <div class="contest-header">
           <div class="contest-title">English Challenge 3</div>
-          <div class="contest-status status-ended">ENDED</div>
+          <div class="contest-status status-active">ONGOING</div>
         </div>
 
         <div class="contest-info">
@@ -395,10 +393,10 @@
             </div>
           </div>
           <div class="info-row">
-            <div class="info-icon">🏆</div>
+            <div class="info-icon">⏰</div>
             <div class="info-content">
-              <div class="info-label">Winner</div>
-              <div class="info-value">John Doe - High School ABC</div>
+              <div class="info-label">Time Left</div>
+              <div class="info-value">2 days 8 hours</div>
             </div>
           </div>
         </div>
@@ -459,12 +457,8 @@
         </div>
 
         <div class="action-section">
-          <button
-            class="action-btn btn-ended"
-            disabled
-            onclick="window.location.href='leaderboard.html'"
-          >
-            View Results
+          <button class="action-btn btn-play" onclick="playContest(3)">
+            🎮 PLAY NOW
           </button>
         </div>
       </div>
