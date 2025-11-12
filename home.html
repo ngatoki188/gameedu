@@ -252,12 +252,6 @@
         box-shadow: 0 4px 12px rgba(255, 149, 0, 0.3);
       }
 
-      .menu-btn.history {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
-      }
-
       /* Profile Modal */
       .modal-overlay {
         display: none;
@@ -282,9 +276,11 @@
         border-radius: 20px;
         padding: 24px;
         width: 90%;
-        max-width: 320px;
+        max-width: 340px;
+        max-height: 85vh;
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         position: relative;
+        overflow-y: auto;
       }
 
       .modal-close {
@@ -366,6 +362,96 @@
         font-size: 14px;
         font-weight: 500;
         color: #333;
+      }
+
+      /* Play History in Profile */
+      .profile-history {
+        margin-top: 24px;
+        padding-top: 24px;
+        border-top: 2px solid #e5e5ea;
+      }
+
+      .profile-history-title {
+        font-size: 16px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .profile-history-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .profile-history-item {
+        background: #f8f9fa;
+        border-radius: 12px;
+        padding: 12px;
+        border-left: 3px solid #007aff;
+      }
+
+      .profile-history-item-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 8px;
+      }
+
+      .profile-history-event-name {
+        font-size: 14px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 2px;
+      }
+
+      .profile-history-event-date {
+        font-size: 11px;
+        color: #666;
+      }
+
+      .profile-history-status {
+        padding: 2px 8px;
+        border-radius: 8px;
+        font-size: 10px;
+        font-weight: bold;
+        white-space: nowrap;
+        background: #e8f5e9;
+        color: #2e7d32;
+      }
+
+      .profile-history-stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+        margin-top: 8px;
+      }
+
+      .profile-history-stat {
+        text-align: center;
+      }
+
+      .profile-history-stat-label {
+        font-size: 9px;
+        color: #666;
+        margin-bottom: 2px;
+      }
+
+      .profile-history-stat-value {
+        font-size: 13px;
+        font-weight: bold;
+        color: #007aff;
+      }
+
+      .profile-history-stat-value.rank {
+        color: #ff9500;
+      }
+
+      .profile-history-stat-value.time {
+        color: #34c759;
       }
 
       /* Settings Modal */
@@ -636,12 +722,6 @@
         >
           🏆 Leaderboard
         </button>
-        <button
-          class="menu-btn history"
-          onclick="window.location.href='history.html'"
-        >
-          📜 History
-        </button>
       </div>
     </div>
 
@@ -665,11 +745,119 @@
           </div>
           <div class="info-row">
             <span class="info-label">Highest Score</span>
-            <span class="info-value">85 points</span>
+            <span class="info-value">92 points</span>
           </div>
           <div class="info-row">
             <span class="info-label">Best Rank</span>
             <span class="info-value">#25</span>
+          </div>
+        </div>
+
+        <!-- Play History -->
+        <div class="profile-history">
+          <div class="profile-history-title">
+            <span>📜</span>
+            <span>Play History</span>
+          </div>
+          <div class="profile-history-list">
+            <!-- History Item 1 -->
+            <div class="profile-history-item">
+              <div class="profile-history-item-header">
+                <div>
+                  <div class="profile-history-event-name">
+                    English Challenge 1
+                  </div>
+                  <div class="profile-history-event-date">
+                    Jan 15, 2024 • 10:30 AM
+                  </div>
+                </div>
+                <div class="profile-history-status">Completed</div>
+              </div>
+              <div class="profile-history-stats">
+                <div class="profile-history-stat">
+                  <div class="profile-history-stat-label">Score</div>
+                  <div class="profile-history-stat-value">80</div>
+                </div>
+                <div class="profile-history-stat">
+                  <div class="profile-history-stat-label">Rank</div>
+                  <div class="profile-history-stat-value rank">#25</div>
+                </div>
+                <div class="profile-history-stat">
+                  <div class="profile-history-stat-label">Time</div>
+                  <div class="profile-history-stat-value time">38m</div>
+                </div>
+                <div class="profile-history-stat">
+                  <div class="profile-history-stat-label">Q/A</div>
+                  <div class="profile-history-stat-value">40/50</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- History Item 2 -->
+            <div class="profile-history-item">
+              <div class="profile-history-item-header">
+                <div>
+                  <div class="profile-history-event-name">
+                    English Challenge 2
+                  </div>
+                  <div class="profile-history-event-date">
+                    Jan 12, 2024 • 2:15 PM
+                  </div>
+                </div>
+                <div class="profile-history-status">Completed</div>
+              </div>
+              <div class="profile-history-stats">
+                <div class="profile-history-stat">
+                  <div class="profile-history-stat-label">Score</div>
+                  <div class="profile-history-stat-value">72</div>
+                </div>
+                <div class="profile-history-stat">
+                  <div class="profile-history-stat-label">Rank</div>
+                  <div class="profile-history-stat-value rank">#42</div>
+                </div>
+                <div class="profile-history-stat">
+                  <div class="profile-history-stat-label">Time</div>
+                  <div class="profile-history-stat-value time">42m</div>
+                </div>
+                <div class="profile-history-stat">
+                  <div class="profile-history-stat-label">Q/A</div>
+                  <div class="profile-history-stat-value">36/50</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- History Item 3 -->
+            <div class="profile-history-item">
+              <div class="profile-history-item-header">
+                <div>
+                  <div class="profile-history-event-name">
+                    English Challenge 3
+                  </div>
+                  <div class="profile-history-event-date">
+                    Jan 10, 2024 • 9:00 AM
+                  </div>
+                </div>
+                <div class="profile-history-status">Completed</div>
+              </div>
+              <div class="profile-history-stats">
+                <div class="profile-history-stat">
+                  <div class="profile-history-stat-label">Score</div>
+                  <div class="profile-history-stat-value">92</div>
+                </div>
+                <div class="profile-history-stat">
+                  <div class="profile-history-stat-label">Rank</div>
+                  <div class="profile-history-stat-value rank">#20</div>
+                </div>
+                <div class="profile-history-stat">
+                  <div class="profile-history-stat-label">Time</div>
+                  <div class="profile-history-stat-value time">45m</div>
+                </div>
+                <div class="profile-history-stat">
+                  <div class="profile-history-stat-label">Q/A</div>
+                  <div class="profile-history-stat-value">46/50</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -728,8 +916,8 @@
               <div class="notification-item-time">2 hours ago</div>
             </div>
             <div class="notification-item-content">
-              You won the first place in Week 1 event! You have received a prize
-              of 50,000 MMK. Check your leaderboard position.
+              You won the first place in English Challenge 1! You have received
+              a prize of 50,000 MMK. Check your leaderboard position.
             </div>
             <div
               class="notification-item-action"
@@ -747,7 +935,7 @@
               <div class="notification-item-time">1 day ago</div>
             </div>
             <div class="notification-item-content">
-              Week 2 event is starting soon! Get ready to compete and win
+              English Challenge 2 is starting soon! Get ready to compete and win
               amazing scholarship prizes. The event begins in 2 days.
             </div>
             <div
