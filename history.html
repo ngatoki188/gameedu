@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>History - GameEDU</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: #f5f5f5;
+        width: 375px;
+        margin: 0 auto;
+        min-height: 100vh;
+      }
+
+      /* Header */
+      .header {
+        background: white;
+        padding: 12px 16px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .back-btn {
+        font-size: 24px;
+        cursor: pointer;
+        color: #007aff;
+      }
+
+      .title {
+        font-weight: bold;
+        font-size: 18px;
+        color: #333;
+        flex: 1;
+      }
+
+      /* History List */
+      .history-list {
+        padding: 16px;
+      }
+
+      .history-item {
+        background: white;
+        border-radius: 16px;
+        padding: 16px;
+        margin-bottom: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s;
+      }
+
+      .history-item:active {
+        transform: scale(0.98);
+      }
+
+      .history-item-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 12px;
+      }
+
+      .history-event-info {
+        flex: 1;
+      }
+
+      .history-event-name {
+        font-size: 16px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 4px;
+      }
+
+      .history-event-date {
+        font-size: 12px;
+        color: #666;
+      }
+
+      .history-status {
+        padding: 4px 12px;
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: bold;
+        white-space: nowrap;
+      }
+
+      .history-status.completed {
+        background: #e8f5e9;
+        color: #2e7d32;
+      }
+
+      .history-status.ongoing {
+        background: #fff3e0;
+        color: #e65100;
+      }
+
+      .history-stats {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        margin-top: 12px;
+        padding-top: 12px;
+        border-top: 1px solid #f5f5f5;
+      }
+
+      .history-stat {
+        text-align: center;
+      }
+
+      .history-stat-label {
+        font-size: 11px;
+        color: #666;
+        margin-bottom: 4px;
+      }
+
+      .history-stat-value {
+        font-size: 18px;
+        font-weight: bold;
+        color: #007aff;
+      }
+
+      .history-stat-value.rank {
+        color: #ff9500;
+      }
+
+      .history-stat-value.time {
+        color: #34c759;
+      }
+
+      .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+        color: #999;
+      }
+
+      .empty-state-icon {
+        font-size: 64px;
+        margin-bottom: 16px;
+        opacity: 0.5;
+      }
+
+      .empty-state-text {
+        font-size: 16px;
+        margin-bottom: 8px;
+      }
+
+      .empty-state-subtext {
+        font-size: 14px;
+        color: #999;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <div class="header">
+      <div class="back-btn" onclick="window.location.href='home.html'">←</div>
+      <div class="title">History</div>
+    </div>
+
+    <!-- History List -->
+    <div class="history-list">
+      <!-- History Item 1 -->
+      <div class="history-item">
+        <div class="history-item-header">
+          <div class="history-event-info">
+            <div class="history-event-name">English Challenge 1</div>
+            <div class="history-event-date">January 15, 2024 • 10:30 AM</div>
+          </div>
+          <div class="history-status completed">Completed</div>
+        </div>
+        <div class="history-stats">
+          <div class="history-stat">
+            <div class="history-stat-label">Score</div>
+            <div class="history-stat-value">80</div>
+          </div>
+          <div class="history-stat">
+            <div class="history-stat-label">Rank</div>
+            <div class="history-stat-value rank">#25</div>
+          </div>
+          <div class="history-stat">
+            <div class="history-stat-label">Time</div>
+            <div class="history-stat-value time">38 min</div>
+          </div>
+          <div class="history-stat">
+            <div class="history-stat-label">Questions</div>
+            <div class="history-stat-value">40/50</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- History Item 2 -->
+      <div class="history-item">
+        <div class="history-item-header">
+          <div class="history-event-info">
+            <div class="history-event-name">English Challenge 2</div>
+            <div class="history-event-date">January 12, 2024 • 2:15 PM</div>
+          </div>
+          <div class="history-status completed">Completed</div>
+        </div>
+        <div class="history-stats">
+          <div class="history-stat">
+            <div class="history-stat-label">Score</div>
+            <div class="history-stat-value">72</div>
+          </div>
+          <div class="history-stat">
+            <div class="history-stat-label">Rank</div>
+            <div class="history-stat-value rank">#42</div>
+          </div>
+          <div class="history-stat">
+            <div class="history-stat-label">Time</div>
+            <div class="history-stat-value time">42 min</div>
+          </div>
+          <div class="history-stat">
+            <div class="history-stat-label">Questions</div>
+            <div class="history-stat-value">36/50</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- History Item 3 -->
+      <div class="history-item">
+        <div class="history-item-header">
+          <div class="history-event-info">
+            <div class="history-event-name">English Challenge 3</div>
+            <div class="history-event-date">January 10, 2024 • 9:00 AM</div>
+          </div>
+          <div class="history-status completed">Completed</div>
+        </div>
+        <div class="history-stats">
+          <div class="history-stat">
+            <div class="history-stat-label">Score</div>
+            <div class="history-stat-value">96</div>
+          </div>
+          <div class="history-stat">
+            <div class="history-stat-label">Rank</div>
+            <div class="history-stat-value rank">#58</div>
+          </div>
+          <div class="history-stat">
+            <div class="history-stat-label">Time</div>
+            <div class="history-stat-value time">45 min</div>
+          </div>
+          <div class="history-stat">
+            <div class="history-stat-label">Questions</div>
+            <div class="history-stat-value">46/50</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
