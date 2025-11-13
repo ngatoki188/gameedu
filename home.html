@@ -252,6 +252,100 @@
         box-shadow: 0 4px 12px rgba(255, 149, 0, 0.3);
       }
 
+      .menu-btn.about {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+      }
+
+      /* About Game Modal */
+      .about-modal {
+        background: white;
+        border-radius: 20px;
+        padding: 24px;
+        width: 90%;
+        max-width: 340px;
+        max-height: 85vh;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        position: relative;
+        overflow-y: auto;
+        /* Hide scrollbar */
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE and Edge */
+      }
+
+      .about-modal::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Opera */
+      }
+
+      .about-header {
+        text-align: center;
+        margin-bottom: 24px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid #e5e5ea;
+      }
+
+      .about-title {
+        font-size: 20px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 4px;
+      }
+
+      .about-subtitle {
+        font-size: 14px;
+        color: #666;
+      }
+
+      .about-content {
+        margin-top: 20px;
+      }
+
+      .about-section {
+        margin-bottom: 24px;
+      }
+
+      .about-section-title {
+        font-size: 16px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .about-section-content {
+        font-size: 14px;
+        color: #666;
+        line-height: 1.6;
+        padding-left: 28px;
+      }
+
+      .about-list {
+        list-style: none;
+        padding: 0;
+        margin: 8px 0;
+      }
+
+      .about-list-item {
+        padding: 8px 0;
+        font-size: 14px;
+        color: #666;
+        line-height: 1.6;
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
+      .about-list-item::before {
+        content: "•";
+        color: #667eea;
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 1;
+      }
+
       /* Profile Modal */
       .modal-overlay {
         display: none;
@@ -281,6 +375,13 @@
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         position: relative;
         overflow-y: auto;
+        /* Hide scrollbar */
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE and Edge */
+      }
+
+      .profile-modal::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Opera */
       }
 
       .modal-close {
@@ -669,7 +770,7 @@
     <!-- Top Bar -->
     <div class="top-bar">
       <div class="user-info">
-        <div class="avatar" onclick="showProfile()">JD</div>
+        <div class="avatar" onclick="showProfile()">👤</div>
         <span>John Doe</span>
       </div>
       <div class="top-bar-icons">
@@ -693,7 +794,7 @@
       <div class="play-now-section">
         <button
           class="play-now-button"
-          onclick="window.location.href='instructions.html'"
+          onclick="window.location.href='exam.html'"
         >
           <span class="play-icon">▶</span>
           <span>PLAY NOW</span>
@@ -722,6 +823,9 @@
         >
           🏆 Leaderboard
         </button>
+        <button class="menu-btn about" onclick="showAboutGame()">
+          ℹ️ About Game
+        </button>
       </div>
     </div>
 
@@ -730,7 +834,7 @@
       <div class="profile-modal" onclick="event.stopPropagation()">
         <button class="modal-close" onclick="closeProfile()">×</button>
         <div class="profile-header">
-          <div class="profile-avatar-large">JD</div>
+          <div class="profile-avatar-large">👤</div>
           <div class="profile-name">John Doe</div>
           <div class="profile-school">High School ABC - Class 12A1</div>
         </div>
@@ -964,6 +1068,128 @@
       </div>
     </div>
 
+    <!-- About Game Modal -->
+    <div class="modal-overlay" id="aboutModal" onclick="closeAboutGame(event)">
+      <div class="about-modal" onclick="event.stopPropagation()">
+        <button class="modal-close" onclick="closeAboutGame()">×</button>
+        <div class="about-header">
+          <div class="about-title">About Game</div>
+          <div class="about-subtitle">Game Guide & Information</div>
+        </div>
+        <div class="about-content">
+          <div class="about-section">
+            <div class="about-section-title">
+              <span>🎮</span>
+              <span>What is GameEDU?</span>
+            </div>
+            <div class="about-section-content">
+              GameEDU is an educational English challenge game designed to help
+              students improve their English skills through fun and competitive
+              gameplay. Test your knowledge, compete with others, and win
+              amazing scholarship prizes!
+            </div>
+          </div>
+
+          <div class="about-section">
+            <div class="about-section-title">
+              <span>📋</span>
+              <span>How to Play</span>
+            </div>
+            <div class="about-section-content">
+              <ul class="about-list">
+                <li class="about-list-item">
+                  Click "Play Now" to start a new challenge
+                </li>
+                <li class="about-list-item">
+                  Answer multiple-choice questions within the time limit
+                </li>
+                <li class="about-list-item">Answer correctly to earn points</li>
+                <li class="about-list-item">
+                  Complete all questions to finish the challenge
+                </li>
+                <li class="about-list-item">
+                  The player with the highest score and fastest time wins
+                </li>
+                <li class="about-list-item">
+                  Check your rank on the leaderboard
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="about-section">
+            <div class="about-section-title">
+              <span>🏆</span>
+              <span>Scoring System</span>
+            </div>
+            <div class="about-section-content">
+              <ul class="about-list">
+                <li class="about-list-item">
+                  Points are awarded only for correct answers
+                </li>
+                <li class="about-list-item">
+                  Your final score is based on the number of correct answers
+                </li>
+                <li class="about-list-item">
+                  Ranking is determined by highest score first, then fastest
+                  time
+                </li>
+                <li class="about-list-item">
+                  Top players win scholarship prizes
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="about-section">
+            <div class="about-section-title">
+              <span>🎁</span>
+              <span>Prizes & Rewards</span>
+            </div>
+            <div class="about-section-content">
+              <ul class="about-list">
+                <li class="about-list-item">
+                  Prizes vary depending on each event
+                </li>
+                <li class="about-list-item">
+                  Winners receive scholarship prizes
+                </li>
+                <li class="about-list-item">
+                  Check the Events page to see prize details for each contest
+                </li>
+                <li class="about-list-item">
+                  Winners are announced after each event ends
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="about-section">
+            <div class="about-section-title">
+              <span>💡</span>
+              <span>Tips for Success</span>
+            </div>
+            <div class="about-section-content">
+              <ul class="about-list">
+                <li class="about-list-item">
+                  Read questions carefully before answering
+                </li>
+                <li class="about-list-item">
+                  Manage your time wisely - balance speed and accuracy
+                </li>
+                <li class="about-list-item">
+                  Practice regularly to improve your skills
+                </li>
+                <li class="about-list-item">
+                  Check the leaderboard to see your progress
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script>
       function openStore() {
         window.location.href = "store.html";
@@ -1045,6 +1271,18 @@
           badge.style.display = "block";
         } else {
           badge.style.display = "none";
+        }
+      }
+
+      function showAboutGame() {
+        document.getElementById("aboutModal").classList.add("show");
+      }
+
+      function closeAboutGame(event) {
+        if (event && event.target === event.currentTarget) {
+          document.getElementById("aboutModal").classList.remove("show");
+        } else if (!event) {
+          document.getElementById("aboutModal").classList.remove("show");
         }
       }
 
