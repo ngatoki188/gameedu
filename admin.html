@@ -270,6 +270,16 @@
         color: #383d41;
       }
 
+      .status-pending {
+        background: #fff3cd;
+        color: #856404;
+      }
+
+      .status-rejected {
+        background: #f8d7da;
+        color: #721c24;
+      }
+
       .action-buttons {
         display: flex;
         gap: 8px;
@@ -295,6 +305,16 @@
 
       .btn-view {
         background: #34c759;
+        color: white;
+      }
+
+      .btn-accept {
+        background: #34c759;
+        color: white;
+      }
+
+      .btn-reject {
+        background: #ff3b30;
         color: white;
       }
 
@@ -559,6 +579,28 @@
         background: #f8f9fa;
         border-radius: 8px;
         border: 1px solid #e5e5ea;
+      }
+
+      .checkbox-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        padding: 12px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        border: 1px solid #e5e5ea;
+      }
+
+      .checkbox-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        background: white;
+        border-radius: 6px;
+        border: 1px solid #e5e5ea;
+        font-size: 14px;
+        color: #333;
       }
 
       /* User History Styles */
@@ -1022,8 +1064,8 @@
                   <td>0</td>
                   <td>
                     <div class="action-buttons">
-                      <button class="btn-sm btn-view" onclick="viewContestDetail('C001', 'English Challenge 4', '2024-01-22T00:00', '2024-01-30T23:59', 'English contest January 2024', 0, null, 'upcoming')">View</button>
-                      <button class="btn-sm btn-edit" onclick="openEditContestModal('C001', 'English Challenge 4', '2024-01-22T00:00', '2024-01-30T23:59', 'English contest January 2024', null)">Edit</button>
+                      <button class="btn-sm btn-view" onclick="viewContestDetail('C001', 'English Challenge 4', '2024-01-22T00:00', '2024-01-30T23:59', 'English contest January 2024', 0, 2, 60, ['High School ABC', 'High School XYZ'], 40, 'English', 'Vocabulary', 'upcoming')">View</button>
+                      <button class="btn-sm btn-edit" onclick="openEditContestModal('C001', 'English Challenge 4', '2024-01-22T00:00', '2024-01-30T23:59', 'English contest January 2024', 2, 60, ['High School ABC', 'High School XYZ'], 40, 'English', 'Vocabulary')">Edit</button>
                     </div>
                   </td>
                 </tr>
@@ -1037,8 +1079,8 @@
                   <td>156</td>
                   <td>
                     <div class="action-buttons">
-                      <button class="btn-sm btn-view" onclick="viewContestDetail('C002', 'English Challenge 3', '2024-01-15T00:00', '2024-01-21T23:59', 'English contest January 2024', 156, null, 'active')">View</button>
-                      <button class="btn-sm btn-edit" onclick="openEditContestModal('C002', 'English Challenge 3', '2024-01-15T00:00', '2024-01-21T23:59', 'English contest January 2024', null)">Edit</button>
+                      <button class="btn-sm btn-view" onclick="viewContestDetail('C002', 'English Challenge 3', '2024-01-15T00:00', '2024-01-21T23:59', 'English contest January 2024', 156, 3, 45, ['High School ABC', 'High School DEF'], 50, 'English', 'Reading Comprehension', 'active')">View</button>
+                      <button class="btn-sm btn-edit" onclick="openEditContestModal('C002', 'English Challenge 3', '2024-01-15T00:00', '2024-01-21T23:59', 'English contest January 2024', 3, 45, ['High School ABC', 'High School DEF'], 50, 'English', 'Reading Comprehension')">Edit</button>
                     </div>
                   </td>
                 </tr>
@@ -1052,8 +1094,8 @@
                   <td>234</td>
                   <td>
                     <div class="action-buttons">
-                      <button class="btn-sm btn-view" onclick="viewContestDetail('C003', 'English Challenge 2', '2024-01-08T00:00', '2024-01-14T23:59', 'English contest January 2024', 234, null, 'ended')">View</button>
-                      <button class="btn-sm btn-edit" onclick="openEditContestModal('C003', 'English Challenge 2', '2024-01-08T00:00', '2024-01-14T23:59', 'English contest January 2024', null)">Edit</button>
+                      <button class="btn-sm btn-view" onclick="viewContestDetail('C003', 'English Challenge 2', '2024-01-08T00:00', '2024-01-14T23:59', 'English contest January 2024', 234, 1, 50, ['High School XYZ', 'High School DEF'], 45, 'English', 'Grammar', 'ended')">View</button>
+                      <button class="btn-sm btn-edit" onclick="openEditContestModal('C003', 'English Challenge 2', '2024-01-08T00:00', '2024-01-14T23:59', 'English contest January 2024', 1, 50, ['High School XYZ', 'High School DEF'], 45, 'English', 'Grammar')">Edit</button>
                     </div>
                   </td>
                 </tr>
@@ -1067,8 +1109,8 @@
                   <td>189</td>
                   <td>
                     <div class="action-buttons">
-                      <button class="btn-sm btn-view" onclick="viewContestDetail('C004', 'English Challenge 1', '2024-01-01T00:00', '2024-01-07T23:59', 'English contest January 2024', 189, null, 'ended')">View</button>
-                      <button class="btn-sm btn-edit" onclick="openEditContestModal('C004', 'English Challenge 1', '2024-01-01T00:00', '2024-01-07T23:59', 'English contest January 2024', null)">Edit</button>
+                      <button class="btn-sm btn-view" onclick="viewContestDetail('C004', 'English Challenge 1', '2024-01-01T00:00', '2024-01-07T23:59', 'English contest January 2024', 189, 0, 55, ['High School ABC', 'High School GHI', 'High School JKL'], 40, 'English', 'Listening', 'ended')">View</button>
+                      <button class="btn-sm btn-edit" onclick="openEditContestModal('C004', 'English Challenge 1', '2024-01-01T00:00', '2024-01-07T23:59', 'English contest January 2024', 0, 55, ['High School ABC', 'High School GHI', 'High School JKL'], 40, 'English', 'Listening')">Edit</button>
                     </div>
                   </td>
                 </tr>
@@ -1175,13 +1217,24 @@
         <div class="content-card">
           <div class="card-header">
             <div class="card-title">Prizes by Contest</div>
-            <input
-              type="text"
-              id="searchPrizes"
-              placeholder="Search prizes..."
-              onkeyup="searchPrizes()"
-              style="padding: 8px 12px; border: 1px solid #e5e5ea; border-radius: 8px; width: 300px"
-            />
+            <div style="display: flex; gap: 12px; align-items: center;">
+              <input
+                type="text"
+                id="searchPrizes"
+                placeholder="Search prizes..."
+                onkeyup="searchPrizes()"
+                style="padding: 8px 12px; border: 1px solid #e5e5ea; border-radius: 8px; width: 220px"
+              />
+              <select
+                id="filterPrizeContest"
+                onchange="searchPrizes()"
+                style="padding: 8px 12px; border: 1px solid #e5e5ea; border-radius: 8px; min-width: 180px"
+              >
+                <option value="">All contests</option>
+                <option value="Challenge 3">Challenge 3</option>
+                <option value="Challenge 2">Challenge 2</option>
+              </select>
+            </div>
           </div>
           <div class="table-container">
             <table>
@@ -1198,7 +1251,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                <tr data-prize-id="C002-1" data-contest="challenge 3" data-decision="pending">
                   <td>Challenge 3</td>
                   <td>1</td>
                   <td>50,000 MMK</td>
@@ -1206,16 +1259,17 @@
                   <td>High School ABC</td>
                   <td style="max-width: 200px; font-size: 13px; color: #666;">Awarded on 20/01/2024</td>
                   <td>
-                    <span class="status-badge status-active">Awarded</span>
+                    <span class="status-badge status-pending">Pending Review</span>
                   </td>
                   <td>
                     <div class="action-buttons">
-                      <button class="btn-sm btn-view" onclick="viewPrizeDetail('C002', 'Challenge 3', 1, '50000', 'John Doe', 'U001', 'High School ABC', 'awarded', 'Awarded on 20/01/2024', 'Top 1 - Highest score + fastest time')">View</button>
-                      <button class="btn-sm btn-edit" onclick="openEditPrizeModal('C002', 'Challenge 3', 1, '50000', 'John Doe', 'U001', 'High School ABC', 'awarded', 'Awarded on 20/01/2024')">Edit</button>
+                      <button class="btn-sm btn-view" onclick="viewPrizeDetail('C002-1')">View Play</button>
+                      <button class="btn-sm btn-accept" onclick="handlePrizeAction('C002-1', 'accept')">Accept</button>
+                      <button class="btn-sm btn-reject" onclick="handlePrizeAction('C002-1', 'reject')">Reject</button>
                     </div>
                   </td>
                 </tr>
-                <tr>
+                <tr data-prize-id="C002-2" data-contest="challenge 3" data-decision="pending">
                   <td>Challenge 3</td>
                   <td>2</td>
                   <td>30,000 MMK</td>
@@ -1223,16 +1277,17 @@
                   <td>High School XYZ</td>
                   <td style="max-width: 200px; font-size: 13px; color: #666;">Awarded on 20/01/2024</td>
                   <td>
-                    <span class="status-badge status-active">Awarded</span>
+                    <span class="status-badge status-pending">Pending Review</span>
                   </td>
                   <td>
                     <div class="action-buttons">
-                      <button class="btn-sm btn-view" onclick="viewPrizeDetail('C002', 'Challenge 3', 2, '30000', 'Jane Smith', 'U002', 'High School XYZ', 'awarded', 'Awarded on 20/01/2024', 'Top 2 - 2nd highest score')">View</button>
-                      <button class="btn-sm btn-edit" onclick="openEditPrizeModal('C002', 'Challenge 3', 2, '30000', 'Jane Smith', 'U002', 'High School XYZ', 'awarded', 'Awarded on 20/01/2024')">Edit</button>
+                      <button class="btn-sm btn-view" onclick="viewPrizeDetail('C002-2')">View Play</button>
+                      <button class="btn-sm btn-accept" onclick="handlePrizeAction('C002-2', 'accept')">Accept</button>
+                      <button class="btn-sm btn-reject" onclick="handlePrizeAction('C002-2', 'reject')">Reject</button>
                     </div>
                   </td>
                 </tr>
-                <tr>
+                <tr data-prize-id="C002-3" data-contest="challenge 3" data-decision="pending">
                   <td>Challenge 3</td>
                   <td>3</td>
                   <td>20,000 MMK</td>
@@ -1240,13 +1295,20 @@
                   <td>High School DEF</td>
                   <td style="max-width: 200px; font-size: 13px; color: #666;">Awarded on 20/01/2024</td>
                   <td>
-                    <span class="status-badge status-active">Awarded</span>
+                    <span class="status-badge status-pending">Pending Review</span>
                   </td>
                   <td>
                     <div class="action-buttons">
-                      <button class="btn-sm btn-view" onclick="viewPrizeDetail('C002', 'Challenge 3', 3, '20000', 'Bob Johnson', 'U003', 'High School DEF', 'awarded', 'Awarded on 20/01/2024', 'Top 3 - 3rd highest score')">View</button>
-                      <button class="btn-sm btn-edit" onclick="openEditPrizeModal('C002', 'Challenge 3', 3, '20000', 'Bob Johnson', 'U003', 'High School DEF', 'awarded', 'Awarded on 20/01/2024')">Edit</button>
+                      <button class="btn-sm btn-view" onclick="viewPrizeDetail('C002-3')">View Play</button>
+                      <button class="btn-sm btn-accept" onclick="handlePrizeAction('C002-3', 'accept')">Accept</button>
+                      <button class="btn-sm btn-reject" onclick="handlePrizeAction('C002-3', 'reject')">Reject</button>
                     </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="7"></td>
+                  <td>
+                    <button class="btn btn-primary" style="width: 100%;" onclick="handleAcceptAllPrizes()">✅ Accept All Approved</button>
                   </td>
                 </tr>
               </tbody>
@@ -1377,9 +1439,68 @@
               <label class="form-label">Description</label>
               <textarea class="form-textarea" id="contestDescription" placeholder="Contest description..." rows="3"></textarea>
             </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Free Play Limit</label>
+                <input type="number" class="form-input" id="contestFreePlayLimit" placeholder="E.g: 3 free turns" min="0">
+              </div>
+              <div class="form-group">
+                <label class="form-label required">Number of Questions</label>
+                <input type="number" class="form-input" id="contestQuestionCount" placeholder="E.g: 50" min="1" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label required">Subject</label>
+                <select class="form-select" id="contestSubject" required>
+                  <option value="">Select subject...</option>
+                  <option value="English">English</option>
+                  <option value="Mathematics">Mathematics</option>
+                  <option value="Science">Science</option>
+                  <option value="History">History</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label required">Topic</label>
+                <select class="form-select" id="contestTopic" required>
+                  <option value="">Select topic...</option>
+                  <option value="Vocabulary">Vocabulary</option>
+                  <option value="Grammar">Grammar</option>
+                  <option value="Reading Comprehension">Reading Comprehension</option>
+                  <option value="Listening">Listening</option>
+                  <option value="Algebra">Algebra</option>
+                  <option value="Geometry">Geometry</option>
+                  <option value="Physics">Physics</option>
+                  <option value="World History">World History</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label required">Time per Question (seconds)</label>
+                <input type="number" class="form-input" id="contestTimePerQuestion" placeholder="E.g: 60" min="1" required>
+              </div>
+            </div>
             <div class="form-group">
-              <label class="form-label">Max Participants</label>
-              <input type="number" class="form-input" id="contestMaxParticipants" placeholder="Leave empty = unlimited" min="1">
+              <label class="form-label">Allowed Schools</label>
+              <div class="checkbox-list" id="contestSchools">
+                <label class="checkbox-item">
+                  <input type="checkbox" value="High School ABC"> High School ABC
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" value="High School XYZ"> High School XYZ
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" value="High School DEF"> High School DEF
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" value="High School GHI"> High School GHI
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" value="High School JKL"> High School JKL
+                </label>
+              </div>
+              <div class="media-type-info">Tick multiple schools to allow participation from those institutions. Leave all unchecked for no restriction.</div>
             </div>
             <div class="form-group">
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
@@ -1408,31 +1529,30 @@
           <button class="modal-close" onclick="closeViewPrizeModal()">×</button>
         </div>
         <div class="modal-body">
-          <div class="form-group">
-            <label class="form-label">Contest</label>
-            <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px;" id="viewPrizeContest">-</div>
-          </div>
           <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Contest</label>
+              <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px;" id="viewPrizeContest">-</div>
+            </div>
             <div class="form-group">
               <label class="form-label">Rank</label>
               <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px;" id="viewPrizeRank">-</div>
             </div>
+          </div>
+          <div class="form-row">
             <div class="form-group">
               <label class="form-label">Prize Value</label>
               <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px; font-weight: 600; color: #007aff;" id="viewPrizeAmount">-</div>
             </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Description</label>
-            <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px;" id="viewPrizeDescription">-</div>
-          </div>
-          
-          <!-- Winner Info Section -->
-          <div class="form-group" style="margin-top: 20px; padding: 16px; background: #e3f2fd; border-radius: 8px; border: 2px solid #007aff;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-              <div style="font-weight: 600; color: #333; font-size: 16px;">🏆 Winner Information</div>
+            <div class="form-group">
+              <label class="form-label">Description</label>
+              <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px;" id="viewPrizeDescription">-</div>
             </div>
-            <div id="viewWinnerInfoDisplay" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          </div>
+
+          <div class="form-group" style="margin-top: 20px; padding: 16px; background: #e3f2fd; border-radius: 8px; border: 2px solid #007aff;">
+            <div style="font-weight: 600; color: #333; font-size: 16px; margin-bottom: 12px;">🏆 Winner Information</div>
+            <div id="viewWinnerInfoDisplay" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px;">
               <div>
                 <div style="font-size: 12px; color: #666; margin-bottom: 4px;">Recipient Name</div>
                 <div style="font-weight: 600; color: #333; font-size: 15px;" id="viewWinnerNameDisplay">-</div>
@@ -1441,14 +1561,59 @@
                 <div style="font-size: 12px; color: #666; margin-bottom: 4px;">School</div>
                 <div style="font-weight: 600; color: #007aff; font-size: 15px;" id="viewWinnerSchoolDisplay">-</div>
               </div>
+              <div>
+                <div style="font-size: 12px; color: #666; margin-bottom: 4px;">Player ID</div>
+                <div style="font-weight: 600; color: #333; font-size: 15px;" id="viewWinnerIdDisplay">-</div>
+              </div>
             </div>
           </div>
-          
+
+          <div class="history-stats-grid" style="margin: 20px 0; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));">
+            <div class="history-stat-box">
+              <div class="history-stat-value" id="viewPrizeScore">-</div>
+              <div class="history-stat-label">Score</div>
+            </div>
+            <div class="history-stat-box">
+              <div class="history-stat-value" id="viewPrizeCorrect">-</div>
+              <div class="history-stat-label">Correct Answers</div>
+            </div>
+            <div class="history-stat-box">
+              <div class="history-stat-value" id="viewPrizeTotalTime">-</div>
+              <div class="history-stat-label">Total Time</div>
+            </div>
+            <div class="history-stat-box">
+              <div class="history-stat-value" id="viewPrizeAvgTime">-</div>
+              <div class="history-stat-label">Avg Time/Question</div>
+            </div>
+          </div>
+
           <div class="form-group">
             <label class="form-label">Note</label>
             <div class="form-textarea" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px; min-height: 80px; white-space: pre-wrap;" id="viewPrizeNote">-</div>
           </div>
-          
+
+          <div class="form-group">
+            <label class="form-label">Question Timeline</label>
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Question</th>
+                    <th>Your Answer</th>
+                    <th>Result</th>
+                    <th>Time Used</th>
+                  </tr>
+                </thead>
+                <tbody id="viewPrizeQuestionBody">
+                  <tr>
+                    <td colspan="5" style="text-align: center; color: #999;">No data</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
           <div class="form-group">
             <label class="form-label">Status</label>
             <div id="viewPrizeStatusDisplay" style="display: inline-block; padding: 6px 12px; border-radius: 6px; font-size: 14px; font-weight: 500;">-</div>
@@ -1563,8 +1728,32 @@
               <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px;" id="viewContestParticipants">-</div>
             </div>
             <div class="form-group">
-              <label class="form-label">Max Participants</label>
-              <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px;" id="viewContestMaxParticipants">-</div>
+              <label class="form-label">Free Play Limit</label>
+              <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px;" id="viewContestFreePlayLimit">-</div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Number of Questions</label>
+              <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px;" id="viewContestQuestionCount">-</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Subject</label>
+              <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px;" id="viewContestSubject">-</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Time per Question</label>
+            <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px;" id="viewContestTimePerQuestion">-</div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Topic</label>
+              <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px;" id="viewContestTopic">-</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Allowed Schools</label>
+              <div class="form-textarea" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px; min-height: 80px; white-space: pre-wrap;" id="viewContestSchools">-</div>
             </div>
           </div>
           <div class="form-group">
@@ -1609,9 +1798,68 @@
               <label class="form-label">Description</label>
               <textarea class="form-textarea" id="editContestDescription" placeholder="Contest description..." rows="3"></textarea>
             </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Free Play Limit</label>
+                <input type="number" class="form-input" id="editContestFreePlayLimit" placeholder="E.g: 3" min="0">
+              </div>
+              <div class="form-group">
+                <label class="form-label required">Number of Questions</label>
+                <input type="number" class="form-input" id="editContestQuestionCount" placeholder="E.g: 50" min="1" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label required">Subject</label>
+                <select class="form-select" id="editContestSubject" required>
+                  <option value="">Select subject...</option>
+                  <option value="English">English</option>
+                  <option value="Mathematics">Mathematics</option>
+                  <option value="Science">Science</option>
+                  <option value="History">History</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label required">Topic</label>
+                <select class="form-select" id="editContestTopic" required>
+                  <option value="">Select topic...</option>
+                  <option value="Vocabulary">Vocabulary</option>
+                  <option value="Grammar">Grammar</option>
+                  <option value="Reading Comprehension">Reading Comprehension</option>
+                  <option value="Listening">Listening</option>
+                  <option value="Algebra">Algebra</option>
+                  <option value="Geometry">Geometry</option>
+                  <option value="Physics">Physics</option>
+                  <option value="World History">World History</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label required">Time per Question (seconds)</label>
+                <input type="number" class="form-input" id="editContestTimePerQuestion" placeholder="E.g: 60" min="1" required>
+              </div>
+            </div>
             <div class="form-group">
-              <label class="form-label">Max Participants</label>
-              <input type="number" class="form-input" id="editContestMaxParticipants" placeholder="Leave empty = unlimited" min="1">
+              <label class="form-label">Allowed Schools</label>
+              <div class="checkbox-list" id="editContestSchools">
+                <label class="checkbox-item">
+                  <input type="checkbox" value="High School ABC"> High School ABC
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" value="High School XYZ"> High School XYZ
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" value="High School DEF"> High School DEF
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" value="High School GHI"> High School GHI
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" value="High School JKL"> High School JKL
+                </label>
+              </div>
+              <div class="media-type-info">Tick multiple schools to allow participation from those institutions. Leave all unchecked for no restriction.</div>
             </div>
           </form>
         </div>
@@ -1879,6 +2127,111 @@
         event.target.closest(".nav-link").classList.add("active");
       }
 
+      const AVAILABLE_SCHOOLS = [
+        "High School ABC",
+        "High School XYZ",
+        "High School DEF",
+        "High School GHI",
+        "High School JKL"
+      ];
+
+      const prizePlayDetails = {
+        "C002-1": {
+          contestId: "C002",
+          contestName: "Challenge 3",
+          rank: 1,
+          prizeAmount: 50000,
+          description: "Top 1 - Highest score + fastest time",
+          recipientName: "John Doe",
+          recipientSchool: "High School ABC",
+          recipientId: "U001",
+          status: "pending",
+          note: "Awarded on 20/01/2024",
+          summary: {
+            score: 98,
+            correct: "49/50",
+            totalTime: "32m 15s",
+            avgTime: "38s"
+          },
+          questionDetails: [
+            { number: 1, question: "Vocabulary warm-up", answer: "A", result: "Correct", timeUsed: "35s" },
+            { number: 2, question: "Listening clip 1", answer: "B", result: "Correct", timeUsed: "42s" },
+            { number: 3, question: "Grammar challenge", answer: "C", result: "Correct", timeUsed: "33s" },
+            { number: 4, question: "Reading summary", answer: "D", result: "Correct", timeUsed: "40s" },
+            { number: 5, question: "Speed bonus", answer: "B", result: "Wrong", timeUsed: "25s" }
+          ]
+        },
+        "C002-2": {
+          contestId: "C002",
+          contestName: "Challenge 3",
+          rank: 2,
+          prizeAmount: 30000,
+          description: "Top 2 - 2nd highest score",
+          recipientName: "Jane Smith",
+          recipientSchool: "High School XYZ",
+          recipientId: "U002",
+          status: "pending",
+          note: "Awarded on 20/01/2024",
+          summary: {
+            score: 97,
+            correct: "48/50",
+            totalTime: "33m 40s",
+            avgTime: "40s"
+          },
+          questionDetails: [
+            { number: 1, question: "Vocabulary warm-up", answer: "A", result: "Correct", timeUsed: "38s" },
+            { number: 2, question: "Listening clip 1", answer: "B", result: "Correct", timeUsed: "41s" },
+            { number: 3, question: "Grammar challenge", answer: "C", result: "Correct", timeUsed: "36s" },
+            { number: 4, question: "Reading summary", answer: "C", result: "Correct", timeUsed: "44s" },
+            { number: 5, question: "Speed bonus", answer: "A", result: "Correct", timeUsed: "29s" }
+          ]
+        },
+        "C002-3": {
+          contestId: "C002",
+          contestName: "Challenge 3",
+          rank: 3,
+          prizeAmount: 20000,
+          description: "Top 3 - 3rd highest score",
+          recipientName: "Bob Johnson",
+          recipientSchool: "High School DEF",
+          recipientId: "U003",
+          status: "pending",
+          note: "Awarded on 20/01/2024",
+          summary: {
+            score: 96,
+            correct: "48/50",
+            totalTime: "34m 05s",
+            avgTime: "41s"
+          },
+          questionDetails: [
+            { number: 1, question: "Vocabulary warm-up", answer: "B", result: "Correct", timeUsed: "41s" },
+            { number: 2, question: "Listening clip 1", answer: "B", result: "Correct", timeUsed: "45s" },
+            { number: 3, question: "Grammar challenge", answer: "D", result: "Correct", timeUsed: "39s" },
+            { number: 4, question: "Reading summary", answer: "C", result: "Correct", timeUsed: "47s" },
+            { number: 5, question: "Speed bonus", answer: "A", result: "Wrong", timeUsed: "30s" }
+          ]
+        }
+      };
+
+      function getSelectedSchools(containerId) {
+        return Array.from(document.querySelectorAll(`#${containerId} input[type="checkbox"]`))
+          .filter((checkbox) => checkbox.checked)
+          .map((checkbox) => checkbox.value);
+      }
+
+      function setSelectedSchools(containerId, schools) {
+        const selected = Array.isArray(schools) ? schools : [];
+        document.querySelectorAll(`#${containerId} input[type="checkbox"]`).forEach((checkbox) => {
+          checkbox.checked = selected.includes(checkbox.value);
+        });
+      }
+
+      function resetSelectedSchools(containerId) {
+        document.querySelectorAll(`#${containerId} input[type="checkbox"]`).forEach((checkbox) => {
+          checkbox.checked = false;
+        });
+      }
+
       // ========== ADD CONTEST MODAL ==========
       function openAddContestModal() {
         document.getElementById("addContestModal").classList.add("show");
@@ -1888,6 +2241,7 @@
         document.getElementById("addContestModal").classList.remove("show");
         document.getElementById("addContestForm").reset();
         document.getElementById("prizeList").innerHTML = "";
+        resetSelectedSchools("contestSchools");
       }
 
       function addPrizeRow() {
@@ -1920,7 +2274,12 @@
           startDate: document.getElementById("contestStartDate").value,
           endDate: document.getElementById("contestEndDate").value,
           description: document.getElementById("contestDescription").value,
-          maxParticipants: document.getElementById("contestMaxParticipants").value,
+          freePlayLimit: document.getElementById("contestFreePlayLimit").value !== "" ? parseInt(document.getElementById("contestFreePlayLimit").value) : null,
+          questionCount: parseInt(document.getElementById("contestQuestionCount").value),
+          timePerQuestion: parseInt(document.getElementById("contestTimePerQuestion").value),
+          subject: document.getElementById("contestSubject").value,
+          topic: document.getElementById("contestTopic").value,
+          schools: getSelectedSchools("contestSchools"),
           prizes: []
         };
 
@@ -1934,13 +2293,28 @@
           });
         });
 
-        if (!formData.name || !formData.startDate || !formData.endDate) {
+        if (!formData.name || !formData.startDate || !formData.endDate || !formData.questionCount || !formData.subject || !formData.topic) {
           alert("Please fill in all required fields!");
           return;
         }
 
         if (new Date(formData.startDate) >= new Date(formData.endDate)) {
           alert("End date must be after start date!");
+          return;
+        }
+
+        if (formData.questionCount < 1) {
+          alert("Number of questions must be greater than 0!");
+          return;
+        }
+
+        if (isNaN(formData.timePerQuestion) || formData.timePerQuestion < 1) {
+          alert("Time per question must be at least 1 second!");
+          return;
+        }
+
+        if (formData.freePlayLimit !== null && formData.freePlayLimit < 0) {
+          alert("Free play limit cannot be negative!");
           return;
         }
 
@@ -1955,45 +2329,118 @@
       }
 
       // ========== VIEW PRIZE MODAL ==========
-      function viewPrizeDetail(contestId, contestName, rank, amount, currentWinner, currentWinnerId, currentWinnerSchool, status, note, description) {
-        // Set display values
-        document.getElementById('viewPrizeContest').textContent = contestName || '-';
-        document.getElementById('viewPrizeRank').textContent = rank || '-';
-        const amountNum = typeof amount === 'string' ? parseInt(amount) : amount;
-        document.getElementById('viewPrizeAmount').textContent = amountNum ? amountNum.toLocaleString('vi-VN') + ' MMK' : '-';
-        document.getElementById('viewPrizeDescription').textContent = description || '-';
-        document.getElementById('viewPrizeNote').textContent = note || '-';
-        
-        // Display winner info
-        const viewWinnerNameDisplay = document.getElementById('viewWinnerNameDisplay');
-        const viewWinnerSchoolDisplay = document.getElementById('viewWinnerSchoolDisplay');
-        
-        if (currentWinner && currentWinnerSchool) {
-          viewWinnerNameDisplay.textContent = currentWinner;
-          viewWinnerSchoolDisplay.textContent = currentWinnerSchool;
-        } else {
-          viewWinnerNameDisplay.textContent = 'No recipient';
-          viewWinnerSchoolDisplay.textContent = '-';
+      function viewPrizeDetail(prizeId) {
+        const prize = prizePlayDetails[prizeId];
+        if (!prize) {
+          alert('No play detail available for this prize!');
+          return;
         }
-        
-        // Display status
+
+        document.getElementById('viewPrizeContest').textContent = prize.contestName || '-';
+        document.getElementById('viewPrizeRank').textContent = prize.rank || '-';
+        const amountNum = prize.prizeAmount ? Number(prize.prizeAmount) : null;
+        document.getElementById('viewPrizeAmount').textContent = amountNum ? amountNum.toLocaleString('vi-VN') + ' MMK' : '-';
+        document.getElementById('viewPrizeDescription').textContent = prize.description || '-';
+        document.getElementById('viewPrizeNote').textContent = prize.note || '-';
+
+        document.getElementById('viewWinnerNameDisplay').textContent = prize.recipientName || '-';
+        document.getElementById('viewWinnerSchoolDisplay').textContent = prize.recipientSchool || '-';
+        document.getElementById('viewWinnerIdDisplay').textContent = prize.recipientId || '-';
+
+        document.getElementById('viewPrizeScore').textContent = prize.summary?.score ?? '-';
+        document.getElementById('viewPrizeCorrect').textContent = prize.summary?.correct ?? '-';
+        document.getElementById('viewPrizeTotalTime').textContent = prize.summary?.totalTime ?? '-';
+        document.getElementById('viewPrizeAvgTime').textContent = prize.summary?.avgTime ?? '-';
+
+        const questionBody = document.getElementById('viewPrizeQuestionBody');
+        if (prize.questionDetails && prize.questionDetails.length) {
+          questionBody.innerHTML = prize.questionDetails
+            .map(item => `
+              <tr>
+                <td>${item.number}</td>
+                <td>${item.question}</td>
+                <td>${item.answer}</td>
+                <td style="font-weight: 600; color: ${item.result === 'Correct' ? '#34c759' : '#ff3b30'};">${item.result}</td>
+                <td>${item.timeUsed}</td>
+              </tr>
+            `).join('');
+        } else {
+          questionBody.innerHTML = `
+            <tr>
+              <td colspan="5" style="text-align: center; color: #999;">No question breakdown available</td>
+            </tr>
+          `;
+        }
+
         const statusDisplay = document.getElementById('viewPrizeStatusDisplay');
-        if (status === 'awarded') {
+        if (prize.status === 'awarded') {
           statusDisplay.textContent = 'Awarded';
           statusDisplay.style.background = '#d4edda';
           statusDisplay.style.color = '#155724';
+        } else if (prize.status === 'rejected') {
+          statusDisplay.textContent = 'Rejected';
+          statusDisplay.style.background = '#f8d7da';
+          statusDisplay.style.color = '#721c24';
         } else {
-          statusDisplay.textContent = 'Pending';
+          statusDisplay.textContent = 'Pending Review';
           statusDisplay.style.background = '#fff3cd';
           statusDisplay.style.color = '#856404';
         }
-        
-        // Show modal
+
         document.getElementById('viewPrizeModal').classList.add('show');
       }
 
       function closeViewPrizeModal() {
         document.getElementById('viewPrizeModal').classList.remove('show');
+      }
+
+      function handlePrizeAction(prizeId, action) {
+        const row = document.querySelector(`#prizes table tbody tr[data-prize-id="${prizeId}"]`);
+        if (!row) {
+          alert('Cannot locate this prize row.');
+          return;
+        }
+        const badge = row.querySelector('.status-badge');
+        if (!badge) return;
+
+        if (action === 'accept') {
+          badge.textContent = 'Accepted (temp)';
+          badge.className = 'status-badge status-pending';
+          row.dataset.decision = 'accept';
+          if (prizePlayDetails[prizeId]) {
+            prizePlayDetails[prizeId].status = 'accepted';
+          }
+          alert('Prize marked as accepted temporarily. Remember to use "Accept All" to finalize.');
+        } else {
+          badge.textContent = 'Rejected';
+          badge.className = 'status-badge status-rejected';
+          row.dataset.decision = 'reject';
+          if (prizePlayDetails[prizeId]) {
+            prizePlayDetails[prizeId].status = 'rejected';
+          }
+          alert('Prize marked as rejected.');
+        }
+      }
+
+      function handleAcceptAllPrizes() {
+        const rows = document.querySelectorAll('#prizes table tbody tr[data-decision="accept"]');
+        if (!rows.length) {
+          alert('No prizes are marked as accepted yet.');
+          return;
+        }
+        rows.forEach(row => {
+          const badge = row.querySelector('.status-badge');
+          if (badge) {
+            badge.textContent = 'Awarded';
+            badge.className = 'status-badge status-active';
+          }
+          row.dataset.decision = 'finalized';
+          const prizeId = row.dataset.prizeId;
+          if (prizePlayDetails[prizeId]) {
+            prizePlayDetails[prizeId].status = 'awarded';
+          }
+        });
+        alert(`${rows.length} prize(s) have been approved.`);
       }
 
       // ========== EDIT PRIZE MODAL ==========
@@ -2048,14 +2495,19 @@
       }
 
       // ========== VIEW CONTEST MODAL ==========
-      function viewContestDetail(id, name, startDate, endDate, description, participants, maxParticipants, status) {
+      function viewContestDetail(id, name, startDate, endDate, description, participants, freePlayLimit, timePerQuestion, schools, questionCount, subject, topic, status) {
         document.getElementById('viewContestId').textContent = id || '-';
         document.getElementById('viewContestName').textContent = name || '-';
         document.getElementById('viewContestStartDate').textContent = startDate ? new Date(startDate).toLocaleString('vi-VN') : '-';
         document.getElementById('viewContestEndDate').textContent = endDate ? new Date(endDate).toLocaleString('vi-VN') : '-';
         document.getElementById('viewContestDescription').textContent = description || '-';
         document.getElementById('viewContestParticipants').textContent = participants !== null ? participants : '-';
-        document.getElementById('viewContestMaxParticipants').textContent = maxParticipants ? maxParticipants : 'Unlimited';
+        document.getElementById('viewContestFreePlayLimit').textContent = (freePlayLimit || freePlayLimit === 0) ? `${freePlayLimit} turn(s)` : 'No limit';
+        document.getElementById('viewContestQuestionCount').textContent = questionCount || '-';
+        document.getElementById('viewContestTimePerQuestion').textContent = timePerQuestion ? `${timePerQuestion} seconds` : '-';
+        document.getElementById('viewContestSubject').textContent = subject || '-';
+        document.getElementById('viewContestTopic').textContent = topic || '-';
+        document.getElementById('viewContestSchools').textContent = (schools && schools.length) ? schools.join(', ') : 'All schools';
         
         const statusDisplay = document.getElementById('viewContestStatusDisplay');
         if (status === 'upcoming') {
@@ -2080,13 +2532,18 @@
       }
 
       // ========== EDIT CONTEST MODAL ==========
-      function openEditContestModal(id, name, startDate, endDate, description, maxParticipants) {
+      function openEditContestModal(id, name, startDate, endDate, description, freePlayLimit, timePerQuestion, schools, questionCount, subject, topic) {
         document.getElementById('editContestId').value = id || '';
         document.getElementById('editContestName').value = name || '';
         document.getElementById('editContestStartDate').value = startDate || '';
         document.getElementById('editContestEndDate').value = endDate || '';
         document.getElementById('editContestDescription').value = description || '';
-        document.getElementById('editContestMaxParticipants').value = maxParticipants || '';
+        document.getElementById('editContestFreePlayLimit').value = (freePlayLimit || freePlayLimit === 0) ? freePlayLimit : '';
+        document.getElementById('editContestQuestionCount').value = questionCount || '';
+        document.getElementById('editContestTimePerQuestion').value = timePerQuestion || '';
+        document.getElementById('editContestSubject').value = subject || '';
+        document.getElementById('editContestTopic').value = topic || '';
+        setSelectedSchools('editContestSchools', schools);
         
         document.getElementById('editContestModal').classList.add('show');
       }
@@ -2094,6 +2551,7 @@
       function closeEditContestModal() {
         document.getElementById('editContestModal').classList.remove('show');
         document.getElementById('editContestForm').reset();
+        resetSelectedSchools('editContestSchools');
       }
 
       function handleSubmitEditContest(event) {
@@ -2104,16 +2562,36 @@
           startDate: document.getElementById('editContestStartDate').value,
           endDate: document.getElementById('editContestEndDate').value,
           description: document.getElementById('editContestDescription').value,
-          maxParticipants: document.getElementById('editContestMaxParticipants').value || null
+          freePlayLimit: document.getElementById('editContestFreePlayLimit').value !== '' ? parseInt(document.getElementById('editContestFreePlayLimit').value) : null,
+          questionCount: parseInt(document.getElementById('editContestQuestionCount').value),
+          timePerQuestion: parseInt(document.getElementById('editContestTimePerQuestion').value),
+          subject: document.getElementById('editContestSubject').value,
+          topic: document.getElementById('editContestTopic').value,
+          schools: getSelectedSchools('editContestSchools')
         };
 
-        if (!formData.name || !formData.startDate || !formData.endDate) {
+        if (!formData.name || !formData.startDate || !formData.endDate || !formData.questionCount || !formData.subject || !formData.topic || !formData.timePerQuestion) {
           alert("Please fill in all required fields!");
           return;
         }
 
         if (new Date(formData.startDate) >= new Date(formData.endDate)) {
           alert("End date must be after start date!");
+          return;
+        }
+
+        if (formData.questionCount < 1) {
+          alert("Number of questions must be greater than 0!");
+          return;
+        }
+
+        if (isNaN(formData.timePerQuestion) || formData.timePerQuestion < 1) {
+          alert("Time per question must be at least 1 second!");
+          return;
+        }
+
+        if (formData.freePlayLimit !== null && formData.freePlayLimit < 0) {
+          alert("Free play limit cannot be negative!");
           return;
         }
 
@@ -2476,11 +2954,15 @@
 
       function searchPrizes() {
         const searchTerm = document.getElementById('searchPrizes')?.value.toLowerCase() || '';
+        const filterContest = document.getElementById('filterPrizeContest')?.value.toLowerCase() || '';
         const rows = document.querySelectorAll('#prizes table tbody tr');
         
         rows.forEach(row => {
           const text = row.textContent.toLowerCase();
-          row.style.display = text.includes(searchTerm) ? '' : 'none';
+          const contest = row.dataset.contest || '';
+          const matchesSearch = text.includes(searchTerm);
+          const matchesFilter = !filterContest || contest === filterContest;
+          row.style.display = (matchesSearch && matchesFilter) ? '' : 'none';
         });
       }
 
