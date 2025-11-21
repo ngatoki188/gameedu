@@ -1,0 +1,2508 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - GameEDU</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: #f5f5f5;
+        min-height: 100vh;
+      }
+
+      /* Sidebar */
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 250px;
+        height: 100vh;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 20px;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        overflow-y: auto;
+      }
+
+      .sidebar-header {
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .sidebar-logo {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 8px;
+      }
+
+      .sidebar-subtitle {
+        font-size: 12px;
+        opacity: 0.8;
+      }
+
+      .nav-menu {
+        list-style: none;
+      }
+
+      .nav-item {
+        margin-bottom: 8px;
+      }
+
+      .nav-link {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 16px;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        transition: background 0.2s;
+        cursor: pointer;
+      }
+
+      .nav-link:hover,
+      .nav-link.active {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .nav-icon {
+        font-size: 20px;
+      }
+
+      /* Main Content */
+      .main-content {
+        margin-left: 250px;
+        padding: 30px;
+      }
+
+      /* Header */
+      .page-header {
+        background: white;
+        padding: 20px 30px;
+        border-radius: 12px;
+        margin-bottom: 30px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .page-title {
+        font-size: 28px;
+        font-weight: bold;
+        color: #333;
+      }
+
+      .user-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .user-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+      }
+
+      /* Stats Grid */
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+      }
+
+      .stat-card {
+        background: white;
+        padding: 24px;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s;
+      }
+
+      .stat-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .stat-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+      }
+
+      .stat-title {
+        font-size: 14px;
+        color: #666;
+        font-weight: 500;
+      }
+
+      .stat-icon {
+        font-size: 32px;
+        opacity: 0.8;
+      }
+
+      .stat-value {
+        font-size: 32px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 8px;
+      }
+
+      .stat-change {
+        font-size: 12px;
+        color: #34c759;
+      }
+
+      .stat-change.negative {
+        color: #ff3b30;
+      }
+
+      /* Content Cards */
+      .content-card {
+        background: white;
+        border-radius: 12px;
+        padding: 24px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+      }
+
+      .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid #e5e5ea;
+      }
+
+      .card-title {
+        font-size: 20px;
+        font-weight: bold;
+        color: #333;
+      }
+
+      .btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #007aff 0%, #34c759 100%);
+        color: white;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+      }
+
+      /* Table */
+      .table-container {
+        overflow-x: auto;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #e5e5ea;
+      }
+
+      th {
+        background: #f8f9fa;
+        font-weight: 600;
+        color: #333;
+        font-size: 14px;
+      }
+
+      td {
+        font-size: 14px;
+        color: #666;
+      }
+
+      .status-badge {
+        padding: 4px 12px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: bold;
+        display: inline-block;
+      }
+
+      .status-active {
+        background: #d4edda;
+        color: #155724;
+      }
+
+      .status-upcoming {
+        background: #fff3cd;
+        color: #856404;
+      }
+
+      .status-ended {
+        background: #e2e3e5;
+        color: #383d41;
+      }
+
+      .action-buttons {
+        display: flex;
+        gap: 8px;
+      }
+
+      .btn-sm {
+        padding: 6px 12px;
+        font-size: 12px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+
+      .btn-edit {
+        background: #007aff;
+        color: white;
+      }
+
+      .btn-delete {
+        background: #ff3b30;
+        color: white;
+      }
+
+      .btn-view {
+        background: #34c759;
+        color: white;
+      }
+
+      /* Hidden sections */
+      .content-section {
+        display: none;
+      }
+
+      .content-section.active {
+        display: block;
+      }
+
+      /* Modal */
+      .modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 2000;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+
+      .modal-overlay.show {
+        display: flex;
+      }
+
+      .modal {
+        background: white;
+        border-radius: 16px;
+        width: 100%;
+        max-width: 700px;
+        max-height: 90vh;
+        overflow-y: auto;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        position: relative;
+      }
+
+      .modal-header {
+        padding: 24px;
+        border-bottom: 1px solid #e5e5ea;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        background: white;
+        z-index: 10;
+      }
+
+      .modal-title {
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+      }
+
+      .modal-close {
+        width: 36px;
+        height: 36px;
+        border: none;
+        background: #f5f5f5;
+        border-radius: 50%;
+        font-size: 20px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s;
+      }
+
+      .modal-close:hover {
+        background: #e5e5ea;
+      }
+
+      .modal-body {
+        padding: 24px;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-label {
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 8px;
+      }
+
+      .form-label.required::after {
+        content: " *";
+        color: #ff3b30;
+      }
+
+      .form-input,
+      .form-select,
+      .form-textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #e5e5ea;
+        border-radius: 8px;
+        font-size: 14px;
+        font-family: inherit;
+        transition: border-color 0.2s;
+      }
+
+      .form-input:focus,
+      .form-select:focus,
+      .form-textarea:focus {
+        outline: none;
+        border-color: #007aff;
+      }
+
+      .form-textarea {
+        resize: vertical;
+        min-height: 100px;
+      }
+
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+
+      .answer-options {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .answer-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px;
+        background: #f8f9fa;
+        border-radius: 8px;
+      }
+
+      .answer-label {
+        width: 40px;
+        font-weight: bold;
+        color: #007aff;
+        flex-shrink: 0;
+      }
+
+      .answer-input {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #e5e5ea;
+        border-radius: 6px;
+        font-size: 14px;
+      }
+
+      .answer-correct {
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+      }
+
+      .file-upload {
+        border: 2px dashed #e5e5ea;
+        border-radius: 8px;
+        padding: 24px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .file-upload:hover {
+        border-color: #007aff;
+        background: #f0f8ff;
+      }
+
+      .file-upload input[type="file"] {
+        display: none;
+      }
+
+      .file-upload-label {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+      }
+
+      .file-upload-icon {
+        font-size: 48px;
+        color: #007aff;
+      }
+
+      .file-upload-text {
+        font-size: 14px;
+        color: #666;
+      }
+
+      .file-preview {
+        margin-top: 12px;
+        padding: 12px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        display: none;
+      }
+
+      .file-preview.show {
+        display: block;
+      }
+
+      .file-preview img,
+      .file-preview video,
+      .file-preview audio {
+        max-width: 100%;
+        border-radius: 8px;
+      }
+
+      .media-type-info {
+        font-size: 12px;
+        color: #666;
+        margin-top: 4px;
+      }
+
+      .modal-footer {
+        padding: 20px 24px;
+        border-top: 1px solid #e5e5ea;
+        display: flex;
+        justify-content: flex-end;
+        gap: 12px;
+        position: sticky;
+        bottom: 0;
+        background: white;
+      }
+
+      .btn-cancel {
+        background: #f5f5f5;
+        color: #666;
+      }
+
+      .btn-cancel:hover {
+        background: #e5e5ea;
+      }
+
+      .btn-submit {
+        background: linear-gradient(135deg, #007aff 0%, #34c759 100%);
+        color: white;
+      }
+
+      .btn-submit:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+      }
+
+      .prize-row {
+        display: flex;
+        align-items: flex-end;
+        gap: 12px;
+        padding: 16px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        border: 1px solid #e5e5ea;
+      }
+
+      /* User History Styles */
+      .user-info-header {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-radius: 12px 12px 0 0;
+      }
+
+      .user-avatar-large {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        font-weight: bold;
+        border: 3px solid white;
+      }
+
+      .user-info-details {
+        flex: 1;
+      }
+
+      .user-info-name {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 4px;
+      }
+
+      .user-info-email {
+        font-size: 14px;
+        opacity: 0.9;
+        margin-bottom: 4px;
+      }
+
+      .user-info-school {
+        font-size: 13px;
+        opacity: 0.8;
+      }
+
+      .history-stats-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+        padding: 20px;
+        background: #f8f9fa;
+      }
+
+      .history-stat-box {
+        text-align: center;
+        padding: 16px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .history-stat-value {
+        font-size: 24px;
+        font-weight: bold;
+        color: #007aff;
+        margin-bottom: 4px;
+      }
+
+      .history-stat-label {
+        font-size: 12px;
+        color: #666;
+      }
+
+      .history-list-container {
+        padding: 20px;
+        max-height: 400px;
+        overflow-y: auto;
+      }
+
+      .history-item-card {
+        background: white;
+        border: 1px solid #e5e5ea;
+        border-radius: 12px;
+        padding: 16px;
+        margin-bottom: 12px;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+
+      .history-item-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .history-item-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 12px;
+      }
+
+      .history-contest-name {
+        font-size: 16px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 4px;
+      }
+
+      .history-contest-date {
+        font-size: 12px;
+        color: #666;
+      }
+
+      .history-status-badge {
+        padding: 4px 12px;
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: bold;
+        background: #d4edda;
+        color: #155724;
+      }
+
+      .history-item-stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+        padding-top: 12px;
+        border-top: 1px solid #f5f5f5;
+      }
+
+      .history-item-stat {
+        text-align: center;
+      }
+
+      .history-item-stat-label {
+        font-size: 10px;
+        color: #666;
+        margin-bottom: 4px;
+      }
+
+      .history-item-stat-value {
+        font-size: 14px;
+        font-weight: bold;
+        color: #007aff;
+      }
+
+      .history-item-stat-value.rank {
+        color: #ff9500;
+      }
+
+      .history-item-stat-value.time {
+        color: #34c759;
+      }
+
+      .empty-history {
+        text-align: center;
+        padding: 60px 20px;
+        color: #999;
+      }
+
+      .empty-history-icon {
+        font-size: 64px;
+        margin-bottom: 16px;
+        opacity: 0.5;
+      }
+
+      .empty-history-text {
+        font-size: 16px;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .sidebar {
+          width: 200px;
+        }
+
+        .main-content {
+          margin-left: 200px;
+          padding: 20px;
+        }
+
+        .stats-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+
+        .modal {
+          max-width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">🎮 GameEDU</div>
+        <div class="sidebar-subtitle">Admin Panel</div>
+      </div>
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <a class="nav-link active" onclick="showSection('dashboard')">
+            <span class="nav-icon">📊</span>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" onclick="showSection('users')">
+            <span class="nav-icon">👥</span>
+            <span>Users</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" onclick="showSection('contests')">
+            <span class="nav-icon">📋</span>
+            <span>Contests</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" onclick="showSection('results')">
+            <span class="nav-icon">📈</span>
+            <span>Results</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" onclick="showSection('prizes')">
+            <span class="nav-icon">🏆</span>
+            <span>Prizes</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" onclick="showSection('packages')">
+            <span class="nav-icon">🛒</span>
+            <span>Game Packages</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Dashboard Section -->
+      <div id="dashboard" class="content-section active">
+        <div class="page-header">
+          <div class="page-title">📊 Dashboard</div>
+          <div class="user-info">
+            <div>
+              <div style="font-size: 12px; color: #666">Admin</div>
+              <div style="font-weight: 500">Admin User</div>
+            </div>
+            <div class="user-avatar">AD</div>
+          </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-header">
+              <div class="stat-title">Total Users</div>
+              <div class="stat-icon">👥</div>
+            </div>
+            <div class="stat-value">1,234</div>
+              <div class="stat-change">+12% from last month</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-header">
+              <div class="stat-title">Active Contests</div>
+              <div class="stat-icon">📋</div>
+            </div>
+            <div class="stat-value">3</div>
+              <div class="stat-change">2 starting soon</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-header">
+              <div class="stat-title">Total Plays</div>
+              <div class="stat-icon">🎮</div>
+            </div>
+            <div class="stat-value">5,678</div>
+            <div class="stat-change">+25% from last month</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-header">
+              <div class="stat-title">Monthly Revenue</div>
+              <div class="stat-icon">💰</div>
+            </div>
+            <div class="stat-value">2,450,000</div>
+            <div class="stat-change">MMK</div>
+          </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="content-card">
+          <div class="card-header">
+            <div class="card-title">Recent Activity</div>
+          </div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Time</th>
+                  <th>User</th>
+                  <th>Action</th>
+                  <th>Details</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>10:30 AM</td>
+                  <td>John Doe</td>
+                  <td>Completed exam</td>
+                  <td>English Challenge 3 - 85 points</td>
+                </tr>
+                <tr>
+                  <td>10:15 AM</td>
+                  <td>Jane Smith</td>
+                  <td>Purchased game package</td>
+                  <td>5 Turns - 400 MMK</td>
+                </tr>
+                <tr>
+                  <td>09:45 AM</td>
+                  <td>Bob Johnson</td>
+                  <td>Completed exam</td>
+                  <td>English Challenge 3 - 92 points</td>
+                </tr>
+                <tr>
+                  <td>09:20 AM</td>
+                  <td>Alice Brown</td>
+                  <td>Registered account</td>
+                  <td>High School GHI</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Users Section -->
+      <div id="users" class="content-section">
+        <div class="page-header">
+          <div class="page-title">👥 User Management</div>
+        </div>
+
+        <div class="content-card">
+          <div class="card-header">
+            <div class="card-title">User List</div>
+            <input
+              type="text"
+              id="searchUsers"
+              placeholder="Search users..."
+              onkeyup="searchUsers()"
+              style="padding: 8px 12px; border: 1px solid #e5e5ea; border-radius: 8px; width: 300px"
+            />
+          </div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>School</th>
+                  <th>Plays</th>
+                  <th>Highest Score</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>#001</td>
+                  <td>John Doe</td>
+                  <td>johndoe@example.com</td>
+                  <td>High School ABC</td>
+                  <td>3</td>
+                  <td>92</td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="btn-sm btn-view" onclick="viewUserHistory('001', 'John Doe', 'johndoe@example.com', 'High School ABC')">View</button>
+                      <button class="btn-sm btn-delete">Delete</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>#002</td>
+                  <td>Jane Smith</td>
+                  <td>janesmith@example.com</td>
+                  <td>High School XYZ</td>
+                  <td>5</td>
+                  <td>98</td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="btn-sm btn-view" onclick="viewUserHistory('002', 'Jane Smith', 'janesmith@example.com', 'High School XYZ')">View</button>
+                      <button class="btn-sm btn-delete">Delete</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>#003</td>
+                  <td>Bob Johnson</td>
+                  <td>bobjohnson@example.com</td>
+                  <td>High School DEF</td>
+                  <td>2</td>
+                  <td>96</td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="btn-sm btn-view" onclick="viewUserHistory('003', 'Bob Johnson', 'bobjohnson@example.com', 'High School DEF')">View</button>
+                      <button class="btn-sm btn-delete">Delete</button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contests Section -->
+      <div id="contests" class="content-section">
+        <div class="page-header">
+          <div class="page-title">📋 Contest Management</div>
+          <button class="btn btn-primary" onclick="openAddContestModal()">+ Create New Contest</button>
+        </div>
+
+        <div class="content-card">
+          <div class="card-header">
+            <div class="card-title">Contest List</div>
+            <input
+              type="text"
+              id="searchContests"
+              placeholder="Search contests..."
+              onkeyup="searchContests()"
+              style="padding: 8px 12px; border: 1px solid #e5e5ea; border-radius: 8px; width: 300px"
+            />
+          </div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Contest Name</th>
+                  <th>Time</th>
+                  <th>Status</th>
+                  <th>Participants</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>#C001</td>
+                  <td>English Challenge 4</td>
+                  <td>Jan 22 - Jan 30, 2024</td>
+                  <td>
+                    <span class="status-badge status-upcoming">Upcoming</span>
+                  </td>
+                  <td>0</td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="btn-sm btn-view" onclick="viewContestDetail('C001', 'English Challenge 4', '2024-01-22T00:00', '2024-01-30T23:59', 'English contest January 2024', 0, null, 'upcoming')">View</button>
+                      <button class="btn-sm btn-edit" onclick="openEditContestModal('C001', 'English Challenge 4', '2024-01-22T00:00', '2024-01-30T23:59', 'English contest January 2024', null)">Edit</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>#C002</td>
+                  <td>English Challenge 3</td>
+                  <td>Jan 15 - Jan 21, 2024</td>
+                  <td>
+                    <span class="status-badge status-active">Active</span>
+                  </td>
+                  <td>156</td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="btn-sm btn-view" onclick="viewContestDetail('C002', 'English Challenge 3', '2024-01-15T00:00', '2024-01-21T23:59', 'English contest January 2024', 156, null, 'active')">View</button>
+                      <button class="btn-sm btn-edit" onclick="openEditContestModal('C002', 'English Challenge 3', '2024-01-15T00:00', '2024-01-21T23:59', 'English contest January 2024', null)">Edit</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>#C003</td>
+                  <td>English Challenge 2</td>
+                  <td>Jan 8 - Jan 14, 2024</td>
+                  <td>
+                    <span class="status-badge status-ended">Ended</span>
+                  </td>
+                  <td>234</td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="btn-sm btn-view" onclick="viewContestDetail('C003', 'English Challenge 2', '2024-01-08T00:00', '2024-01-14T23:59', 'English contest January 2024', 234, null, 'ended')">View</button>
+                      <button class="btn-sm btn-edit" onclick="openEditContestModal('C003', 'English Challenge 2', '2024-01-08T00:00', '2024-01-14T23:59', 'English contest January 2024', null)">Edit</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>#C004</td>
+                  <td>English Challenge 1</td>
+                  <td>Jan 1 - Jan 7, 2024</td>
+                  <td>
+                    <span class="status-badge status-ended">Ended</span>
+                  </td>
+                  <td>189</td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="btn-sm btn-view" onclick="viewContestDetail('C004', 'English Challenge 1', '2024-01-01T00:00', '2024-01-07T23:59', 'English contest January 2024', 189, null, 'ended')">View</button>
+                      <button class="btn-sm btn-edit" onclick="openEditContestModal('C004', 'English Challenge 1', '2024-01-01T00:00', '2024-01-07T23:59', 'English contest January 2024', null)">Edit</button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Results Section -->
+      <div id="results" class="content-section">
+        <div class="page-header">
+          <div class="page-title">📈 Results Management</div>
+          <button class="btn btn-primary">Export Report</button>
+        </div>
+
+        <div class="content-card">
+          <div class="card-header">
+            <div class="card-title">Exam Results</div>
+            <div style="display: flex; gap: 12px; align-items: center;">
+              <input
+                type="text"
+                id="searchResults"
+                placeholder="Search results..."
+                onkeyup="searchResults()"
+                style="padding: 8px 12px; border: 1px solid #e5e5ea; border-radius: 8px; width: 250px"
+              />
+              <select
+                id="filterContest"
+                onchange="searchResults()"
+                style="padding: 8px 12px; border: 1px solid #e5e5ea; border-radius: 8px"
+              >
+                <option value="">All Contests</option>
+                <option value="Challenge 3">English Challenge 3</option>
+                <option value="Challenge 2">English Challenge 2</option>
+              </select>
+            </div>
+          </div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Rank</th>
+                  <th>User</th>
+                  <th>Score</th>
+                  <th>Time</th>
+                  <th>Correct/Wrong</th>
+                  <th>Contest</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>#1</td>
+                  <td>John Doe</td>
+                  <td>98</td>
+                  <td>35 minutes</td>
+                  <td>49/50</td>
+                  <td>Challenge 3</td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="btn-sm btn-view" onclick="viewResultDetail(1, 'John Doe', 98, '35 minutes', '49/50', 'Challenge 3')">View</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>#2</td>
+                  <td>Jane Smith</td>
+                  <td>97</td>
+                  <td>32 minutes</td>
+                  <td>48/50</td>
+                  <td>Challenge 3</td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="btn-sm btn-view" onclick="viewResultDetail(2, 'Jane Smith', 97, '32 minutes', '48/50', 'Challenge 3')">View</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>#3</td>
+                  <td>Bob Johnson</td>
+                  <td>96</td>
+                  <td>40 minutes</td>
+                  <td>48/50</td>
+                  <td>Challenge 3</td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="btn-sm btn-view" onclick="viewResultDetail(3, 'Bob Johnson', 96, '40 minutes', '48/50', 'Challenge 3')">View</button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Prizes Section -->
+      <div id="prizes" class="content-section">
+        <div class="page-header">
+          <div class="page-title">🏆 Prize Management</div>
+        </div>
+
+        <div class="content-card">
+          <div class="card-header">
+            <div class="card-title">Prizes by Contest</div>
+            <input
+              type="text"
+              id="searchPrizes"
+              placeholder="Search prizes..."
+              onkeyup="searchPrizes()"
+              style="padding: 8px 12px; border: 1px solid #e5e5ea; border-radius: 8px; width: 300px"
+            />
+          </div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Contest</th>
+                  <th>Rank</th>
+                  <th>Prize</th>
+                  <th>Recipient</th>
+                  <th>School</th>
+                  <th>Note</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Challenge 3</td>
+                  <td>1</td>
+                  <td>50,000 MMK</td>
+                  <td>John Doe</td>
+                  <td>High School ABC</td>
+                  <td style="max-width: 200px; font-size: 13px; color: #666;">Awarded on 20/01/2024</td>
+                  <td>
+                    <span class="status-badge status-active">Awarded</span>
+                  </td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="btn-sm btn-view" onclick="viewPrizeDetail('C002', 'Challenge 3', 1, '50000', 'John Doe', 'U001', 'High School ABC', 'awarded', 'Awarded on 20/01/2024', 'Top 1 - Highest score + fastest time')">View</button>
+                      <button class="btn-sm btn-edit" onclick="openEditPrizeModal('C002', 'Challenge 3', 1, '50000', 'John Doe', 'U001', 'High School ABC', 'awarded', 'Awarded on 20/01/2024')">Edit</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Challenge 3</td>
+                  <td>2</td>
+                  <td>30,000 MMK</td>
+                  <td>Jane Smith</td>
+                  <td>High School XYZ</td>
+                  <td style="max-width: 200px; font-size: 13px; color: #666;">Awarded on 20/01/2024</td>
+                  <td>
+                    <span class="status-badge status-active">Awarded</span>
+                  </td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="btn-sm btn-view" onclick="viewPrizeDetail('C002', 'Challenge 3', 2, '30000', 'Jane Smith', 'U002', 'High School XYZ', 'awarded', 'Awarded on 20/01/2024', 'Top 2 - 2nd highest score')">View</button>
+                      <button class="btn-sm btn-edit" onclick="openEditPrizeModal('C002', 'Challenge 3', 2, '30000', 'Jane Smith', 'U002', 'High School XYZ', 'awarded', 'Awarded on 20/01/2024')">Edit</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Challenge 3</td>
+                  <td>3</td>
+                  <td>20,000 MMK</td>
+                  <td>Bob Johnson</td>
+                  <td>High School DEF</td>
+                  <td style="max-width: 200px; font-size: 13px; color: #666;">Awarded on 20/01/2024</td>
+                  <td>
+                    <span class="status-badge status-active">Awarded</span>
+                  </td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="btn-sm btn-view" onclick="viewPrizeDetail('C002', 'Challenge 3', 3, '20000', 'Bob Johnson', 'U003', 'High School DEF', 'awarded', 'Awarded on 20/01/2024', 'Top 3 - 3rd highest score')">View</button>
+                      <button class="btn-sm btn-edit" onclick="openEditPrizeModal('C002', 'Challenge 3', 3, '20000', 'Bob Johnson', 'U003', 'High School DEF', 'awarded', 'Awarded on 20/01/2024')">Edit</button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Packages Section -->
+      <div id="packages" class="content-section">
+        <div class="page-header">
+          <div class="page-title">🛒 Game Package Management</div>
+          <button class="btn btn-primary" onclick="openAddPackageModal()">+ Add New Package</button>
+        </div>
+
+        <div class="content-card">
+          <div class="card-header">
+            <div class="card-title">Game Package List</div>
+            <input
+              type="text"
+              id="searchPackages"
+              placeholder="Search packages..."
+              onkeyup="searchPackages()"
+              style="padding: 8px 12px; border: 1px solid #e5e5ea; border-radius: 8px; width: 300px"
+            />
+          </div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Package Name</th>
+                  <th>Turns</th>
+                  <th>Price</th>
+                  <th>Discount</th>
+                  <th>Sold</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>#P001</td>
+                  <td>1 Turn</td>
+                  <td>1</td>
+                  <td>100 MMK</td>
+                  <td>0%</td>
+                  <td>234</td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="btn-sm btn-view" onclick="viewPackageDetail('P001', '1 Turn', 1, 100, 0, false, 234)">View</button>
+                      <button class="btn-sm btn-edit" onclick="openEditPackageModal('P001', '1 Turn', 1, 100, 0, false)">Edit</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>#P002</td>
+                  <td>3 Turns</td>
+                  <td>3</td>
+                  <td>270 MMK</td>
+                  <td>10%</td>
+                  <td>189</td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="btn-sm btn-view" onclick="viewPackageDetail('P002', '3 Turns', 3, 270, 10, false, 189)">View</button>
+                      <button class="btn-sm btn-edit" onclick="openEditPackageModal('P002', '3 Turns', 3, 270, 10, false)">Edit</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>#P003</td>
+                  <td>5 Turns (Recommended)</td>
+                  <td>5</td>
+                  <td>400 MMK</td>
+                  <td>20%</td>
+                  <td>456</td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="btn-sm btn-view" onclick="viewPackageDetail('P003', '5 Turns (Recommended)', 5, 400, 20, true, 456)">View</button>
+                      <button class="btn-sm btn-edit" onclick="openEditPackageModal('P003', '5 Turns (Recommended)', 5, 400, 20, true)">Edit</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>#P004</td>
+                  <td>10 Turns</td>
+                  <td>10</td>
+                  <td>700 MMK</td>
+                  <td>30%</td>
+                  <td>123</td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="btn-sm btn-view" onclick="viewPackageDetail('P004', '10 Turns', 10, 700, 30, false, 123)">View</button>
+                      <button class="btn-sm btn-edit" onclick="openEditPackageModal('P004', '10 Turns', 10, 700, 30, false)">Edit</button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Contest Modal -->
+    <div class="modal-overlay" id="addContestModal">
+      <div class="modal">
+        <div class="modal-header">
+          <div class="modal-title">📋 Create New Contest</div>
+          <button class="modal-close" onclick="closeAddContestModal()">×</button>
+        </div>
+        <div class="modal-body">
+          <form id="addContestForm" onsubmit="handleSubmitContest(event)">
+            <div class="form-group">
+              <label class="form-label required">Contest Name</label>
+              <input type="text" class="form-input" id="contestName" placeholder="E.g: English Challenge 5" required>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label required">Start Date</label>
+                <input type="datetime-local" class="form-input" id="contestStartDate" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label required">End Date</label>
+                <input type="datetime-local" class="form-input" id="contestEndDate" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Description</label>
+              <textarea class="form-textarea" id="contestDescription" placeholder="Contest description..." rows="3"></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Max Participants</label>
+              <input type="number" class="form-input" id="contestMaxParticipants" placeholder="Leave empty = unlimited" min="1">
+            </div>
+            <div class="form-group">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <label class="form-label required">Prizes</label>
+                <button type="button" class="btn-sm btn-primary" onclick="addPrizeRow()">+ Add Prize</button>
+              </div>
+              <div id="prizeList" style="display: flex; flex-direction: column; gap: 12px;"></div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-cancel" onclick="closeAddContestModal()">Cancel</button>
+          <button class="btn btn-submit" onclick="document.getElementById('addContestForm').requestSubmit()">
+            Create Contest
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Prize Modal -->
+    <!-- View Prize Detail Modal -->
+    <div class="modal-overlay" id="viewPrizeModal">
+      <div class="modal" style="max-width: 800px;">
+        <div class="modal-header">
+          <div class="modal-title">👁️ Prize Details</div>
+          <button class="modal-close" onclick="closeViewPrizeModal()">×</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">Contest</label>
+            <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px;" id="viewPrizeContest">-</div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Rank</label>
+              <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px;" id="viewPrizeRank">-</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Prize Value</label>
+              <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px; font-weight: 600; color: #007aff;" id="viewPrizeAmount">-</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Description</label>
+            <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px;" id="viewPrizeDescription">-</div>
+          </div>
+          
+          <!-- Winner Info Section -->
+          <div class="form-group" style="margin-top: 20px; padding: 16px; background: #e3f2fd; border-radius: 8px; border: 2px solid #007aff;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <div style="font-weight: 600; color: #333; font-size: 16px;">🏆 Winner Information</div>
+            </div>
+            <div id="viewWinnerInfoDisplay" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+              <div>
+                <div style="font-size: 12px; color: #666; margin-bottom: 4px;">Recipient Name</div>
+                <div style="font-weight: 600; color: #333; font-size: 15px;" id="viewWinnerNameDisplay">-</div>
+              </div>
+              <div>
+                <div style="font-size: 12px; color: #666; margin-bottom: 4px;">School</div>
+                <div style="font-weight: 600; color: #007aff; font-size: 15px;" id="viewWinnerSchoolDisplay">-</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Note</label>
+            <div class="form-textarea" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px; min-height: 80px; white-space: pre-wrap;" id="viewPrizeNote">-</div>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Status</label>
+            <div id="viewPrizeStatusDisplay" style="display: inline-block; padding: 6px 12px; border-radius: 6px; font-size: 14px; font-weight: 500;">-</div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-cancel" onclick="closeViewPrizeModal()">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="editPrizeModal">
+      <div class="modal" style="max-width: 900px;">
+        <div class="modal-header">
+          <div class="modal-title">✏️ Edit Prize</div>
+          <button class="modal-close" onclick="closeEditPrizeModal()">×</button>
+        </div>
+        <div class="modal-body">
+          <form id="editPrizeForm" onsubmit="handleSubmitEditPrize(event)">
+            <div class="form-group">
+              <label class="form-label required">Contest</label>
+              <input type="text" class="form-input" id="editPrizeContest" readonly style="background: #f5f5f5;">
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label required">Rank</label>
+                <input type="text" class="form-input" id="editPrizeRank" placeholder="E.g: 1, 2, 3, 4-10" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label required">Prize Value (MMK)</label>
+                <input type="number" class="form-input" id="editPrizeAmount" placeholder="50000" min="0" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Description</label>
+              <input type="text" class="form-input" id="editPrizeDescription" placeholder="E.g: Top 1 - Highest score + fastest time">
+            </div>
+            
+            <!-- Winner Info Section -->
+            <div class="form-group" style="margin-top: 20px; padding: 16px; background: #e3f2fd; border-radius: 8px; border: 2px solid #007aff;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <div style="font-weight: 600; color: #333; font-size: 16px;">🏆 Winner Information</div>
+              </div>
+              <div id="winnerInfoDisplay" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <div>
+                  <div style="font-size: 12px; color: #666; margin-bottom: 4px;">Recipient Name</div>
+                  <div style="font-weight: 600; color: #333; font-size: 15px;" id="winnerNameDisplay">-</div>
+                </div>
+                <div>
+                  <div style="font-size: 12px; color: #666; margin-bottom: 4px;">School</div>
+                  <div style="font-weight: 600; color: #007aff; font-size: 15px;" id="winnerSchoolDisplay">-</div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label">Note</label>
+              <textarea class="form-textarea" id="editPrizeNote" placeholder="Enter prize note..." rows="4"></textarea>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label required">Status</label>
+              <select class="form-select" id="editPrizeStatus" required>
+                <option value="pending">Pending</option>
+                <option value="awarded">Awarded</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-cancel" onclick="closeEditPrizeModal()">Cancel</button>
+          <button class="btn btn-submit" onclick="document.getElementById('editPrizeForm').requestSubmit()">
+            Save Changes
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- View Contest Modal -->
+    <div class="modal-overlay" id="viewContestModal">
+      <div class="modal" style="max-width: 800px;">
+        <div class="modal-header">
+          <div class="modal-title">👁️ Contest Details</div>
+          <button class="modal-close" onclick="closeViewContestModal()">×</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">ID</label>
+            <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px;" id="viewContestId">-</div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Contest Name</label>
+            <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px;" id="viewContestName">-</div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Start Date</label>
+              <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px;" id="viewContestStartDate">-</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">End Date</label>
+              <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px;" id="viewContestEndDate">-</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Description</label>
+            <div class="form-textarea" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px; min-height: 80px; white-space: pre-wrap;" id="viewContestDescription">-</div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Participants</label>
+              <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px;" id="viewContestParticipants">-</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Max Participants</label>
+              <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px;" id="viewContestMaxParticipants">-</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Status</label>
+            <div id="viewContestStatusDisplay" style="display: inline-block; padding: 6px 12px; border-radius: 6px; font-size: 14px; font-weight: 500;">-</div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-cancel" onclick="closeViewContestModal()">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Contest Modal -->
+    <div class="modal-overlay" id="editContestModal">
+      <div class="modal" style="max-width: 900px;">
+        <div class="modal-header">
+          <div class="modal-title">✏️ Edit Contest</div>
+          <button class="modal-close" onclick="closeEditContestModal()">×</button>
+        </div>
+        <div class="modal-body">
+          <form id="editContestForm" onsubmit="handleSubmitEditContest(event)">
+            <div class="form-group">
+              <label class="form-label">ID</label>
+              <input type="text" class="form-input" id="editContestId" readonly style="background: #f5f5f5;">
+            </div>
+            <div class="form-group">
+              <label class="form-label required">Contest Name</label>
+              <input type="text" class="form-input" id="editContestName" placeholder="E.g: English Challenge 5" required>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label required">Start Date</label>
+                <input type="datetime-local" class="form-input" id="editContestStartDate" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label required">End Date</label>
+                <input type="datetime-local" class="form-input" id="editContestEndDate" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Description</label>
+              <textarea class="form-textarea" id="editContestDescription" placeholder="Contest description..." rows="3"></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Max Participants</label>
+              <input type="number" class="form-input" id="editContestMaxParticipants" placeholder="Leave empty = unlimited" min="1">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-cancel" onclick="closeEditContestModal()">Cancel</button>
+          <button class="btn btn-submit" onclick="document.getElementById('editContestForm').requestSubmit()">
+            Save Changes
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- View Result Modal -->
+    <div class="modal-overlay" id="viewResultModal">
+      <div class="modal" style="max-width: 800px;">
+        <div class="modal-header">
+          <div class="modal-title">👁️ Result Details</div>
+          <button class="modal-close" onclick="closeViewResultModal()">×</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">Rank</label>
+            <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px; font-weight: 600; font-size: 18px; color: #007aff;" id="viewResultRank">-</div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">User</label>
+            <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px;" id="viewResultUser">-</div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Score</label>
+              <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px; font-weight: 600; color: #007aff;" id="viewResultScore">-</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Time</label>
+              <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px;" id="viewResultTime">-</div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Correct/Wrong</label>
+              <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px;" id="viewResultCorrect">-</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Contest</label>
+              <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px;" id="viewResultContest">-</div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-cancel" onclick="closeViewResultModal()">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- View Package Modal -->
+    <div class="modal-overlay" id="viewPackageModal">
+      <div class="modal" style="max-width: 800px;">
+        <div class="modal-header">
+          <div class="modal-title">👁️ Package Details</div>
+          <button class="modal-close" onclick="closeViewPackageModal()">×</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">ID</label>
+            <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px;" id="viewPackageId">-</div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Package Name</label>
+            <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px;" id="viewPackageName">-</div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Turns</label>
+              <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px;" id="viewPackageTurns">-</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Price (MMK)</label>
+              <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px; font-weight: 600; color: #007aff;" id="viewPackagePrice">-</div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Discount (%)</label>
+              <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px;" id="viewPackageDiscount">-</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Recommended Package</label>
+              <div id="viewPackageRecommendedDisplay" style="display: inline-block; padding: 6px 12px; border-radius: 6px; font-size: 14px; font-weight: 500;">-</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Sold</label>
+            <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px;" id="viewPackageSold">-</div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-cancel" onclick="closeViewPackageModal()">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Package Modal -->
+    <div class="modal-overlay" id="editPackageModal">
+      <div class="modal">
+        <div class="modal-header">
+          <div class="modal-title">✏️ Edit Package</div>
+          <button class="modal-close" onclick="closeEditPackageModal()">×</button>
+        </div>
+        <div class="modal-body">
+          <form id="editPackageForm" onsubmit="handleSubmitEditPackage(event)">
+            <div class="form-group">
+              <label class="form-label">ID</label>
+              <input type="text" class="form-input" id="editPackageId" readonly style="background: #f5f5f5;">
+            </div>
+            <div class="form-group">
+              <label class="form-label required">Package Name</label>
+              <input type="text" class="form-input" id="editPackageName" placeholder="E.g: 5 Turns" required>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label required">Turns</label>
+                <input type="number" class="form-input" id="editPackageTurns" placeholder="5" min="1" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label required">Price (MMK)</label>
+                <input type="number" class="form-input" id="editPackagePrice" placeholder="400" min="0" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Discount (%)</label>
+                <input type="number" class="form-input" id="editPackageDiscount" placeholder="20" min="0" max="100" value="0">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Recommended Package</label>
+                <select class="form-select" id="editPackageRecommended">
+                  <option value="false">No</option>
+                  <option value="true">Yes</option>
+                </select>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-cancel" onclick="closeEditPackageModal()">Cancel</button>
+          <button class="btn btn-submit" onclick="document.getElementById('editPackageForm').requestSubmit()">
+            Save Changes
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Package Modal -->
+    <div class="modal-overlay" id="addPackageModal">
+      <div class="modal">
+        <div class="modal-header">
+          <div class="modal-title">🛒 Add New Package</div>
+          <button class="modal-close" onclick="closeAddPackageModal()">×</button>
+        </div>
+        <div class="modal-body">
+          <form id="addPackageForm" onsubmit="handleSubmitPackage(event)">
+            <div class="form-group">
+              <label class="form-label required">Package Name</label>
+              <input type="text" class="form-input" id="packageName" placeholder="E.g: 5 Turns" required>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label required">Turns</label>
+                <input type="number" class="form-input" id="packageTurns" placeholder="5" min="1" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label required">Price (MMK)</label>
+                <input type="number" class="form-input" id="packagePrice" placeholder="400" min="0" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Discount (%)</label>
+                <input type="number" class="form-input" id="packageDiscount" placeholder="20" min="0" max="100" value="0">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Recommended Package</label>
+                <div style="display: flex; align-items: center; gap: 8px; margin-top: 8px;">
+                  <input type="checkbox" id="packageRecommended" style="width: 20px; height: 20px; cursor: pointer;">
+                  <label for="packageRecommended" style="font-size: 14px; color: #666; cursor: pointer;">Mark as recommended package</label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Description</label>
+              <textarea class="form-textarea" id="packageDescription" placeholder="Package description..." rows="3"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-cancel" onclick="closeAddPackageModal()">Cancel</button>
+          <button class="btn btn-submit" onclick="document.getElementById('addPackageForm').requestSubmit()">
+            Add Package
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- User History Modal -->
+    <div class="modal-overlay" id="userHistoryModal">
+      <div class="modal" style="max-width: 800px;">
+        <div class="modal-header" style="padding: 0;">
+          <div class="user-info-header">
+            <div class="user-avatar-large" id="historyUserAvatar">JD</div>
+            <div class="user-info-details">
+              <div class="user-info-name" id="historyUserName">John Doe</div>
+              <div class="user-info-email" id="historyUserEmail">johndoe@example.com</div>
+              <div class="user-info-school" id="historyUserSchool">High School ABC</div>
+            </div>
+            <button class="modal-close" onclick="closeUserHistoryModal()" style="background: rgba(255,255,255,0.2); color: white;">×</button>
+          </div>
+        </div>
+        <div class="history-stats-grid">
+          <div class="history-stat-box">
+            <div class="history-stat-value" id="historyTotalPlays">3</div>
+            <div class="history-stat-label">Total Plays</div>
+          </div>
+          <div class="history-stat-box">
+            <div class="history-stat-value" id="historyHighestScore">92</div>
+            <div class="history-stat-label">Highest Score</div>
+          </div>
+          <div class="history-stat-box">
+            <div class="history-stat-value" id="historyBestRank">#25</div>
+            <div class="history-stat-label">Best Rank</div>
+          </div>
+          <div class="history-stat-box">
+            <div class="history-stat-value" id="historyAvgTime">38m</div>
+            <div class="history-stat-label">Avg Time</div>
+          </div>
+        </div>
+        <div class="modal-body" style="padding: 0;">
+          <div style="padding: 20px; border-bottom: 1px solid #e5e5ea;">
+            <div class="card-title">📜 Play History</div>
+          </div>
+          <div class="history-list-container" id="historyListContainer">
+            <!-- History items will be loaded here -->
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-cancel" onclick="closeUserHistoryModal()">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function showSection(sectionId) {
+        // Hide all sections
+        document.querySelectorAll(".content-section").forEach((section) => {
+          section.classList.remove("active");
+        });
+
+        // Show selected section
+        document.getElementById(sectionId).classList.add("active");
+
+        // Update active nav link
+        document.querySelectorAll(".nav-link").forEach((link) => {
+          link.classList.remove("active");
+        });
+        event.target.closest(".nav-link").classList.add("active");
+      }
+
+      // ========== ADD CONTEST MODAL ==========
+      function openAddContestModal() {
+        document.getElementById("addContestModal").classList.add("show");
+      }
+
+      function closeAddContestModal() {
+        document.getElementById("addContestModal").classList.remove("show");
+        document.getElementById("addContestForm").reset();
+        document.getElementById("prizeList").innerHTML = "";
+      }
+
+      function addPrizeRow() {
+        const prizeList = document.getElementById("prizeList");
+        const rowCount = prizeList.children.length + 1;
+        const row = document.createElement("div");
+        row.className = "prize-row";
+        row.innerHTML = `
+          <div class="form-group" style="flex: 1;">
+            <label class="form-label">Rank</label>
+            <input type="text" class="form-input" placeholder="E.g: 1, 2-5, 6-10" required>
+          </div>
+          <div class="form-group" style="flex: 2;">
+            <label class="form-label">Description</label>
+            <input type="text" class="form-input" placeholder="E.g: Top 1, Top 2-5" required>
+          </div>
+          <div class="form-group" style="flex: 1;">
+            <label class="form-label">Prize (MMK)</label>
+            <input type="number" class="form-input" placeholder="50000" min="0" required>
+          </div>
+          <button type="button" class="btn-sm btn-delete" onclick="this.parentElement.remove()">Delete</button>
+        `;
+        prizeList.appendChild(row);
+      }
+
+      function handleSubmitContest(event) {
+        event.preventDefault();
+        const formData = {
+          name: document.getElementById("contestName").value,
+          startDate: document.getElementById("contestStartDate").value,
+          endDate: document.getElementById("contestEndDate").value,
+          description: document.getElementById("contestDescription").value,
+          maxParticipants: document.getElementById("contestMaxParticipants").value,
+          prizes: []
+        };
+
+        const prizeRows = document.querySelectorAll(".prize-row");
+        prizeRows.forEach(row => {
+          const inputs = row.querySelectorAll("input");
+          formData.prizes.push({
+            rank: inputs[0].value,
+            description: inputs[1].value,
+            amount: parseInt(inputs[2].value)
+          });
+        });
+
+        if (!formData.name || !formData.startDate || !formData.endDate) {
+          alert("Please fill in all required fields!");
+          return;
+        }
+
+        if (new Date(formData.startDate) >= new Date(formData.endDate)) {
+          alert("End date must be after start date!");
+          return;
+        }
+
+        if (formData.prizes.length === 0) {
+          alert("Please add at least one prize!");
+          return;
+        }
+
+        console.log("Contest Data:", formData);
+        alert("Contest created successfully!");
+        closeAddContestModal();
+      }
+
+      // ========== VIEW PRIZE MODAL ==========
+      function viewPrizeDetail(contestId, contestName, rank, amount, currentWinner, currentWinnerId, currentWinnerSchool, status, note, description) {
+        // Set display values
+        document.getElementById('viewPrizeContest').textContent = contestName || '-';
+        document.getElementById('viewPrizeRank').textContent = rank || '-';
+        const amountNum = typeof amount === 'string' ? parseInt(amount) : amount;
+        document.getElementById('viewPrizeAmount').textContent = amountNum ? amountNum.toLocaleString('vi-VN') + ' MMK' : '-';
+        document.getElementById('viewPrizeDescription').textContent = description || '-';
+        document.getElementById('viewPrizeNote').textContent = note || '-';
+        
+        // Display winner info
+        const viewWinnerNameDisplay = document.getElementById('viewWinnerNameDisplay');
+        const viewWinnerSchoolDisplay = document.getElementById('viewWinnerSchoolDisplay');
+        
+        if (currentWinner && currentWinnerSchool) {
+          viewWinnerNameDisplay.textContent = currentWinner;
+          viewWinnerSchoolDisplay.textContent = currentWinnerSchool;
+        } else {
+          viewWinnerNameDisplay.textContent = 'No recipient';
+          viewWinnerSchoolDisplay.textContent = '-';
+        }
+        
+        // Display status
+        const statusDisplay = document.getElementById('viewPrizeStatusDisplay');
+        if (status === 'awarded') {
+          statusDisplay.textContent = 'Awarded';
+          statusDisplay.style.background = '#d4edda';
+          statusDisplay.style.color = '#155724';
+        } else {
+          statusDisplay.textContent = 'Pending';
+          statusDisplay.style.background = '#fff3cd';
+          statusDisplay.style.color = '#856404';
+        }
+        
+        // Show modal
+        document.getElementById('viewPrizeModal').classList.add('show');
+      }
+
+      function closeViewPrizeModal() {
+        document.getElementById('viewPrizeModal').classList.remove('show');
+      }
+
+      // ========== EDIT PRIZE MODAL ==========
+      function openEditPrizeModal(contestId, contestName, rank, amount, currentWinner, currentWinnerId, currentWinnerSchool, status, note) {
+        // Set form values
+        document.getElementById('editPrizeContest').value = contestName;
+        document.getElementById('editPrizeRank').value = rank;
+        document.getElementById('editPrizeAmount').value = amount;
+        document.getElementById('editPrizeStatus').value = status;
+        document.getElementById('editPrizeNote').value = note || '';
+        
+        // Display winner info
+        const winnerNameDisplay = document.getElementById('winnerNameDisplay');
+        const winnerSchoolDisplay = document.getElementById('winnerSchoolDisplay');
+        
+        if (currentWinner && currentWinnerSchool) {
+          winnerNameDisplay.textContent = currentWinner;
+          winnerSchoolDisplay.textContent = currentWinnerSchool;
+        } else {
+          winnerNameDisplay.textContent = 'No recipient';
+          winnerSchoolDisplay.textContent = '-';
+        }
+        
+        // Show modal
+        document.getElementById('editPrizeModal').classList.add('show');
+      }
+
+      function closeEditPrizeModal() {
+        document.getElementById('editPrizeModal').classList.remove('show');
+        document.getElementById('editPrizeForm').reset();
+      }
+
+      function handleSubmitEditPrize(event) {
+        event.preventDefault();
+        const formData = {
+          contest: document.getElementById('editPrizeContest').value,
+          rank: document.getElementById('editPrizeRank').value,
+          amount: parseInt(document.getElementById('editPrizeAmount').value),
+          description: document.getElementById('editPrizeDescription').value,
+          note: document.getElementById('editPrizeNote').value || null,
+          status: document.getElementById('editPrizeStatus').value
+        };
+
+        if (!formData.contest || !formData.rank || !formData.amount) {
+          alert("Please fill in all required fields!");
+          return;
+        }
+
+        console.log("Prize Data:", formData);
+        alert("Prize updated successfully!");
+        closeEditPrizeModal();
+      }
+
+      // ========== VIEW CONTEST MODAL ==========
+      function viewContestDetail(id, name, startDate, endDate, description, participants, maxParticipants, status) {
+        document.getElementById('viewContestId').textContent = id || '-';
+        document.getElementById('viewContestName').textContent = name || '-';
+        document.getElementById('viewContestStartDate').textContent = startDate ? new Date(startDate).toLocaleString('vi-VN') : '-';
+        document.getElementById('viewContestEndDate').textContent = endDate ? new Date(endDate).toLocaleString('vi-VN') : '-';
+        document.getElementById('viewContestDescription').textContent = description || '-';
+        document.getElementById('viewContestParticipants').textContent = participants !== null ? participants : '-';
+        document.getElementById('viewContestMaxParticipants').textContent = maxParticipants ? maxParticipants : 'Unlimited';
+        
+        const statusDisplay = document.getElementById('viewContestStatusDisplay');
+        if (status === 'upcoming') {
+          statusDisplay.textContent = 'Upcoming';
+          statusDisplay.style.background = '#fff3cd';
+          statusDisplay.style.color = '#856404';
+        } else if (status === 'active') {
+          statusDisplay.textContent = 'Active';
+          statusDisplay.style.background = '#d4edda';
+          statusDisplay.style.color = '#155724';
+        } else {
+          statusDisplay.textContent = 'Ended';
+          statusDisplay.style.background = '#f8d7da';
+          statusDisplay.style.color = '#721c24';
+        }
+        
+        document.getElementById('viewContestModal').classList.add('show');
+      }
+
+      function closeViewContestModal() {
+        document.getElementById('viewContestModal').classList.remove('show');
+      }
+
+      // ========== EDIT CONTEST MODAL ==========
+      function openEditContestModal(id, name, startDate, endDate, description, maxParticipants) {
+        document.getElementById('editContestId').value = id || '';
+        document.getElementById('editContestName').value = name || '';
+        document.getElementById('editContestStartDate').value = startDate || '';
+        document.getElementById('editContestEndDate').value = endDate || '';
+        document.getElementById('editContestDescription').value = description || '';
+        document.getElementById('editContestMaxParticipants').value = maxParticipants || '';
+        
+        document.getElementById('editContestModal').classList.add('show');
+      }
+
+      function closeEditContestModal() {
+        document.getElementById('editContestModal').classList.remove('show');
+        document.getElementById('editContestForm').reset();
+      }
+
+      function handleSubmitEditContest(event) {
+        event.preventDefault();
+        const formData = {
+          id: document.getElementById('editContestId').value,
+          name: document.getElementById('editContestName').value,
+          startDate: document.getElementById('editContestStartDate').value,
+          endDate: document.getElementById('editContestEndDate').value,
+          description: document.getElementById('editContestDescription').value,
+          maxParticipants: document.getElementById('editContestMaxParticipants').value || null
+        };
+
+        if (!formData.name || !formData.startDate || !formData.endDate) {
+          alert("Please fill in all required fields!");
+          return;
+        }
+
+        if (new Date(formData.startDate) >= new Date(formData.endDate)) {
+          alert("End date must be after start date!");
+          return;
+        }
+
+        console.log("Contest Data:", formData);
+        alert("Contest updated successfully!");
+        closeEditContestModal();
+      }
+
+      // ========== VIEW RESULT MODAL ==========
+      function viewResultDetail(rank, user, score, time, correct, contest) {
+        document.getElementById('viewResultRank').textContent = '#' + rank;
+        document.getElementById('viewResultUser').textContent = user || '-';
+        document.getElementById('viewResultScore').textContent = score || '-';
+        document.getElementById('viewResultTime').textContent = time || '-';
+        document.getElementById('viewResultCorrect').textContent = correct || '-';
+        document.getElementById('viewResultContest').textContent = contest || '-';
+        
+        document.getElementById('viewResultModal').classList.add('show');
+      }
+
+      function closeViewResultModal() {
+        document.getElementById('viewResultModal').classList.remove('show');
+      }
+
+      // ========== VIEW PACKAGE MODAL ==========
+      function viewPackageDetail(id, name, turns, price, discount, recommended, sold) {
+        document.getElementById('viewPackageId').textContent = id || '-';
+        document.getElementById('viewPackageName').textContent = name || '-';
+        document.getElementById('viewPackageTurns').textContent = turns || '-';
+        document.getElementById('viewPackagePrice').textContent = price ? price.toLocaleString('vi-VN') + ' MMK' : '-';
+        document.getElementById('viewPackageDiscount').textContent = discount ? discount + '%' : '0%';
+        document.getElementById('viewPackageSold').textContent = sold !== null ? sold : '-';
+        
+        const recommendedDisplay = document.getElementById('viewPackageRecommendedDisplay');
+        if (recommended) {
+          recommendedDisplay.textContent = 'Yes';
+          recommendedDisplay.style.background = '#d4edda';
+          recommendedDisplay.style.color = '#155724';
+        } else {
+          recommendedDisplay.textContent = 'No';
+          recommendedDisplay.style.background = '#f8d7da';
+          recommendedDisplay.style.color = '#721c24';
+        }
+        
+        document.getElementById('viewPackageModal').classList.add('show');
+      }
+
+      function closeViewPackageModal() {
+        document.getElementById('viewPackageModal').classList.remove('show');
+      }
+
+      // ========== EDIT PACKAGE MODAL ==========
+      function openEditPackageModal(id, name, turns, price, discount, recommended) {
+        document.getElementById('editPackageId').value = id || '';
+        document.getElementById('editPackageName').value = name || '';
+        document.getElementById('editPackageTurns').value = turns || '';
+        document.getElementById('editPackagePrice').value = price || '';
+        document.getElementById('editPackageDiscount').value = discount || 0;
+        document.getElementById('editPackageRecommended').value = recommended ? 'true' : 'false';
+        
+        document.getElementById('editPackageModal').classList.add('show');
+      }
+
+      function closeEditPackageModal() {
+        document.getElementById('editPackageModal').classList.remove('show');
+        document.getElementById('editPackageForm').reset();
+      }
+
+      function handleSubmitEditPackage(event) {
+        event.preventDefault();
+        const formData = {
+          id: document.getElementById('editPackageId').value,
+          name: document.getElementById('editPackageName').value,
+          turns: parseInt(document.getElementById('editPackageTurns').value),
+          price: parseInt(document.getElementById('editPackagePrice').value),
+          discount: parseInt(document.getElementById('editPackageDiscount').value) || 0,
+          recommended: document.getElementById('editPackageRecommended').value === 'true'
+        };
+
+        if (!formData.name || !formData.turns || !formData.price) {
+          alert("Please fill in all required fields!");
+          return;
+        }
+
+        console.log("Package Data:", formData);
+        alert("Package updated successfully!");
+        closeEditPackageModal();
+      }
+
+      // ========== ADD PACKAGE MODAL ==========
+      function openAddPackageModal() {
+        document.getElementById("addPackageModal").classList.add("show");
+      }
+
+      function closeAddPackageModal() {
+        document.getElementById("addPackageModal").classList.remove("show");
+        document.getElementById("addPackageForm").reset();
+      }
+
+      function handleSubmitPackage(event) {
+        event.preventDefault();
+        const formData = {
+          name: document.getElementById("packageName").value,
+          turns: parseInt(document.getElementById("packageTurns").value),
+          price: parseInt(document.getElementById("packagePrice").value),
+          discount: parseInt(document.getElementById("packageDiscount").value) || 0,
+          recommended: document.getElementById("packageRecommended").checked,
+          description: document.getElementById("packageDescription").value
+        };
+
+        if (!formData.name || !formData.turns || !formData.price) {
+          alert("Please fill in all required fields!");
+          return;
+        }
+
+        if (formData.turns < 1) {
+          alert("Number of turns must be greater than 0!");
+          return;
+        }
+
+        if (formData.price < 0) {
+          alert("Price cannot be negative!");
+          return;
+        }
+
+        if (formData.discount < 0 || formData.discount > 100) {
+          alert("Discount must be between 0% and 100%!");
+          return;
+        }
+
+        console.log("Package Data:", formData);
+        alert("Package added successfully!");
+        closeAddPackageModal();
+      }
+
+      // ========== USER HISTORY MODAL ==========
+      // Sample history data for different users
+      const userHistoryData = {
+        '001': {
+          name: 'John Doe',
+          email: 'johndoe@example.com',
+          school: 'High School ABC',
+          avatar: 'JD',
+          stats: {
+            totalPlays: 3,
+            highestScore: 92,
+            bestRank: '#25',
+            avgTime: '38m'
+          },
+          history: [
+            {
+              contestName: 'English Challenge 1',
+              date: 'Jan 15, 2024 • 10:30 AM',
+              score: 80,
+              rank: '#25',
+              time: '38m',
+              correct: '40/50',
+              status: 'Completed'
+            },
+            {
+              contestName: 'English Challenge 2',
+              date: 'Jan 12, 2024 • 2:15 PM',
+              score: 72,
+              rank: '#42',
+              time: '42m',
+              correct: '36/50',
+              status: 'Completed'
+            },
+            {
+              contestName: 'English Challenge 3',
+              date: 'Jan 10, 2024 • 9:00 AM',
+              score: 92,
+              rank: '#20',
+              time: '45m',
+              correct: '46/50',
+              status: 'Completed'
+            }
+          ]
+        },
+        '002': {
+          name: 'Jane Smith',
+          email: 'janesmith@example.com',
+          school: 'High School XYZ',
+          avatar: 'JS',
+          stats: {
+            totalPlays: 5,
+            highestScore: 98,
+            bestRank: '#1',
+            avgTime: '35m'
+          },
+          history: [
+            {
+              contestName: 'English Challenge 3',
+              date: 'Jan 18, 2024 • 11:20 AM',
+              score: 98,
+              rank: '#1',
+              time: '32m',
+              correct: '49/50',
+              status: 'Completed'
+            },
+            {
+              contestName: 'English Challenge 2',
+              date: 'Jan 13, 2024 • 3:45 PM',
+              score: 97,
+              rank: '#2',
+              time: '35m',
+              correct: '48/50',
+              status: 'Completed'
+            },
+            {
+              contestName: 'English Challenge 1',
+              date: 'Jan 5, 2024 • 8:15 AM',
+              score: 95,
+              rank: '#5',
+              time: '38m',
+              correct: '47/50',
+              status: 'Completed'
+            }
+          ]
+        },
+        '003': {
+          name: 'Bob Johnson',
+          email: 'bobjohnson@example.com',
+          school: 'High School DEF',
+          avatar: 'BJ',
+          stats: {
+            totalPlays: 2,
+            highestScore: 96,
+            bestRank: '#3',
+            avgTime: '40m'
+          },
+          history: [
+            {
+              contestName: 'English Challenge 2',
+              date: 'Jan 14, 2024 • 1:30 PM',
+              score: 96,
+              rank: '#3',
+              time: '40m',
+              correct: '48/50',
+              status: 'Completed'
+            },
+            {
+              contestName: 'English Challenge 1',
+              date: 'Jan 6, 2024 • 10:00 AM',
+              score: 94,
+              rank: '#8',
+              time: '42m',
+              correct: '47/50',
+              status: 'Completed'
+            }
+          ]
+        }
+      };
+
+      function viewUserHistory(userId, userName, userEmail, userSchool) {
+        const userData = userHistoryData[userId];
+        if (!userData) {
+          alert('No history data found for this user!');
+          return;
+        }
+
+        // Update user info
+        document.getElementById('historyUserAvatar').textContent = userData.avatar;
+        document.getElementById('historyUserName').textContent = userData.name;
+        document.getElementById('historyUserEmail').textContent = userData.email;
+        document.getElementById('historyUserSchool').textContent = userData.school;
+
+        // Update stats
+        document.getElementById('historyTotalPlays').textContent = userData.stats.totalPlays;
+        document.getElementById('historyHighestScore').textContent = userData.stats.highestScore;
+        document.getElementById('historyBestRank').textContent = userData.stats.bestRank;
+        document.getElementById('historyAvgTime').textContent = userData.stats.avgTime;
+
+        // Render history list
+        const historyContainer = document.getElementById('historyListContainer');
+        if (userData.history.length === 0) {
+          historyContainer.innerHTML = `
+            <div class="empty-history">
+              <div class="empty-history-icon">📭</div>
+              <div class="empty-history-text">No play history</div>
+            </div>
+          `;
+        } else {
+          let historyHTML = '';
+          userData.history.forEach(item => {
+            historyHTML += `
+              <div class="history-item-card">
+                <div class="history-item-header">
+                  <div>
+                    <div class="history-contest-name">${item.contestName}</div>
+                    <div class="history-contest-date">${item.date}</div>
+                  </div>
+                  <div class="history-status-badge">${item.status}</div>
+                </div>
+                <div class="history-item-stats">
+                  <div class="history-item-stat">
+                    <div class="history-item-stat-label">Score</div>
+                    <div class="history-item-stat-value">${item.score}</div>
+                  </div>
+                  <div class="history-item-stat">
+                    <div class="history-item-stat-label">Rank</div>
+                    <div class="history-item-stat-value rank">${item.rank}</div>
+                  </div>
+                  <div class="history-item-stat">
+                    <div class="history-item-stat-label">Time</div>
+                    <div class="history-item-stat-value time">${item.time}</div>
+                  </div>
+                  <div class="history-item-stat">
+                    <div class="history-item-stat-label">Correct/Wrong</div>
+                    <div class="history-item-stat-value">${item.correct}</div>
+                  </div>
+                </div>
+              </div>
+            `;
+          });
+          historyContainer.innerHTML = historyHTML;
+        }
+
+        // Show modal
+        document.getElementById('userHistoryModal').classList.add('show');
+      }
+
+      function closeUserHistoryModal() {
+        document.getElementById('userHistoryModal').classList.remove('show');
+      }
+
+      // ========== SEARCH FUNCTIONS ==========
+      function searchUsers() {
+        const searchTerm = document.getElementById('searchUsers')?.value.toLowerCase() || '';
+        const rows = document.querySelectorAll('#users table tbody tr');
+        
+        rows.forEach(row => {
+          const text = row.textContent.toLowerCase();
+          row.style.display = text.includes(searchTerm) ? '' : 'none';
+        });
+      }
+
+      function searchContests() {
+        const searchTerm = document.getElementById('searchContests')?.value.toLowerCase() || '';
+        const rows = document.querySelectorAll('#contests table tbody tr');
+        
+        rows.forEach(row => {
+          const text = row.textContent.toLowerCase();
+          row.style.display = text.includes(searchTerm) ? '' : 'none';
+        });
+      }
+
+      function searchResults() {
+        const searchTerm = document.getElementById('searchResults')?.value.toLowerCase() || '';
+        const filterContest = document.getElementById('filterContest')?.value.toLowerCase() || '';
+        const rows = document.querySelectorAll('#results table tbody tr');
+        
+        rows.forEach(row => {
+          const text = row.textContent.toLowerCase();
+          const matchesSearch = text.includes(searchTerm);
+          const matchesFilter = !filterContest || text.includes(filterContest);
+          row.style.display = (matchesSearch && matchesFilter) ? '' : 'none';
+        });
+      }
+
+      function searchPrizes() {
+        const searchTerm = document.getElementById('searchPrizes')?.value.toLowerCase() || '';
+        const rows = document.querySelectorAll('#prizes table tbody tr');
+        
+        rows.forEach(row => {
+          const text = row.textContent.toLowerCase();
+          row.style.display = text.includes(searchTerm) ? '' : 'none';
+        });
+      }
+
+      function searchPackages() {
+        const searchTerm = document.getElementById('searchPackages')?.value.toLowerCase() || '';
+        const rows = document.querySelectorAll('#packages table tbody tr');
+        
+        rows.forEach(row => {
+          const text = row.textContent.toLowerCase();
+          row.style.display = text.includes(searchTerm) ? '' : 'none';
+        });
+      }
+
+      // Close modals when clicking outside
+      document.querySelectorAll(".modal-overlay").forEach(modal => {
+        modal.addEventListener("click", function(e) {
+          if (e.target === this) {
+            this.classList.remove("show");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
+
