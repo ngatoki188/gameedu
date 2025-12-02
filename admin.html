@@ -812,9 +812,9 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" onclick="showSection('users')">
+          <a class="nav-link" onclick="showSection('player')">
             <span class="nav-icon">👥</span>
-            <span>Users</span>
+            <span>Player</span>
           </a>
         </li>
         <li class="nav-item">
@@ -944,10 +944,10 @@
         </div>
       </div>
 
-      <!-- Users Section -->
-      <div id="users" class="content-section">
+      <!-- Player Section -->
+      <div id="player" class="content-section">
         <div class="page-header">
-          <div class="page-title">👥 User Management</div>
+          <div class="page-title">👥 Player Management</div>
         </div>
 
         <div class="content-card">
@@ -970,7 +970,6 @@
                   <th>Email</th>
                   <th>School</th>
                   <th>Plays</th>
-                  <th>Highest Score</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -981,7 +980,6 @@
                   <td>johndoe@example.com</td>
                   <td>High School ABC</td>
                   <td>3</td>
-                  <td>92</td>
                   <td>
                     <div class="action-buttons">
                       <button class="btn-sm btn-view" onclick="viewUserHistory('001', 'John Doe', 'johndoe@example.com', 'High School ABC')">View</button>
@@ -995,7 +993,6 @@
                   <td>janesmith@example.com</td>
                   <td>High School XYZ</td>
                   <td>5</td>
-                  <td>98</td>
                   <td>
                     <div class="action-buttons">
                       <button class="btn-sm btn-view" onclick="viewUserHistory('002', 'Jane Smith', 'janesmith@example.com', 'High School XYZ')">View</button>
@@ -1009,7 +1006,6 @@
                   <td>bobjohnson@example.com</td>
                   <td>High School DEF</td>
                   <td>2</td>
-                  <td>96</td>
                   <td>
                     <div class="action-buttons">
                       <button class="btn-sm btn-view" onclick="viewUserHistory('003', 'Bob Johnson', 'bobjohnson@example.com', 'High School DEF')">View</button>
@@ -2064,6 +2060,72 @@
       </div>
     </div>
 
+    <!-- Play Detail Modal -->
+    <div class="modal-overlay" id="playDetailModal">
+      <div class="modal" style="max-width: 900px;">
+        <div class="modal-header">
+          <div class="modal-title">📋 Chi tiết phiên chơi</div>
+          <button class="modal-close" onclick="closePlayDetailModal()">×</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Contest</label>
+              <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px;" id="playDetailContest">-</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Date</label>
+              <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px;" id="playDetailDate">-</div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Score</label>
+              <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px; font-weight: 600; color: #007aff;" id="playDetailScore">-</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Rank</label>
+              <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px; font-weight: 600; color: #ff9500;" id="playDetailRank">-</div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Time</label>
+              <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px;" id="playDetailTime">-</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">correct</label>
+              <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px; font-weight: 600; color: #34c759;" id="playDetailCorrect">-</div>
+            </div>
+          </div>
+          <div class="form-group" style="margin-top: 20px;">
+            <label class="form-label">Question Timeline</label>
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Question</th>
+                    <th>Your Answer</th>
+                    <th>Result</th>
+                    <th>Time Used</th>
+                  </tr>
+                </thead>
+                <tbody id="playDetailQuestionBody">
+                  <tr>
+                    <td colspan="5" style="text-align: center; color: #999;">No data</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-cancel" onclick="closePlayDetailModal()">Close</button>
+        </div>
+      </div>
+    </div>
+
     <!-- User History Modal -->
     <div class="modal-overlay" id="userHistoryModal">
       <div class="modal" style="max-width: 800px;">
@@ -2100,8 +2162,26 @@
           <div style="padding: 20px; border-bottom: 1px solid #e5e5ea;">
             <div class="card-title">📜 Play History</div>
           </div>
-          <div class="history-list-container" id="historyListContainer">
-            <!-- History items will be loaded here -->
+          <div style="padding: 20px;">
+            <div class="table-container">
+              <table id="historyTable">
+                <thead>
+                  <tr>
+                    <th>Contest</th>
+                    <th>Date</th>
+                    <th>Score</th>
+                    <th>Rank</th>
+                    <th>Time</th>
+                    <th>Correct</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="historyListContainer">
+                  <!-- History items will be loaded here -->
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
         <div class="modal-footer">
@@ -2157,8 +2237,7 @@
             { number: 1, question: "Vocabulary warm-up", answer: "A", result: "Correct", timeUsed: "35s" },
             { number: 2, question: "Listening clip 1", answer: "B", result: "Correct", timeUsed: "42s" },
             { number: 3, question: "Grammar challenge", answer: "C", result: "Correct", timeUsed: "33s" },
-            { number: 4, question: "Reading summary", answer: "D", result: "Correct", timeUsed: "40s" },
-            { number: 5, question: "Speed bonus", answer: "B", result: "Wrong", timeUsed: "25s" }
+            { number: 4, question: "Reading summary", answer: "D", result: "Correct", timeUsed: "40s" }
           ]
         },
         "C002-2": {
@@ -2207,8 +2286,7 @@
             { number: 1, question: "Vocabulary warm-up", answer: "B", result: "Correct", timeUsed: "41s" },
             { number: 2, question: "Listening clip 1", answer: "B", result: "Correct", timeUsed: "45s" },
             { number: 3, question: "Grammar challenge", answer: "D", result: "Correct", timeUsed: "39s" },
-            { number: 4, question: "Reading summary", answer: "C", result: "Correct", timeUsed: "47s" },
-            { number: 5, question: "Speed bonus", answer: "A", result: "Wrong", timeUsed: "30s" }
+            { number: 4, question: "Reading summary", answer: "C", result: "Correct", timeUsed: "47s" }
           ]
         }
       };
@@ -2360,7 +2438,7 @@
                 <td>${item.number}</td>
                 <td>${item.question}</td>
                 <td>${item.answer}</td>
-                <td style="font-weight: 600; color: ${item.result === 'Correct' ? '#34c759' : '#ff3b30'};">${item.result}</td>
+                <td style="font-weight: 600; color: #34c759;">Correct</td>
                 <td>${item.timeUsed}</td>
               </tr>
             `).join('');
@@ -2748,8 +2826,11 @@
               score: 80,
               rank: '#25',
               time: '38m',
-              correct: '40/50',
-              status: 'Completed'
+              status: 'Completed',
+              questionDetails: [
+                { number: 1, question: 'Vocabulary warm-up', answer: 'A', result: 'Correct', timeUsed: '35s' },
+                { number: 2, question: 'Listening clip 1', answer: 'B', result: 'Correct', timeUsed: '42s' }
+              ]
             },
             {
               contestName: 'English Challenge 2',
@@ -2757,8 +2838,10 @@
               score: 72,
               rank: '#42',
               time: '42m',
-              correct: '36/50',
-              status: 'Completed'
+              status: 'Completed',
+              questionDetails: [
+                { number: 1, question: 'Vocabulary warm-up', answer: 'A', result: 'Correct', timeUsed: '38s' }
+              ]
             },
             {
               contestName: 'English Challenge 3',
@@ -2766,8 +2849,13 @@
               score: 92,
               rank: '#20',
               time: '45m',
-              correct: '46/50',
-              status: 'Completed'
+              status: 'Completed',
+              questionDetails: [
+                { number: 1, question: 'Vocabulary warm-up', answer: 'A', result: 'Correct', timeUsed: '35s' },
+                { number: 2, question: 'Listening clip 1', answer: 'B', result: 'Correct', timeUsed: '42s' },
+                { number: 3, question: 'Grammar challenge', answer: 'C', result: 'Correct', timeUsed: '33s' },
+                { number: 4, question: 'Reading summary', answer: 'D', result: 'Correct', timeUsed: '40s' }
+              ]
             }
           ]
         },
@@ -2789,8 +2877,14 @@
               score: 98,
               rank: '#1',
               time: '32m',
-              correct: '49/50',
-              status: 'Completed'
+              status: 'Completed',
+              questionDetails: [
+                { number: 1, question: 'Vocabulary warm-up', answer: 'A', result: 'Correct', timeUsed: '35s' },
+                { number: 2, question: 'Listening clip 1', answer: 'B', result: 'Correct', timeUsed: '42s' },
+                { number: 3, question: 'Grammar challenge', answer: 'C', result: 'Correct', timeUsed: '33s' },
+                { number: 4, question: 'Reading summary', answer: 'D', result: 'Correct', timeUsed: '40s' },
+                { number: 5, question: 'Speed bonus', answer: 'A', result: 'Correct', timeUsed: '29s' }
+              ]
             },
             {
               contestName: 'English Challenge 2',
@@ -2798,8 +2892,14 @@
               score: 97,
               rank: '#2',
               time: '35m',
-              correct: '48/50',
-              status: 'Completed'
+              status: 'Completed',
+              questionDetails: [
+                { number: 1, question: 'Vocabulary warm-up', answer: 'A', result: 'Correct', timeUsed: '38s' },
+                { number: 2, question: 'Listening clip 1', answer: 'B', result: 'Correct', timeUsed: '41s' },
+                { number: 3, question: 'Grammar challenge', answer: 'C', result: 'Correct', timeUsed: '36s' },
+                { number: 4, question: 'Reading summary', answer: 'C', result: 'Correct', timeUsed: '44s' },
+                { number: 5, question: 'Speed bonus', answer: 'A', result: 'Correct', timeUsed: '29s' }
+              ]
             },
             {
               contestName: 'English Challenge 1',
@@ -2807,8 +2907,13 @@
               score: 95,
               rank: '#5',
               time: '38m',
-              correct: '47/50',
-              status: 'Completed'
+              status: 'Completed',
+              questionDetails: [
+                { number: 1, question: 'Vocabulary warm-up', answer: 'A', result: 'Correct', timeUsed: '36s' },
+                { number: 2, question: 'Listening clip 1', answer: 'B', result: 'Correct', timeUsed: '43s' },
+                { number: 3, question: 'Grammar challenge', answer: 'C', result: 'Correct', timeUsed: '34s' },
+                { number: 4, question: 'Reading summary', answer: 'D', result: 'Correct', timeUsed: '41s' }
+              ]
             }
           ]
         },
@@ -2830,8 +2935,13 @@
               score: 96,
               rank: '#3',
               time: '40m',
-              correct: '48/50',
-              status: 'Completed'
+              status: 'Completed',
+              questionDetails: [
+                { number: 1, question: 'Vocabulary warm-up', answer: 'B', result: 'Correct', timeUsed: '41s' },
+                { number: 2, question: 'Listening clip 1', answer: 'B', result: 'Correct', timeUsed: '45s' },
+                { number: 3, question: 'Grammar challenge', answer: 'D', result: 'Correct', timeUsed: '39s' },
+                { number: 4, question: 'Reading summary', answer: 'C', result: 'Correct', timeUsed: '47s' }
+              ]
             },
             {
               contestName: 'English Challenge 1',
@@ -2839,8 +2949,13 @@
               score: 94,
               rank: '#8',
               time: '42m',
-              correct: '47/50',
-              status: 'Completed'
+              status: 'Completed',
+              questionDetails: [
+                { number: 1, question: 'Vocabulary warm-up', answer: 'A', result: 'Correct', timeUsed: '37s' },
+                { number: 2, question: 'Listening clip 1', answer: 'B', result: 'Correct', timeUsed: '44s' },
+                { number: 3, question: 'Grammar challenge', answer: 'C', result: 'Correct', timeUsed: '35s' },
+                { number: 4, question: 'Reading summary', answer: 'D', result: 'Correct', timeUsed: '42s' }
+              ]
             }
           ]
         }
@@ -2865,46 +2980,37 @@
         document.getElementById('historyBestRank').textContent = userData.stats.bestRank;
         document.getElementById('historyAvgTime').textContent = userData.stats.avgTime;
 
-        // Render history list
+        // Render history table
         const historyContainer = document.getElementById('historyListContainer');
         if (userData.history.length === 0) {
           historyContainer.innerHTML = `
-            <div class="empty-history">
-              <div class="empty-history-icon">📭</div>
-              <div class="empty-history-text">No play history</div>
-            </div>
+            <tr>
+              <td colspan="8" style="text-align: center; padding: 40px; color: #999;">
+                <div style="font-size: 48px; margin-bottom: 16px;">📭</div>
+                <div>No play history</div>
+              </td>
+            </tr>
           `;
         } else {
           let historyHTML = '';
-          userData.history.forEach(item => {
+          userData.history.forEach((item, index) => {
+            // Calculate correct count from questionDetails (all questions are correct since wrong answer ends the game)
+            const correctCount = item.questionDetails ? item.questionDetails.length : 0;
             historyHTML += `
-              <div class="history-item-card">
-                <div class="history-item-header">
-                  <div>
-                    <div class="history-contest-name">${item.contestName}</div>
-                    <div class="history-contest-date">${item.date}</div>
-                  </div>
-                  <div class="history-status-badge">${item.status}</div>
-                </div>
-                <div class="history-item-stats">
-                  <div class="history-item-stat">
-                    <div class="history-item-stat-label">Score</div>
-                    <div class="history-item-stat-value">${item.score}</div>
-                  </div>
-                  <div class="history-item-stat">
-                    <div class="history-item-stat-label">Rank</div>
-                    <div class="history-item-stat-value rank">${item.rank}</div>
-                  </div>
-                  <div class="history-item-stat">
-                    <div class="history-item-stat-label">Time</div>
-                    <div class="history-item-stat-value time">${item.time}</div>
-                  </div>
-                  <div class="history-item-stat">
-                    <div class="history-item-stat-label">Correct/Wrong</div>
-                    <div class="history-item-stat-value">${item.correct}</div>
-                  </div>
-                </div>
-              </div>
+              <tr>
+                <td>${item.contestName || '-'}</td>
+                <td>${item.date || '-'}</td>
+                <td style="font-weight: 600; color: #007aff;">${item.score || '-'}</td>
+                <td style="color: #ff9500;">${item.rank || '-'}</td>
+                <td style="color: #34c759;">${item.time || '-'}</td>
+                <td style="font-weight: 600; color: #34c759;">${correctCount}</td>
+                <td>
+                  <span class="status-badge status-active">${item.status || 'Completed'}</span>
+                </td>
+                <td>
+                  <button class="btn-sm btn-view" onclick="viewPlayDetail('${userId}', ${index})">Xem chi tiết</button>
+                </td>
+              </tr>
             `;
           });
           historyContainer.innerHTML = historyHTML;
@@ -2918,10 +3024,61 @@
         document.getElementById('userHistoryModal').classList.remove('show');
       }
 
+      // ========== VIEW PLAY DETAIL MODAL ==========
+      function viewPlayDetail(userId, playIndex) {
+        const userData = userHistoryData[userId];
+        if (!userData || !userData.history[playIndex]) {
+          alert('No play detail available!');
+          return;
+        }
+
+        const play = userData.history[playIndex];
+        const questionDetails = play.questionDetails || [];
+
+        // Calculate correct count (all questions are correct since wrong answer ends the game)
+        const correctCount = questionDetails.length;
+
+        // Set play summary info
+        document.getElementById('playDetailContest').textContent = play.contestName || '-';
+        document.getElementById('playDetailDate').textContent = play.date || '-';
+        document.getElementById('playDetailScore').textContent = play.score || '-';
+        document.getElementById('playDetailRank').textContent = play.rank || '-';
+        document.getElementById('playDetailTime').textContent = play.time || '-';
+        document.getElementById('playDetailCorrect').textContent = correctCount || '0';
+
+        // Render question timeline (only correct answers are shown since wrong answer ends the game)
+        const questionBody = document.getElementById('playDetailQuestionBody');
+        if (questionDetails.length > 0) {
+          questionBody.innerHTML = questionDetails
+            .map(item => `
+              <tr>
+                <td>${item.number}</td>
+                <td>${item.question}</td>
+                <td>${item.answer}</td>
+                <td style="font-weight: 600; color: #34c759;">Correct</td>
+                <td>${item.timeUsed}</td>
+              </tr>
+            `).join('');
+        } else {
+          questionBody.innerHTML = `
+            <tr>
+              <td colspan="5" style="text-align: center; color: #999;">No question details available</td>
+            </tr>
+          `;
+        }
+
+        // Show modal
+        document.getElementById('playDetailModal').classList.add('show');
+      }
+
+      function closePlayDetailModal() {
+        document.getElementById('playDetailModal').classList.remove('show');
+      }
+
       // ========== SEARCH FUNCTIONS ==========
       function searchUsers() {
         const searchTerm = document.getElementById('searchUsers')?.value.toLowerCase() || '';
-        const rows = document.querySelectorAll('#users table tbody tr');
+        const rows = document.querySelectorAll('#player table tbody tr');
         
         rows.forEach(row => {
           const text = row.textContent.toLowerCase();
