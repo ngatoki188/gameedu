@@ -841,6 +841,12 @@
             <span>Game Packages</span>
           </a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" onclick="showSection('about-game')">
+            <span class="nav-icon">ℹ️</span>
+            <span>About Game</span>
+          </a>
+        </li>
       </ul>
     </div>
 
@@ -1403,6 +1409,113 @@
                 </tr>
               </tbody>
             </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- About Game Section -->
+      <div id="about-game" class="content-section">
+        <div class="page-header">
+          <div class="page-title">ℹ️ About Game CMS</div>
+          <button class="btn btn-primary" onclick="openEditAboutGameModal()">✏️ Edit About Game</button>
+        </div>
+
+        <div class="content-card">
+          <div class="card-header">
+            <div class="card-title">Current About Game Content</div>
+          </div>
+          <div style="padding: 20px;">
+            <div id="aboutGamePreview" style="line-height: 1.8;">
+              <div style="margin-bottom: 20px;">
+                <h3 style="color: #333; margin-bottom: 12px;" id="previewTitle">GameEDU - Educational Gaming Platform</h3>
+                <p style="color: #666; font-size: 15px; margin-bottom: 16px;" id="previewDescription">
+                  GameEDU is an innovative educational gaming platform designed to make learning fun and engaging. 
+                  Students can participate in exciting contests, test their knowledge, and compete for prizes while improving their skills.
+                </p>
+              </div>
+              
+              <div style="margin-bottom: 20px;">
+                <h4 style="color: #333; margin-bottom: 12px;">A. Mục tiêu của Game</h4>
+                <div style="color: #666; white-space: pre-line;" id="previewGameGoal">Chơi – Tính điểm – Xếp hạng – Nhận thưởng.</div>
+              </div>
+
+              <div style="margin-bottom: 20px;">
+                <h4 style="color: #333; margin-bottom: 12px;">B. Cách chơi (How to Play)</h4>
+                <div style="color: #666; white-space: pre-line;" id="previewHowToPlay">Chọn Sự kiện: Chọn một sự kiện (Event) đang diễn ra 
+
+Bắt đầu chơi: Nhấn vào Ngày hiện tại để bắt đầu phiên chơi.
+
+Trả lời Câu hỏi: Trả lời từng câu hỏi theo thứ tự trong thời gian quy định cho mỗi câu.
+
+Kết thúc Phiên chơi: Phiên chơi kết thúc ngay lập tức nếu người chơi trả lời sai hoặc hết thời gian cho câu hỏi hiện tại.
+
+Tính toán & Xếp hạng: Hệ thống tính toán tổng điểm và thời gian đạt được, sau đó so sánh kết quả để xếp hạng.</div>
+              </div>
+
+              <div style="margin-bottom: 20px;">
+                <h4 style="color: #333; margin-bottom: 12px;">C. Luật chơi Game & Tính điểm (Game Rules & Scoring)</h4>
+                <div style="color: #666; white-space: pre-line;" id="previewGameRules">Tính điểm: Mỗi câu hỏi trả lời đúng sẽ được cộng một số điểm nhất định (+X điểm), phụ thuộc vào độ khó của câu hỏi.
+
+Trả lời càng nhanh thì thời gian hoàn thành càng ít.
+
+Không giới hạn số lượng câu hỏi. Người chơi sẽ chơi liên tục cho đến khi phiên chơi kết thúc.
+
+Phiên chơi sẽ kết thúc khi:
++ Người chơi trả lời sai câu hỏi.
++ Người chơi hết thời gian quy định để trả lời câu hỏi hiện tại.</div>
+              </div>
+
+              <div style="margin-bottom: 20px;">
+                <h4 style="color: #333; margin-bottom: 12px;">D. Luật Xếp hạng (Ranking Rules)</h4>
+                <div style="color: #666; white-space: pre-line;" id="previewRankingRules">Ưu tiên 1 (Điểm): Điểm số cao nhất.
+
+Ưu tiên 2 (Thời gian): Nếu bằng điểm, người có thời gian hoàn thành thấp hơn sẽ xếp trên.
+
+Ưu tiên 3 (Thời điểm): Nếu bằng điểm và bằng thời gian, người đạt kết quả sớm hơn sẽ xếp trên.</div>
+              </div>
+
+              <div style="margin-bottom: 20px;">
+                <h4 style="color: #333; margin-bottom: 12px;">E. Thể lệ Giải thưởng (Reward Rules)</h4>
+                <div style="color: #666; white-space: pre-line;" id="previewRewardRules">Mỗi sự kiện (Event) sẽ có cơ cấu giải thưởng riêng (ví dụ: học bổng MytelPay).
+
+Phân bổ theo Rank:
+Rank #1: Giải Vàng
+Rank #2–3: Giải Bạc
+Rank #4–10: Giải Đồng
+
+Giải thưởng chỉ được trao sau khi sự kiện kết thúc và kết quả được xác nhận.
+
+Người chơi có thể kiểm tra các phần thưởng của mình trong mục Rewards hoặc Notification của hệ thống.</div>
+              </div>
+
+              <div style="margin-bottom: 20px;">
+                <h4 style="color: #333; margin-bottom: 12px;">Key Features</h4>
+                <ul id="previewFeatures" style="list-style: none; padding: 0;">
+                  <li style="padding: 8px 0; color: #666;">✓ Interactive quizzes and challenges</li>
+                  <li style="padding: 8px 0; color: #666;">✓ Real-time leaderboards</li>
+                  <li style="padding: 8px 0; color: #666;">✓ Prize competitions</li>
+                  <li style="padding: 8px 0; color: #666;">✓ Multiple subjects and topics</li>
+                </ul>
+              </div>
+
+              <div style="margin-bottom: 20px;">
+                <h4 style="color: #333; margin-bottom: 12px;">Contact Information</h4>
+                <div style="color: #666;" id="previewContact">
+                  <p style="margin: 4px 0;">Email: support@gameedu.com</p>
+                  <p style="margin: 4px 0;">Phone: +95 9 123 456 789</p>
+                  <p style="margin: 4px 0;">Address: Yangon, Myanmar</p>
+                </div>
+              </div>
+
+              <div style="margin-bottom: 20px;">
+                <h4 style="color: #333; margin-bottom: 12px;">Social Media</h4>
+                <div style="color: #666;" id="previewSocial">
+                  <p style="margin: 4px 0;">Facebook: facebook.com/gameedu</p>
+                  <p style="margin: 4px 0;">Twitter: @gameedu</p>
+                  <p style="margin: 4px 0;">Instagram: @gameedu</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -2186,6 +2299,113 @@
         </div>
         <div class="modal-footer">
           <button class="btn btn-cancel" onclick="closeUserHistoryModal()">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit About Game Modal -->
+    <div class="modal-overlay" id="editAboutGameModal">
+      <div class="modal" style="max-width: 900px;">
+        <div class="modal-header">
+          <div class="modal-title">✏️ Edit About Game</div>
+          <button class="modal-close" onclick="closeEditAboutGameModal()">×</button>
+        </div>
+        <div class="modal-body">
+          <form id="editAboutGameForm" onsubmit="handleSubmitAboutGame(event)">
+            <div class="form-group">
+              <label class="form-label required">Title</label>
+              <input type="text" class="form-input" id="aboutGameTitle" placeholder="E.g: GameEDU - Educational Gaming Platform" required>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label required">Description</label>
+              <textarea class="form-textarea" id="aboutGameDescription" placeholder="Enter description about the game..." rows="5" required></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label required">A. Mục tiêu của Game</label>
+              <textarea class="form-textarea" id="aboutGameGoal" placeholder="E.g: Chơi – Tính điểm – Xếp hạng – Nhận thưởng." rows="3" required></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label required">B. Cách chơi (How to Play)</label>
+              <textarea class="form-textarea" id="aboutGameHowToPlay" placeholder="Enter how to play instructions..." rows="8" required></textarea>
+              <div class="media-type-info">Mỗi bước trên một dòng riêng</div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label required">C. Luật chơi Game & Tính điểm (Game Rules & Scoring)</label>
+              <textarea class="form-textarea" id="aboutGameRules" placeholder="Enter game rules and scoring..." rows="8" required></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label required">D. Luật Xếp hạng (Ranking Rules)</label>
+              <textarea class="form-textarea" id="aboutGameRanking" placeholder="Enter ranking rules..." rows="6" required></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label required">E. Thể lệ Giải thưởng (Reward Rules)</label>
+              <textarea class="form-textarea" id="aboutGameRewards" placeholder="Enter reward rules..." rows="8" required></textarea>
+            </div>
+
+            <div class="form-group">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <label class="form-label required">Features</label>
+                <button type="button" class="btn-sm btn-primary" onclick="addFeatureRow()">+ Add Feature</button>
+              </div>
+              <div id="featureList" style="display: flex; flex-direction: column; gap: 12px;">
+                <!-- Features will be added here -->
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Contact Email</label>
+              <input type="email" class="form-input" id="aboutGameEmail" placeholder="support@gameedu.com">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Contact Phone</label>
+              <input type="text" class="form-input" id="aboutGamePhone" placeholder="+95 9 123 456 789">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Address</label>
+              <input type="text" class="form-input" id="aboutGameAddress" placeholder="Yangon, Myanmar">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Facebook URL</label>
+              <input type="url" class="form-input" id="aboutGameFacebook" placeholder="https://facebook.com/gameedu">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Twitter URL</label>
+              <input type="url" class="form-input" id="aboutGameTwitter" placeholder="https://twitter.com/gameedu">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Instagram URL</label>
+              <input type="url" class="form-input" id="aboutGameInstagram" placeholder="https://instagram.com/gameedu">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Logo Image URL</label>
+              <input type="url" class="form-input" id="aboutGameLogo" placeholder="https://example.com/logo.png">
+              <div class="media-type-info">Enter URL of the logo image</div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Hero Image URL</label>
+              <input type="url" class="form-input" id="aboutGameHeroImage" placeholder="https://example.com/hero.jpg">
+              <div class="media-type-info">Enter URL of the hero/banner image</div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-cancel" onclick="closeEditAboutGameModal()">Cancel</button>
+          <button class="btn btn-submit" onclick="document.getElementById('editAboutGameForm').requestSubmit()">
+            Save Changes
+          </button>
         </div>
       </div>
     </div>
@@ -3132,6 +3352,199 @@
           row.style.display = text.includes(searchTerm) ? '' : 'none';
         });
       }
+
+      // ========== ABOUT GAME CMS ==========
+      // Sample data for About Game
+      let aboutGameData = {
+        title: "GameEDU - Educational Gaming Platform",
+        description: "GameEDU is an innovative educational gaming platform designed to make learning fun and engaging. Students can participate in exciting contests, test their knowledge, and compete for prizes while improving their skills.",
+        gameGoal: "Chơi – Tính điểm – Xếp hạng – Nhận thưởng.",
+        howToPlay: "Chọn Sự kiện: Chọn một sự kiện (Event) đang diễn ra\n\nBắt đầu chơi: Nhấn vào Ngày hiện tại để bắt đầu phiên chơi.\n\nTrả lời Câu hỏi: Trả lời từng câu hỏi theo thứ tự trong thời gian quy định cho mỗi câu.\n\nKết thúc Phiên chơi: Phiên chơi kết thúc ngay lập tức nếu người chơi trả lời sai hoặc hết thời gian cho câu hỏi hiện tại.\n\nTính toán & Xếp hạng: Hệ thống tính toán tổng điểm và thời gian đạt được, sau đó so sánh kết quả để xếp hạng.",
+        gameRules: "Tính điểm: Mỗi câu hỏi trả lời đúng sẽ được cộng một số điểm nhất định (+X điểm), phụ thuộc vào độ khó của câu hỏi.\n\nTrả lời càng nhanh thì thời gian hoàn thành càng ít.\n\nKhông giới hạn số lượng câu hỏi. Người chơi sẽ chơi liên tục cho đến khi phiên chơi kết thúc.\n\nPhiên chơi sẽ kết thúc khi:\n+ Người chơi trả lời sai câu hỏi.\n+ Người chơi hết thời gian quy định để trả lời câu hỏi hiện tại.",
+        rankingRules: "Ưu tiên 1 (Điểm): Điểm số cao nhất.\n\nƯu tiên 2 (Thời gian): Nếu bằng điểm, người có thời gian hoàn thành thấp hơn sẽ xếp trên.\n\nƯu tiên 3 (Thời điểm): Nếu bằng điểm và bằng thời gian, người đạt kết quả sớm hơn sẽ xếp trên.",
+        rewardRules: "Mỗi sự kiện (Event) sẽ có cơ cấu giải thưởng riêng (ví dụ: học bổng MytelPay).\n\nPhân bổ theo Rank:\nRank #1: Giải Vàng\nRank #2–3: Giải Bạc\nRank #4–10: Giải Đồng\n\nGiải thưởng chỉ được trao sau khi sự kiện kết thúc và kết quả được xác nhận.\n\nNgười chơi có thể kiểm tra các phần thưởng của mình trong mục Rewards hoặc Notification của hệ thống.",
+        features: [
+          "Interactive quizzes and challenges",
+          "Real-time leaderboards",
+          "Prize competitions",
+          "Multiple subjects and topics"
+        ],
+        contact: {
+          email: "support@gameedu.com",
+          phone: "+95 9 123 456 789",
+          address: "Yangon, Myanmar"
+        },
+        social: {
+          facebook: "facebook.com/gameedu",
+          twitter: "@gameedu",
+          instagram: "@gameedu"
+        },
+        images: {
+          logo: "",
+          heroImage: ""
+        }
+      };
+
+      function openEditAboutGameModal() {
+        // Load current data into form
+        document.getElementById('aboutGameTitle').value = aboutGameData.title || '';
+        document.getElementById('aboutGameDescription').value = aboutGameData.description || '';
+        document.getElementById('aboutGameGoal').value = aboutGameData.gameGoal || '';
+        document.getElementById('aboutGameHowToPlay').value = aboutGameData.howToPlay || '';
+        document.getElementById('aboutGameRules').value = aboutGameData.gameRules || '';
+        document.getElementById('aboutGameRanking').value = aboutGameData.rankingRules || '';
+        document.getElementById('aboutGameRewards').value = aboutGameData.rewardRules || '';
+        document.getElementById('aboutGameEmail').value = aboutGameData.contact?.email || '';
+        document.getElementById('aboutGamePhone').value = aboutGameData.contact?.phone || '';
+        document.getElementById('aboutGameAddress').value = aboutGameData.contact?.address || '';
+        document.getElementById('aboutGameFacebook').value = aboutGameData.social?.facebook || '';
+        document.getElementById('aboutGameTwitter').value = aboutGameData.social?.twitter || '';
+        document.getElementById('aboutGameInstagram').value = aboutGameData.social?.instagram || '';
+        document.getElementById('aboutGameLogo').value = aboutGameData.images?.logo || '';
+        document.getElementById('aboutGameHeroImage').value = aboutGameData.images?.heroImage || '';
+
+        // Load features
+        const featureList = document.getElementById('featureList');
+        featureList.innerHTML = '';
+        if (aboutGameData.features && aboutGameData.features.length > 0) {
+          aboutGameData.features.forEach((feature, index) => {
+            addFeatureRow(feature);
+          });
+        } else {
+          addFeatureRow();
+        }
+
+        document.getElementById('editAboutGameModal').classList.add('show');
+      }
+
+      function closeEditAboutGameModal() {
+        document.getElementById('editAboutGameModal').classList.remove('show');
+        document.getElementById('editAboutGameForm').reset();
+      }
+
+      function addFeatureRow(featureText = '') {
+        const featureList = document.getElementById('featureList');
+        const row = document.createElement('div');
+        row.className = 'answer-item';
+        row.innerHTML = `
+          <input type="text" class="answer-input" placeholder="Enter feature description..." value="${featureText}" required>
+          <button type="button" class="btn-sm btn-delete" onclick="this.parentElement.remove()">Delete</button>
+        `;
+        featureList.appendChild(row);
+      }
+
+      function handleSubmitAboutGame(event) {
+        event.preventDefault();
+        
+        // Get form data
+        const formData = {
+          title: document.getElementById('aboutGameTitle').value,
+          description: document.getElementById('aboutGameDescription').value,
+          gameGoal: document.getElementById('aboutGameGoal').value,
+          howToPlay: document.getElementById('aboutGameHowToPlay').value,
+          gameRules: document.getElementById('aboutGameRules').value,
+          rankingRules: document.getElementById('aboutGameRanking').value,
+          rewardRules: document.getElementById('aboutGameRewards').value,
+          features: [],
+          contact: {
+            email: document.getElementById('aboutGameEmail').value,
+            phone: document.getElementById('aboutGamePhone').value,
+            address: document.getElementById('aboutGameAddress').value
+          },
+          social: {
+            facebook: document.getElementById('aboutGameFacebook').value,
+            twitter: document.getElementById('aboutGameTwitter').value,
+            instagram: document.getElementById('aboutGameInstagram').value
+          },
+          images: {
+            logo: document.getElementById('aboutGameLogo').value,
+            heroImage: document.getElementById('aboutGameHeroImage').value
+          }
+        };
+
+        // Get features
+        const featureInputs = document.querySelectorAll('#featureList .answer-input');
+        featureInputs.forEach(input => {
+          if (input.value.trim()) {
+            formData.features.push(input.value.trim());
+          }
+        });
+
+        if (!formData.title || !formData.description || !formData.gameGoal || 
+            !formData.howToPlay || !formData.gameRules || !formData.rankingRules || !formData.rewardRules) {
+          alert("Please fill in all required fields!");
+          return;
+        }
+
+        if (formData.features.length === 0) {
+          alert("Please add at least one feature!");
+          return;
+        }
+
+        // Update data
+        aboutGameData = formData;
+
+        // Update preview
+        updateAboutGamePreview();
+
+        console.log("About Game Data:", formData);
+        alert("About Game content updated successfully!");
+        closeEditAboutGameModal();
+      }
+
+      function updateAboutGamePreview() {
+        // Update title
+        document.getElementById('previewTitle').textContent = aboutGameData.title || 'GameEDU - Educational Gaming Platform';
+        
+        // Update description
+        document.getElementById('previewDescription').textContent = aboutGameData.description || '';
+
+        // Update game goal
+        document.getElementById('previewGameGoal').textContent = aboutGameData.gameGoal || 'Chơi – Tính điểm – Xếp hạng – Nhận thưởng.';
+
+        // Update how to play
+        document.getElementById('previewHowToPlay').textContent = aboutGameData.howToPlay || '';
+
+        // Update game rules
+        document.getElementById('previewGameRules').textContent = aboutGameData.gameRules || '';
+
+        // Update ranking rules
+        document.getElementById('previewRankingRules').textContent = aboutGameData.rankingRules || '';
+
+        // Update reward rules
+        document.getElementById('previewRewardRules').textContent = aboutGameData.rewardRules || '';
+
+        // Update features
+        const featuresList = document.getElementById('previewFeatures');
+        if (aboutGameData.features && aboutGameData.features.length > 0) {
+          featuresList.innerHTML = aboutGameData.features
+            .map(feature => `<li style="padding: 8px 0; color: #666;">✓ ${feature}</li>`)
+            .join('');
+        } else {
+          featuresList.innerHTML = '<li style="padding: 8px 0; color: #666;">No features added</li>';
+        }
+
+        // Update contact
+        const contactDiv = document.getElementById('previewContact');
+        contactDiv.innerHTML = `
+          <p style="margin: 4px 0;">Email: ${aboutGameData.contact?.email || '-'}</p>
+          <p style="margin: 4px 0;">Phone: ${aboutGameData.contact?.phone || '-'}</p>
+          <p style="margin: 4px 0;">Address: ${aboutGameData.contact?.address || '-'}</p>
+        `;
+
+        // Update social
+        const socialDiv = document.getElementById('previewSocial');
+        socialDiv.innerHTML = `
+          <p style="margin: 4px 0;">Facebook: ${aboutGameData.social?.facebook || '-'}</p>
+          <p style="margin: 4px 0;">Twitter: ${aboutGameData.social?.twitter || '-'}</p>
+          <p style="margin: 4px 0;">Instagram: ${aboutGameData.social?.instagram || '-'}</p>
+        `;
+      }
+
+      // Initialize preview on page load
+      document.addEventListener('DOMContentLoaded', function() {
+        updateAboutGamePreview();
+      });
 
       // Close modals when clicking outside
       document.querySelectorAll(".modal-overlay").forEach(modal => {
