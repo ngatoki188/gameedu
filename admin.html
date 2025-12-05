@@ -847,6 +847,12 @@
             <span>About Game</span>
           </a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" onclick="showSection('transactions')">
+            <span class="nav-icon">💳</span>
+            <span>Transaction History</span>
+          </a>
+        </li>
       </ul>
     </div>
 
@@ -1407,6 +1413,70 @@
                     </div>
                   </td>
                 </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Transaction History Section -->
+      <div id="transactions" class="content-section">
+        <div class="page-header">
+          <div class="page-title">💳 Transaction History</div>
+          <button class="btn btn-primary" onclick="exportTransactions()">📥 Export Report</button>
+        </div>
+
+        <div class="content-card">
+          <div class="card-header">
+            <div class="card-title">Transaction List</div>
+            <div style="display: flex; gap: 12px; align-items: center;">
+              <input
+                type="text"
+                id="searchTransactions"
+                placeholder="Search transactions..."
+                onkeyup="searchTransactions()"
+                style="padding: 8px 12px; border: 1px solid #e5e5ea; border-radius: 8px; width: 250px"
+              />
+              <select
+                id="filterTransactionStatus"
+                onchange="searchTransactions()"
+                style="padding: 8px 12px; border: 1px solid #e5e5ea; border-radius: 8px"
+              >
+                <option value="">All Status</option>
+                <option value="completed">Completed</option>
+                <option value="pending">Pending</option>
+                <option value="failed">Failed</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
+              <select
+                id="filterTransactionContest"
+                onchange="searchTransactions()"
+                style="padding: 8px 12px; border: 1px solid #e5e5ea; border-radius: 8px; min-width: 180px"
+              >
+                <option value="">All Contests</option>
+                <option value="English Challenge 3">English Challenge 3</option>
+                <option value="English Challenge 2">English Challenge 2</option>
+                <option value="English Challenge 1">English Challenge 1</option>
+              </select>
+            </div>
+          </div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>STT</th>
+                  <th>Transaction ID</th>
+                  <th>Time</th>
+                  <th>Player Name</th>
+                  <th>Package</th>
+                  <th>Contest</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="transactionTableBody">
+                <!-- Transaction data will be loaded here -->
               </tbody>
             </table>
           </div>
@@ -2299,6 +2369,82 @@ Người chơi có thể kiểm tra các phần thưởng của mình trong mụ
         </div>
         <div class="modal-footer">
           <button class="btn btn-cancel" onclick="closeUserHistoryModal()">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- View Transaction Detail Modal -->
+    <div class="modal-overlay" id="viewTransactionModal">
+      <div class="modal" style="max-width: 800px;">
+        <div class="modal-header">
+          <div class="modal-title">💳 Transaction Details</div>
+          <button class="modal-close" onclick="closeViewTransactionModal()">×</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">Transaction ID</label>
+            <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px; font-weight: 600; font-family: monospace;" id="viewTransactionId">-</div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Date & Time</label>
+              <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px;" id="viewTransactionTime">-</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Status</label>
+              <div id="viewTransactionStatusDisplay" style="display: inline-block; padding: 6px 12px; border-radius: 6px; font-size: 14px; font-weight: 500;">-</div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Package</label>
+              <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px;" id="viewTransactionPackage">-</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Contest</label>
+              <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px;" id="viewTransactionContest">-</div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Amount</label>
+              <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px; font-weight: 600; color: #007aff; font-size: 18px;" id="viewTransactionAmount">-</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Payment Method</label>
+              <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px;" id="viewTransactionPaymentMethod">-</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Player Information</label>
+            <div style="padding: 16px; background: #e3f2fd; border-radius: 8px; border: 2px solid #007aff;">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <div>
+                  <div style="font-size: 12px; color: #666; margin-bottom: 4px;">Player Name</div>
+                  <div style="font-weight: 600; color: #333; font-size: 15px;" id="viewTransactionPlayerName">-</div>
+                </div>
+                <div>
+                  <div style="font-size: 12px; color: #666; margin-bottom: 4px;">Player Email</div>
+                  <div style="font-weight: 600; color: #333; font-size: 15px;" id="viewTransactionPlayerEmail">-</div>
+                </div>
+                <div>
+                  <div style="font-size: 12px; color: #666; margin-bottom: 4px;">School</div>
+                  <div style="font-weight: 600; color: #007aff; font-size: 15px;" id="viewTransactionPlayerSchool">-</div>
+                </div>
+                <div>
+                  <div style="font-size: 12px; color: #666; margin-bottom: 4px;">Player ID</div>
+                  <div style="font-weight: 600; color: #333; font-size: 15px;" id="viewTransactionPlayerId">-</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Notes</label>
+            <div class="form-textarea" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px; min-height: 80px; white-space: pre-wrap;" id="viewTransactionNotes">-</div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-cancel" onclick="closeViewTransactionModal()">Close</button>
         </div>
       </div>
     </div>
@@ -3544,7 +3690,297 @@ Người chơi có thể kiểm tra các phần thưởng của mình trong mụ
       // Initialize preview on page load
       document.addEventListener('DOMContentLoaded', function() {
         updateAboutGamePreview();
+        loadTransactions();
       });
+
+      // ========== TRANSACTION HISTORY ==========
+      // Sample transaction data
+      const transactionData = [
+        {
+          id: 1,
+          transactionId: 'TXN-2024-001234',
+          time: '2024-01-20 10:30:45',
+          package: '5 Turns (Recommended)',
+          packageId: 'P003',
+          contest: 'English Challenge 3',
+          contestId: 'C002',
+          amount: 400,
+          status: 'completed',
+          paymentMethod: 'Mobile Payment',
+          player: {
+            id: 'U001',
+            name: 'John Doe',
+            email: 'johndoe@example.com',
+            school: 'High School ABC'
+          },
+          notes: 'Payment successful via MytelPay'
+        },
+        {
+          id: 2,
+          transactionId: 'TXN-2024-001235',
+          time: '2024-01-20 11:15:22',
+          package: '3 Turns',
+          packageId: 'P002',
+          contest: 'English Challenge 3',
+          contestId: 'C002',
+          amount: 270,
+          status: 'completed',
+          paymentMethod: 'Bank Transfer',
+          player: {
+            id: 'U002',
+            name: 'Jane Smith',
+            email: 'janesmith@example.com',
+            school: 'High School XYZ'
+          },
+          notes: 'Payment verified'
+        },
+        {
+          id: 3,
+          transactionId: 'TXN-2024-001236',
+          time: '2024-01-20 12:45:10',
+          package: '10 Turns',
+          packageId: 'P004',
+          contest: 'English Challenge 2',
+          contestId: 'C003',
+          amount: 700,
+          status: 'pending',
+          paymentMethod: 'Mobile Payment',
+          player: {
+            id: 'U003',
+            name: 'Bob Johnson',
+            email: 'bobjohnson@example.com',
+            school: 'High School DEF'
+          },
+          notes: 'Awaiting payment confirmation'
+        },
+        {
+          id: 4,
+          transactionId: 'TXN-2024-001237',
+          time: '2024-01-19 14:20:33',
+          package: '1 Turn',
+          packageId: 'P001',
+          contest: 'English Challenge 2',
+          contestId: 'C003',
+          amount: 100,
+          status: 'failed',
+          paymentMethod: 'Mobile Payment',
+          player: {
+            id: 'U001',
+            name: 'John Doe',
+            email: 'johndoe@example.com',
+            school: 'High School ABC'
+          },
+          notes: 'Payment failed - Insufficient balance'
+        },
+        {
+          id: 5,
+          transactionId: 'TXN-2024-001238',
+          time: '2024-01-19 16:55:18',
+          package: '5 Turns (Recommended)',
+          packageId: 'P003',
+          contest: 'English Challenge 1',
+          contestId: 'C004',
+          amount: 400,
+          status: 'completed',
+          paymentMethod: 'Credit Card',
+          player: {
+            id: 'U002',
+            name: 'Jane Smith',
+            email: 'janesmith@example.com',
+            school: 'High School XYZ'
+          },
+          notes: 'Payment successful'
+        },
+        {
+          id: 6,
+          transactionId: 'TXN-2024-001239',
+          time: '2024-01-18 09:10:55',
+          package: '3 Turns',
+          packageId: 'P002',
+          contest: 'English Challenge 1',
+          contestId: 'C004',
+          amount: 270,
+          status: 'cancelled',
+          paymentMethod: 'Mobile Payment',
+          player: {
+            id: 'U003',
+            name: 'Bob Johnson',
+            email: 'bobjohnson@example.com',
+            school: 'High School DEF'
+          },
+          notes: 'Transaction cancelled by user'
+        },
+        {
+          id: 7,
+          transactionId: 'TXN-2024-001240',
+          time: '2024-01-18 13:30:42',
+          package: '10 Turns',
+          packageId: 'P004',
+          contest: 'English Challenge 3',
+          contestId: 'C002',
+          amount: 700,
+          status: 'completed',
+          paymentMethod: 'Bank Transfer',
+          player: {
+            id: 'U001',
+            name: 'John Doe',
+            email: 'johndoe@example.com',
+            school: 'High School ABC'
+          },
+          notes: 'Payment successful'
+        },
+        {
+          id: 8,
+          transactionId: 'TXN-2024-001241',
+          time: '2024-01-17 15:45:27',
+          package: '5 Turns (Recommended)',
+          packageId: 'P003',
+          contest: 'English Challenge 2',
+          contestId: 'C003',
+          amount: 400,
+          status: 'completed',
+          paymentMethod: 'Mobile Payment',
+          player: {
+            id: 'U002',
+            name: 'Jane Smith',
+            email: 'janesmith@example.com',
+            school: 'High School XYZ'
+          },
+          notes: 'Payment successful via MytelPay'
+        }
+      ];
+
+      function loadTransactions() {
+        const tbody = document.getElementById('transactionTableBody');
+        if (!tbody) return;
+
+        if (transactionData.length === 0) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="9" style="text-align: center; padding: 40px; color: #999;">
+                <div style="font-size: 48px; margin-bottom: 16px;">📭</div>
+                <div>No transactions found</div>
+              </td>
+            </tr>
+          `;
+          return;
+        }
+
+        let html = '';
+        transactionData.forEach((transaction, index) => {
+          const statusBadge = getStatusBadge(transaction.status);
+          html += `
+            <tr>
+              <td>${index + 1}</td>
+              <td style="font-family: monospace; font-weight: 600;">${transaction.transactionId}</td>
+              <td>${formatDateTime(transaction.time)}</td>
+              <td>${transaction.player?.name || '-'}</td>
+              <td>${transaction.package}</td>
+              <td>${transaction.contest}</td>
+              <td style="font-weight: 600; color: #007aff;">${transaction.amount.toLocaleString('vi-VN')} MMK</td>
+              <td>${statusBadge}</td>
+              <td>
+                <div class="action-buttons">
+                  <button class="btn-sm btn-view" onclick="viewTransactionDetail(${transaction.id})">View</button>
+                </div>
+              </td>
+            </tr>
+          `;
+        });
+        tbody.innerHTML = html;
+      }
+
+      function getStatusBadge(status) {
+        const badges = {
+          'completed': '<span class="status-badge status-active">Completed</span>',
+          'pending': '<span class="status-badge status-pending">Pending</span>',
+          'failed': '<span class="status-badge status-rejected">Failed</span>',
+          'cancelled': '<span class="status-badge status-ended">Cancelled</span>'
+        };
+        return badges[status] || '<span class="status-badge status-pending">Unknown</span>';
+      }
+
+      function formatDateTime(dateTimeString) {
+        const date = new Date(dateTimeString);
+        return date.toLocaleString('vi-VN', {
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit'
+        });
+      }
+
+      function viewTransactionDetail(transactionId) {
+        const transaction = transactionData.find(t => t.id === transactionId);
+        if (!transaction) {
+          alert('Transaction not found!');
+          return;
+        }
+
+        document.getElementById('viewTransactionId').textContent = transaction.transactionId || '-';
+        document.getElementById('viewTransactionTime').textContent = formatDateTime(transaction.time) || '-';
+        document.getElementById('viewTransactionPackage').textContent = transaction.package || '-';
+        document.getElementById('viewTransactionContest').textContent = transaction.contest || '-';
+        document.getElementById('viewTransactionAmount').textContent = transaction.amount ? transaction.amount.toLocaleString('vi-VN') + ' MMK' : '-';
+        document.getElementById('viewTransactionPaymentMethod').textContent = transaction.paymentMethod || '-';
+        document.getElementById('viewTransactionPlayerName').textContent = transaction.player?.name || '-';
+        document.getElementById('viewTransactionPlayerEmail').textContent = transaction.player?.email || '-';
+        document.getElementById('viewTransactionPlayerSchool').textContent = transaction.player?.school || '-';
+        document.getElementById('viewTransactionPlayerId').textContent = transaction.player?.id || '-';
+        document.getElementById('viewTransactionNotes').textContent = transaction.notes || '-';
+
+        const statusDisplay = document.getElementById('viewTransactionStatusDisplay');
+        if (transaction.status === 'completed') {
+          statusDisplay.textContent = 'Completed';
+          statusDisplay.style.background = '#d4edda';
+          statusDisplay.style.color = '#155724';
+        } else if (transaction.status === 'pending') {
+          statusDisplay.textContent = 'Pending';
+          statusDisplay.style.background = '#fff3cd';
+          statusDisplay.style.color = '#856404';
+        } else if (transaction.status === 'failed') {
+          statusDisplay.textContent = 'Failed';
+          statusDisplay.style.background = '#f8d7da';
+          statusDisplay.style.color = '#721c24';
+        } else if (transaction.status === 'cancelled') {
+          statusDisplay.textContent = 'Cancelled';
+          statusDisplay.style.background = '#e2e3e5';
+          statusDisplay.style.color = '#383d41';
+        } else {
+          statusDisplay.textContent = 'Unknown';
+          statusDisplay.style.background = '#e2e3e5';
+          statusDisplay.style.color = '#383d41';
+        }
+
+        document.getElementById('viewTransactionModal').classList.add('show');
+      }
+
+      function closeViewTransactionModal() {
+        document.getElementById('viewTransactionModal').classList.remove('show');
+      }
+
+      function searchTransactions() {
+        const searchTerm = document.getElementById('searchTransactions')?.value.toLowerCase() || '';
+        const filterStatus = document.getElementById('filterTransactionStatus')?.value.toLowerCase() || '';
+        const filterContest = document.getElementById('filterTransactionContest')?.value.toLowerCase() || '';
+        const rows = document.querySelectorAll('#transactions table tbody tr');
+        
+        rows.forEach(row => {
+          const text = row.textContent.toLowerCase();
+          const matchesSearch = text.includes(searchTerm);
+          const matchesStatus = !filterStatus || text.includes(filterStatus);
+          const matchesContest = !filterContest || text.includes(filterContest);
+          row.style.display = (matchesSearch && matchesStatus && matchesContest) ? '' : 'none';
+        });
+      }
+
+      function exportTransactions() {
+        // In a real application, this would export to CSV/Excel
+        alert('Exporting transaction report...\n\nThis feature will export all transactions to a CSV file.');
+        console.log('Exporting transactions:', transactionData);
+      }
 
       // Close modals when clicking outside
       document.querySelectorAll(".modal-overlay").forEach(modal => {
