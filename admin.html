@@ -853,6 +853,12 @@
             <span>Transaction History</span>
           </a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" onclick="showSection('winners')">
+            <span class="nav-icon">🎁</span>
+            <span>Thông tin trúng thưởng</span>
+          </a>
+        </li>
       </ul>
     </div>
 
@@ -1586,6 +1592,72 @@ Người chơi có thể kiểm tra các phần thưởng của mình trong mụ
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Winners Information Section -->
+      <div id="winners" class="content-section">
+        <div class="page-header">
+          <div class="page-title">🎁 Thông tin trúng thưởng</div>
+          <button class="btn btn-primary" onclick="exportWinners()">📥 Export Report</button>
+        </div>
+
+        <div class="content-card">
+          <div class="card-header">
+            <div class="card-title">Danh sách sinh viên trúng thưởng</div>
+            <div style="display: flex; gap: 12px; align-items: center;">
+              <input
+                type="text"
+                id="searchWinners"
+                placeholder="Tìm kiếm theo tên, mã sinh viên, trường..."
+                onkeyup="searchWinners()"
+                style="padding: 8px 12px; border: 1px solid #e5e5ea; border-radius: 8px; width: 300px"
+              />
+              <select
+                id="filterWinnerStatus"
+                onchange="searchWinners()"
+                style="padding: 8px 12px; border: 1px solid #e5e5ea; border-radius: 8px"
+              >
+                <option value="">Tất cả trạng thái</option>
+                <option value="pending">Chờ xử lý</option>
+                <option value="processing">Đang xử lý</option>
+                <option value="completed">Đã thanh toán</option>
+                <option value="cancelled">Đã hủy</option>
+              </select>
+              <select
+                id="filterWinnerContest"
+                onchange="searchWinners()"
+                style="padding: 8px 12px; border: 1px solid #e5e5ea; border-radius: 8px; min-width: 180px"
+              >
+                <option value="">Tất cả Contest</option>
+                <option value="English Challenge 3">English Challenge 3</option>
+                <option value="English Challenge 2">English Challenge 2</option>
+                <option value="English Challenge 1">English Challenge 1</option>
+              </select>
+            </div>
+          </div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>STT</th>
+                  <th>Mã sinh viên</th>
+                  <th>Họ và tên</th>
+                  <th>Trường</th>
+                  <th>Contest</th>
+                  <th>Hạng</th>
+                  <th>Số tiền thưởng</th>
+                  <th>Số tài khoản</th>
+                  <th>Ngân hàng</th>
+                  <th>Trạng thái</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="winnersTableBody">
+                <!-- Winners data will be loaded here -->
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
@@ -2571,6 +2643,13 @@ Người chơi có thể kiểm tra các phần thưởng của mình trong mụ
           link.classList.remove("active");
         });
         event.target.closest(".nav-link").classList.add("active");
+
+        // Load data for specific sections
+        if (sectionId === 'transactions') {
+          loadTransactions();
+        } else if (sectionId === 'winners') {
+          loadWinners();
+        }
       }
 
       const AVAILABLE_SCHOOLS = [
@@ -3691,6 +3770,7 @@ Người chơi có thể kiểm tra các phần thưởng của mình trong mụ
       document.addEventListener('DOMContentLoaded', function() {
         updateAboutGamePreview();
         loadTransactions();
+        loadWinners();
       });
 
       // ========== TRANSACTION HISTORY ==========
@@ -3980,6 +4060,378 @@ Người chơi có thể kiểm tra các phần thưởng của mình trong mụ
         // In a real application, this would export to CSV/Excel
         alert('Exporting transaction report...\n\nThis feature will export all transactions to a CSV file.');
         console.log('Exporting transactions:', transactionData);
+      }
+
+      // ========== WINNERS INFORMATION MODULE ==========
+      const winnersData = [
+        {
+          id: 1,
+          studentId: 'STU-2024-001',
+          fullName: 'Nguyễn Văn An',
+          school: 'Đại học Bách Khoa Hà Nội',
+          contest: 'English Challenge 3',
+          rank: 1,
+          prizeAmount: 5000000,
+          accountNumber: '1234567890',
+          bank: 'Vietcombank',
+          status: 'completed'
+        },
+        {
+          id: 2,
+          studentId: 'STU-2024-002',
+          fullName: 'Trần Thị Bình',
+          school: 'Đại học Kinh tế Quốc dân',
+          contest: 'English Challenge 3',
+          rank: 2,
+          prizeAmount: 3000000,
+          accountNumber: '0987654321',
+          bank: 'BIDV',
+          status: 'completed'
+        },
+        {
+          id: 3,
+          studentId: 'STU-2024-003',
+          fullName: 'Lê Văn Cường',
+          school: 'Đại học Ngoại thương',
+          contest: 'English Challenge 3',
+          rank: 3,
+          prizeAmount: 3000000,
+          accountNumber: '1122334455',
+          bank: 'Techcombank',
+          status: 'processing'
+        },
+        {
+          id: 4,
+          studentId: 'STU-2024-004',
+          fullName: 'Phạm Thị Dung',
+          school: 'Đại học Sư phạm Hà Nội',
+          contest: 'English Challenge 3',
+          rank: 4,
+          prizeAmount: 2000000,
+          accountNumber: '5566778899',
+          bank: 'Vietinbank',
+          status: 'pending'
+        },
+        {
+          id: 5,
+          studentId: 'STU-2024-005',
+          fullName: 'Hoàng Văn Em',
+          school: 'Đại học Công nghệ',
+          contest: 'English Challenge 3',
+          rank: 5,
+          prizeAmount: 2000000,
+          accountNumber: '9988776655',
+          bank: 'ACB',
+          status: 'pending'
+        },
+        {
+          id: 6,
+          studentId: 'STU-2024-006',
+          fullName: 'Vũ Thị Phương',
+          school: 'Đại học Bách Khoa Hà Nội',
+          contest: 'English Challenge 2',
+          rank: 1,
+          prizeAmount: 5000000,
+          accountNumber: '4433221100',
+          bank: 'Vietcombank',
+          status: 'completed'
+        },
+        {
+          id: 7,
+          studentId: 'STU-2024-007',
+          fullName: 'Đỗ Văn Giang',
+          school: 'Đại học Kinh tế Quốc dân',
+          contest: 'English Challenge 2',
+          rank: 2,
+          prizeAmount: 3000000,
+          accountNumber: '6677889900',
+          bank: 'BIDV',
+          status: 'completed'
+        },
+        {
+          id: 8,
+          studentId: 'STU-2024-008',
+          fullName: 'Bùi Thị Hoa',
+          school: 'Đại học Ngoại thương',
+          contest: 'English Challenge 2',
+          rank: 3,
+          prizeAmount: 3000000,
+          accountNumber: '0011223344',
+          bank: 'Techcombank',
+          status: 'processing'
+        },
+        {
+          id: 9,
+          studentId: 'STU-2024-009',
+          fullName: 'Ngô Văn Ích',
+          school: 'Đại học Sư phạm Hà Nội',
+          contest: 'English Challenge 1',
+          rank: 1,
+          prizeAmount: 5000000,
+          accountNumber: '2233445566',
+          bank: 'Vietinbank',
+          status: 'completed'
+        },
+        {
+          id: 10,
+          studentId: 'STU-2024-010',
+          fullName: 'Đinh Thị Kim',
+          school: 'Đại học Công nghệ',
+          contest: 'English Challenge 1',
+          rank: 2,
+          prizeAmount: 3000000,
+          accountNumber: '7788990011',
+          bank: 'ACB',
+          status: 'completed'
+        },
+        {
+          id: 11,
+          studentId: 'STU-2024-011',
+          fullName: 'Lý Văn Long',
+          school: 'Đại học Bách Khoa Hà Nội',
+          contest: 'English Challenge 3',
+          rank: 6,
+          prizeAmount: 2000000,
+          accountNumber: '3344556677',
+          bank: 'Vietcombank',
+          status: 'pending'
+        },
+        {
+          id: 12,
+          studentId: 'STU-2024-012',
+          fullName: 'Mai Thị Mai',
+          school: 'Đại học Kinh tế Quốc dân',
+          contest: 'English Challenge 3',
+          rank: 7,
+          prizeAmount: 2000000,
+          accountNumber: '8899001122',
+          bank: 'BIDV',
+          status: 'pending'
+        },
+        {
+          id: 13,
+          studentId: 'STU-2024-013',
+          fullName: 'Phan Văn Nam',
+          school: 'Đại học Ngoại thương',
+          contest: 'English Challenge 3',
+          rank: 8,
+          prizeAmount: 2000000,
+          accountNumber: '4455667788',
+          bank: 'Techcombank',
+          status: 'processing'
+        },
+        {
+          id: 14,
+          studentId: 'STU-2024-014',
+          fullName: 'Võ Thị Oanh',
+          school: 'Đại học Sư phạm Hà Nội',
+          contest: 'English Challenge 3',
+          rank: 9,
+          prizeAmount: 2000000,
+          accountNumber: '9900112233',
+          bank: 'Vietinbank',
+          status: 'pending'
+        },
+        {
+          id: 15,
+          studentId: 'STU-2024-015',
+          fullName: 'Cao Văn Phúc',
+          school: 'Đại học Công nghệ',
+          contest: 'English Challenge 3',
+          rank: 10,
+          prizeAmount: 2000000,
+          accountNumber: '1122334455',
+          bank: 'ACB',
+          status: 'completed'
+        }
+      ];
+
+      function loadWinners() {
+        const tbody = document.getElementById('winnersTableBody');
+        if (!tbody) return;
+
+        if (winnersData.length === 0) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="11" style="text-align: center; padding: 40px; color: #999;">
+                <div style="font-size: 48px; margin-bottom: 16px;">📭</div>
+                <div>Không có dữ liệu trúng thưởng</div>
+              </td>
+            </tr>
+          `;
+          return;
+        }
+
+        let html = '';
+        winnersData.forEach((winner, index) => {
+          const statusBadge = getWinnerStatusBadge(winner.status);
+          const rankDisplay = winner.rank === 1 ? '🥇 Hạng 1' : 
+                             winner.rank === 2 ? '🥈 Hạng 2' : 
+                             winner.rank === 3 ? '🥉 Hạng 3' : 
+                             `Hạng ${winner.rank}`;
+          html += `
+            <tr>
+              <td>${index + 1}</td>
+              <td style="font-family: monospace; font-weight: 600;">${winner.studentId}</td>
+              <td style="font-weight: 500;">${winner.fullName}</td>
+              <td>${winner.school}</td>
+              <td>${winner.contest}</td>
+              <td style="font-weight: 600;">${rankDisplay}</td>
+              <td style="font-weight: 600; color: #007aff;">${winner.prizeAmount.toLocaleString('vi-VN')} VNĐ</td>
+              <td style="font-family: monospace;">${winner.accountNumber}</td>
+              <td>${winner.bank}</td>
+              <td>${statusBadge}</td>
+              <td>
+                <div class="action-buttons">
+                  <button class="btn-sm btn-view" onclick="viewWinnerDetail(${winner.id})">View</button>
+                </div>
+              </td>
+            </tr>
+          `;
+        });
+        tbody.innerHTML = html;
+      }
+
+      function getWinnerStatusBadge(status) {
+        const badges = {
+          'completed': '<span class="status-badge status-active">Đã thanh toán</span>',
+          'processing': '<span class="status-badge status-pending">Đang xử lý</span>',
+          'pending': '<span class="status-badge status-pending">Chờ xử lý</span>',
+          'cancelled': '<span class="status-badge status-ended">Đã hủy</span>'
+        };
+        return badges[status] || '<span class="status-badge status-ended">Unknown</span>';
+      }
+
+      function viewWinnerDetail(winnerId) {
+        const winner = winnersData.find(w => w.id === winnerId);
+        if (!winner) {
+          alert('Không tìm thấy thông tin trúng thưởng!');
+          return;
+        }
+
+        // Create or update modal content
+        let modal = document.getElementById('viewWinnerModal');
+        if (!modal) {
+          modal = document.createElement('div');
+          modal.id = 'viewWinnerModal';
+          modal.className = 'modal-overlay';
+          modal.innerHTML = `
+            <div class="modal" style="max-width: 600px;">
+              <div class="modal-header">
+                <div class="modal-title">🎁 Chi tiết thông tin trúng thưởng</div>
+                <button class="modal-close" onclick="closeViewWinnerModal()">×</button>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                  <label class="form-label">Mã sinh viên</label>
+                  <div id="viewWinnerStudentId" style="padding: 10px; background: #f8f9fa; border-radius: 8px; font-family: monospace; font-weight: 600;"></div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Họ và tên</label>
+                  <div id="viewWinnerFullName" style="padding: 10px; background: #f8f9fa; border-radius: 8px; font-weight: 500;"></div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Trường</label>
+                  <div id="viewWinnerSchool" style="padding: 10px; background: #f8f9fa; border-radius: 8px;"></div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Contest</label>
+                  <div id="viewWinnerContest" style="padding: 10px; background: #f8f9fa; border-radius: 8px;"></div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Hạng</label>
+                  <div id="viewWinnerRank" style="padding: 10px; background: #f8f9fa; border-radius: 8px; font-weight: 600;"></div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Số tiền thưởng</label>
+                  <div id="viewWinnerPrizeAmount" style="padding: 10px; background: #f8f9fa; border-radius: 8px; font-weight: 600; color: #007aff;"></div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Số tài khoản</label>
+                  <div id="viewWinnerAccountNumber" style="padding: 10px; background: #f8f9fa; border-radius: 8px; font-family: monospace;"></div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Ngân hàng</label>
+                  <div id="viewWinnerBank" style="padding: 10px; background: #f8f9fa; border-radius: 8px;"></div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Trạng thái</label>
+                  <div id="viewWinnerStatusDisplay" style="padding: 10px; border-radius: 8px; display: inline-block; font-weight: 500;"></div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeViewWinnerModal()">Đóng</button>
+              </div>
+            </div>
+          `;
+          document.body.appendChild(modal);
+        }
+
+        document.getElementById('viewWinnerStudentId').textContent = winner.studentId || '-';
+        document.getElementById('viewWinnerFullName').textContent = winner.fullName || '-';
+        document.getElementById('viewWinnerSchool').textContent = winner.school || '-';
+        document.getElementById('viewWinnerContest').textContent = winner.contest || '-';
+        const rankDisplay = winner.rank === 1 ? '🥇 Hạng 1' : 
+                           winner.rank === 2 ? '🥈 Hạng 2' : 
+                           winner.rank === 3 ? '🥉 Hạng 3' : 
+                           `Hạng ${winner.rank}`;
+        document.getElementById('viewWinnerRank').textContent = rankDisplay;
+        document.getElementById('viewWinnerPrizeAmount').textContent = winner.prizeAmount ? winner.prizeAmount.toLocaleString('vi-VN') + ' VNĐ' : '-';
+        document.getElementById('viewWinnerAccountNumber').textContent = winner.accountNumber || '-';
+        document.getElementById('viewWinnerBank').textContent = winner.bank || '-';
+
+        const statusDisplay = document.getElementById('viewWinnerStatusDisplay');
+        if (winner.status === 'completed') {
+          statusDisplay.textContent = 'Đã thanh toán';
+          statusDisplay.style.background = '#d4edda';
+          statusDisplay.style.color = '#155724';
+        } else if (winner.status === 'processing') {
+          statusDisplay.textContent = 'Đang xử lý';
+          statusDisplay.style.background = '#fff3cd';
+          statusDisplay.style.color = '#856404';
+        } else if (winner.status === 'pending') {
+          statusDisplay.textContent = 'Chờ xử lý';
+          statusDisplay.style.background = '#fff3cd';
+          statusDisplay.style.color = '#856404';
+        } else if (winner.status === 'cancelled') {
+          statusDisplay.textContent = 'Đã hủy';
+          statusDisplay.style.background = '#e2e3e5';
+          statusDisplay.style.color = '#383d41';
+        } else {
+          statusDisplay.textContent = 'Unknown';
+          statusDisplay.style.background = '#e2e3e5';
+          statusDisplay.style.color = '#383d41';
+        }
+
+        modal.classList.add('show');
+      }
+
+      function closeViewWinnerModal() {
+        const modal = document.getElementById('viewWinnerModal');
+        if (modal) {
+          modal.classList.remove('show');
+        }
+      }
+
+      function searchWinners() {
+        const searchTerm = document.getElementById('searchWinners')?.value.toLowerCase() || '';
+        const filterStatus = document.getElementById('filterWinnerStatus')?.value.toLowerCase() || '';
+        const filterContest = document.getElementById('filterWinnerContest')?.value.toLowerCase() || '';
+        const rows = document.querySelectorAll('#winners table tbody tr');
+        
+        rows.forEach(row => {
+          const text = row.textContent.toLowerCase();
+          const matchesSearch = text.includes(searchTerm);
+          const matchesStatus = !filterStatus || text.includes(filterStatus);
+          const matchesContest = !filterContest || text.includes(filterContest);
+          row.style.display = (matchesSearch && matchesStatus && matchesContest) ? '' : 'none';
+        });
+      }
+
+      function exportWinners() {
+        // In a real application, this would export to CSV/Excel
+        alert('Xuất báo cáo danh sách trúng thưởng...\n\nTính năng này sẽ xuất tất cả thông tin trúng thưởng ra file CSV.');
+        console.log('Exporting winners:', winnersData);
       }
 
       // Close modals when clicking outside
