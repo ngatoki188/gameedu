@@ -853,12 +853,6 @@
             <span>Transaction History</span>
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" onclick="showSection('winners')">
-            <span class="nav-icon">🎁</span>
-            <span>Thông tin trúng thưởng</span>
-          </a>
-        </li>
       </ul>
     </div>
 
@@ -1259,7 +1253,9 @@
                   <th>Prize</th>
                   <th>Recipient</th>
                   <th>School</th>
-                  <th>Note</th>
+                  <th>Phone</th>
+                  <th>Tổng điểm</th>
+                  <th>Tổng thời gian</th>
                   <th>Status</th>
                   <th>Actions</th>
                 </tr>
@@ -1271,7 +1267,9 @@
                   <td>50,000 MMK</td>
                   <td>John Doe</td>
                   <td>High School ABC</td>
-                  <td style="max-width: 200px; font-size: 13px; color: #666;">Awarded on 20/01/2024</td>
+                  <td style="font-family: monospace;">0912345678</td>
+                  <td style="font-weight: 600; color: #007aff;">98</td>
+                  <td>105m 55s</td>
                   <td>
                     <span class="status-badge status-pending">Pending Review</span>
                   </td>
@@ -1289,7 +1287,9 @@
                   <td>30,000 MMK</td>
                   <td>Jane Smith</td>
                   <td>High School XYZ</td>
-                  <td style="max-width: 200px; font-size: 13px; color: #666;">Awarded on 20/01/2024</td>
+                  <td style="font-family: monospace;">0987654321</td>
+                  <td style="font-weight: 600; color: #007aff;">97</td>
+                  <td>110m 25s</td>
                   <td>
                     <span class="status-badge status-pending">Pending Review</span>
                   </td>
@@ -1307,7 +1307,9 @@
                   <td>20,000 MMK</td>
                   <td>Bob Johnson</td>
                   <td>High School DEF</td>
-                  <td style="max-width: 200px; font-size: 13px; color: #666;">Awarded on 20/01/2024</td>
+                  <td style="font-family: monospace;">0923456789</td>
+                  <td style="font-weight: 600; color: #007aff;">96</td>
+                  <td>114m 0s</td>
                   <td>
                     <span class="status-badge status-pending">Pending Review</span>
                   </td>
@@ -1320,7 +1322,7 @@
                   </td>
                 </tr>
                 <tr>
-                  <td colspan="7"></td>
+                  <td colspan="9"></td>
                   <td>
                     <button class="btn btn-primary" style="width: 100%;" onclick="handleAcceptAllPrizes()">✅ Accept All Approved</button>
                   </td>
@@ -1596,71 +1598,6 @@ Người chơi có thể kiểm tra các phần thưởng của mình trong mụ
         </div>
       </div>
 
-      <!-- Winners Information Section -->
-      <div id="winners" class="content-section">
-        <div class="page-header">
-          <div class="page-title">🎁 Thông tin trúng thưởng</div>
-          <button class="btn btn-primary" onclick="exportWinners()">📥 Export Report</button>
-        </div>
-
-        <div class="content-card">
-          <div class="card-header">
-            <div class="card-title">Danh sách sinh viên trúng thưởng</div>
-            <div style="display: flex; gap: 12px; align-items: center;">
-              <input
-                type="text"
-                id="searchWinners"
-                placeholder="Tìm kiếm theo tên, mã sinh viên, trường..."
-                onkeyup="searchWinners()"
-                style="padding: 8px 12px; border: 1px solid #e5e5ea; border-radius: 8px; width: 300px"
-              />
-              <select
-                id="filterWinnerStatus"
-                onchange="searchWinners()"
-                style="padding: 8px 12px; border: 1px solid #e5e5ea; border-radius: 8px"
-              >
-                <option value="">Tất cả trạng thái</option>
-                <option value="pending">Chờ xử lý</option>
-                <option value="processing">Đang xử lý</option>
-                <option value="completed">Đã thanh toán</option>
-                <option value="cancelled">Đã hủy</option>
-              </select>
-              <select
-                id="filterWinnerContest"
-                onchange="searchWinners()"
-                style="padding: 8px 12px; border: 1px solid #e5e5ea; border-radius: 8px; min-width: 180px"
-              >
-                <option value="">Tất cả Contest</option>
-                <option value="English Challenge 3">English Challenge 3</option>
-                <option value="English Challenge 2">English Challenge 2</option>
-                <option value="English Challenge 1">English Challenge 1</option>
-              </select>
-            </div>
-          </div>
-          <div class="table-container">
-            <table>
-              <thead>
-                <tr>
-                  <th>STT</th>
-                  <th>Mã sinh viên</th>
-                  <th>Họ và tên</th>
-                  <th>Trường</th>
-                  <th>Contest</th>
-                  <th>Hạng</th>
-                  <th>Số tiền thưởng</th>
-                  <th>Số tài khoản</th>
-                  <th>Ngân hàng</th>
-                  <th>Trạng thái</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody id="winnersTableBody">
-                <!-- Winners data will be loaded here -->
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
     </div>
 
     <!-- Add Contest Modal -->
@@ -1772,91 +1709,96 @@ Người chơi có thể kiểm tra các phần thưởng của mình trong mụ
     </div>
 
     <!-- Edit Prize Modal -->
-    <!-- View Prize Detail Modal -->
+    <!-- View Prize Play Sessions Modal -->
     <div class="modal-overlay" id="viewPrizeModal">
+      <div class="modal" style="max-width: 900px;">
+        <div class="modal-header">
+          <div class="modal-title">📊 Danh sách phiên chơi theo ngày</div>
+          <button class="modal-close" onclick="closeViewPrizeModal()">×</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">Contest</label>
+            <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px;" id="viewPrizeContest">-</div>
+          </div>
+          <div class="form-group" style="margin-top: 20px; padding: 16px; background: #e3f2fd; border-radius: 8px; border: 2px solid #007aff;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <div style="font-size: 12px; color: #666; margin-bottom: 4px;">Tổng thời gian</div>
+                <div style="font-weight: 600; color: #007aff; font-size: 18px;" id="viewPrizeTotalTimeDisplay">-</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group" style="margin-top: 20px;">
+            <label class="form-label">Phiên chơi cao nhất theo ngày</label>
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Ngày</th>
+                    <th>Điểm cao nhất</th>
+                    <th>Thời gian</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="viewPrizeSessionsBody">
+                  <tr>
+                    <td colspan="4" style="text-align: center; color: #999;">Đang tải dữ liệu...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-cancel" onclick="closeViewPrizeModal()">Đóng</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- View Play Session Detail Modal -->
+    <div class="modal-overlay" id="viewPlaySessionDetailModal">
       <div class="modal" style="max-width: 800px;">
         <div class="modal-header">
-          <div class="modal-title">👁️ Prize Details</div>
-          <button class="modal-close" onclick="closeViewPrizeModal()">×</button>
+          <div class="modal-title">📋 Chi tiết phiên chơi</div>
+          <button class="modal-close" onclick="closeViewPlaySessionDetailModal()">×</button>
         </div>
         <div class="modal-body">
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">Contest</label>
-              <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px;" id="viewPrizeContest">-</div>
+              <label class="form-label">Ngày</label>
+              <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px;" id="viewSessionDate">-</div>
             </div>
             <div class="form-group">
-              <label class="form-label">Rank</label>
-              <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px;" id="viewPrizeRank">-</div>
+              <label class="form-label">Điểm cao nhất</label>
+              <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px; font-weight: 600; color: #007aff;" id="viewSessionScore">-</div>
             </div>
           </div>
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">Prize Value</label>
-              <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px; font-weight: 600; color: #007aff;" id="viewPrizeAmount">-</div>
+              <label class="form-label">Thời gian tổng</label>
+              <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px;" id="viewSessionTotalTime">-</div>
             </div>
             <div class="form-group">
-              <label class="form-label">Description</label>
-              <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px;" id="viewPrizeDescription">-</div>
+              <label class="form-label">Thời gian trung bình/câu</label>
+              <div class="form-input" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px;" id="viewSessionAvgTime">-</div>
             </div>
           </div>
 
-          <div class="form-group" style="margin-top: 20px; padding: 16px; background: #e3f2fd; border-radius: 8px; border: 2px solid #007aff;">
-            <div style="font-weight: 600; color: #333; font-size: 16px; margin-bottom: 12px;">🏆 Winner Information</div>
-            <div id="viewWinnerInfoDisplay" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px;">
-              <div>
-                <div style="font-size: 12px; color: #666; margin-bottom: 4px;">Recipient Name</div>
-                <div style="font-weight: 600; color: #333; font-size: 15px;" id="viewWinnerNameDisplay">-</div>
-              </div>
-              <div>
-                <div style="font-size: 12px; color: #666; margin-bottom: 4px;">School</div>
-                <div style="font-weight: 600; color: #007aff; font-size: 15px;" id="viewWinnerSchoolDisplay">-</div>
-              </div>
-              <div>
-                <div style="font-size: 12px; color: #666; margin-bottom: 4px;">Player ID</div>
-                <div style="font-weight: 600; color: #333; font-size: 15px;" id="viewWinnerIdDisplay">-</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="history-stats-grid" style="margin: 20px 0; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));">
-            <div class="history-stat-box">
-              <div class="history-stat-value" id="viewPrizeScore">-</div>
-              <div class="history-stat-label">Score</div>
-            </div>
-            <div class="history-stat-box">
-              <div class="history-stat-value" id="viewPrizeCorrect">-</div>
-              <div class="history-stat-label">Correct Answers</div>
-            </div>
-            <div class="history-stat-box">
-              <div class="history-stat-value" id="viewPrizeTotalTime">-</div>
-              <div class="history-stat-label">Total Time</div>
-            </div>
-            <div class="history-stat-box">
-              <div class="history-stat-value" id="viewPrizeAvgTime">-</div>
-              <div class="history-stat-label">Avg Time/Question</div>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">Note</label>
-            <div class="form-textarea" style="background: #f5f5f5; padding: 12px; border: 1px solid #e5e5ea; border-radius: 8px; min-height: 80px; white-space: pre-wrap;" id="viewPrizeNote">-</div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">Question Timeline</label>
+          <div class="form-group" style="margin-top: 20px;">
+            <label class="form-label">Chi tiết từng câu hỏi</label>
             <div class="table-container">
               <table>
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>Question</th>
-                    <th>Your Answer</th>
-                    <th>Result</th>
-                    <th>Time Used</th>
+                    <th>Câu hỏi</th>
+                    <th>Đáp án</th>
+                    <th>Kết quả</th>
+                    <th>Thời gian</th>
                   </tr>
                 </thead>
-                <tbody id="viewPrizeQuestionBody">
+                <tbody id="viewSessionQuestionBody">
                   <tr>
                     <td colspan="5" style="text-align: center; color: #999;">No data</td>
                   </tr>
@@ -1864,14 +1806,9 @@ Người chơi có thể kiểm tra các phần thưởng của mình trong mụ
               </table>
             </div>
           </div>
-
-          <div class="form-group">
-            <label class="form-label">Status</label>
-            <div id="viewPrizeStatusDisplay" style="display: inline-block; padding: 6px 12px; border-radius: 6px; font-size: 14px; font-weight: 500;">-</div>
-          </div>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-cancel" onclick="closeViewPrizeModal()">Close</button>
+          <button class="btn btn-cancel" onclick="closeViewPlaySessionDetailModal()">Đóng</button>
         </div>
       </div>
     </div>
@@ -1916,6 +1853,10 @@ Người chơi có thể kiểm tra các phần thưởng của mình trong mụ
                 <div>
                   <div style="font-size: 12px; color: #666; margin-bottom: 4px;">School</div>
                   <div style="font-weight: 600; color: #007aff; font-size: 15px;" id="winnerSchoolDisplay">-</div>
+                </div>
+                <div>
+                  <div style="font-size: 12px; color: #666; margin-bottom: 4px;">Phone Number</div>
+                  <div style="font-weight: 600; color: #333; font-size: 15px; font-family: monospace;" id="winnerPhoneDisplay">-</div>
                 </div>
               </div>
             </div>
@@ -2647,8 +2588,6 @@ Người chơi có thể kiểm tra các phần thưởng của mình trong mụ
         // Load data for specific sections
         if (sectionId === 'transactions') {
           loadTransactions();
-        } else if (sectionId === 'winners') {
-          loadWinners();
         }
       }
 
@@ -2670,6 +2609,7 @@ Người chơi có thể kiểm tra các phần thưởng của mình trong mụ
           recipientName: "John Doe",
           recipientSchool: "High School ABC",
           recipientId: "U001",
+          recipientPhone: "0912345678",
           status: "pending",
           note: "Awarded on 20/01/2024",
           summary: {
@@ -2678,6 +2618,48 @@ Người chơi có thể kiểm tra các phần thưởng của mình trong mụ
             totalTime: "32m 15s",
             avgTime: "38s"
           },
+          dailySessions: [
+            {
+              date: "2024-01-15",
+              score: 95,
+              totalTime: "35m 20s",
+              avgTime: "42s",
+              questionDetails: [
+                { number: 1, question: "Vocabulary warm-up", answer: "A", result: "Correct", timeUsed: "40s" },
+                { number: 2, question: "Listening clip 1", answer: "B", result: "Correct", timeUsed: "45s" },
+                { number: 3, question: "Grammar challenge", answer: "C", result: "Correct", timeUsed: "38s" }
+              ]
+            },
+            {
+              date: "2024-01-16",
+              score: 98,
+              totalTime: "32m 15s",
+              avgTime: "38s",
+              questionDetails: [
+                { number: 1, question: "Vocabulary warm-up", answer: "A", result: "Correct", timeUsed: "35s" },
+                { number: 2, question: "Listening clip 1", answer: "B", result: "Correct", timeUsed: "42s" },
+                { number: 3, question: "Grammar challenge", answer: "C", result: "Correct", timeUsed: "33s" },
+                { number: 4, question: "Reading summary", answer: "D", result: "Correct", timeUsed: "40s" }
+              ]
+            },
+            {
+              date: "2024-01-17",
+              score: 0,
+              totalTime: "0s",
+              avgTime: "0s",
+              questionDetails: []
+            },
+            {
+              date: "2024-01-18",
+              score: 92,
+              totalTime: "38m 10s",
+              avgTime: "45s",
+              questionDetails: [
+                { number: 1, question: "Vocabulary warm-up", answer: "A", result: "Correct", timeUsed: "48s" },
+                { number: 2, question: "Listening clip 1", answer: "B", result: "Correct", timeUsed: "42s" }
+              ]
+            }
+          ],
           questionDetails: [
             { number: 1, question: "Vocabulary warm-up", answer: "A", result: "Correct", timeUsed: "35s" },
             { number: 2, question: "Listening clip 1", answer: "B", result: "Correct", timeUsed: "42s" },
@@ -2694,6 +2676,7 @@ Người chơi có thể kiểm tra các phần thưởng của mình trong mụ
           recipientName: "Jane Smith",
           recipientSchool: "High School XYZ",
           recipientId: "U002",
+          recipientPhone: "0987654321",
           status: "pending",
           note: "Awarded on 20/01/2024",
           summary: {
@@ -2702,6 +2685,47 @@ Người chơi có thể kiểm tra các phần thưởng của mình trong mụ
             totalTime: "33m 40s",
             avgTime: "40s"
           },
+          dailySessions: [
+            {
+              date: "2024-01-15",
+              score: 94,
+              totalTime: "36m 30s",
+              avgTime: "43s",
+              questionDetails: [
+                { number: 1, question: "Vocabulary warm-up", answer: "A", result: "Correct", timeUsed: "42s" },
+                { number: 2, question: "Listening clip 1", answer: "B", result: "Correct", timeUsed: "44s" }
+              ]
+            },
+            {
+              date: "2024-01-16",
+              score: 97,
+              totalTime: "33m 40s",
+              avgTime: "40s",
+              questionDetails: [
+                { number: 1, question: "Vocabulary warm-up", answer: "A", result: "Correct", timeUsed: "38s" },
+                { number: 2, question: "Listening clip 1", answer: "B", result: "Correct", timeUsed: "41s" },
+                { number: 3, question: "Grammar challenge", answer: "C", result: "Correct", timeUsed: "36s" },
+                { number: 4, question: "Reading summary", answer: "C", result: "Correct", timeUsed: "44s" },
+                { number: 5, question: "Speed bonus", answer: "A", result: "Correct", timeUsed: "29s" }
+              ]
+            },
+            {
+              date: "2024-01-17",
+              score: 0,
+              totalTime: "0s",
+              avgTime: "0s",
+              questionDetails: []
+            },
+            {
+              date: "2024-01-18",
+              score: 90,
+              totalTime: "40m 15s",
+              avgTime: "48s",
+              questionDetails: [
+                { number: 1, question: "Vocabulary warm-up", answer: "A", result: "Correct", timeUsed: "50s" }
+              ]
+            }
+          ],
           questionDetails: [
             { number: 1, question: "Vocabulary warm-up", answer: "A", result: "Correct", timeUsed: "38s" },
             { number: 2, question: "Listening clip 1", answer: "B", result: "Correct", timeUsed: "41s" },
@@ -2719,6 +2743,7 @@ Người chơi có thể kiểm tra các phần thưởng của mình trong mụ
           recipientName: "Bob Johnson",
           recipientSchool: "High School DEF",
           recipientId: "U003",
+          recipientPhone: "0923456789",
           status: "pending",
           note: "Awarded on 20/01/2024",
           summary: {
@@ -2727,6 +2752,46 @@ Người chơi có thể kiểm tra các phần thưởng của mình trong mụ
             totalTime: "34m 05s",
             avgTime: "41s"
           },
+          dailySessions: [
+            {
+              date: "2024-01-15",
+              score: 93,
+              totalTime: "37m 25s",
+              avgTime: "44s",
+              questionDetails: [
+                { number: 1, question: "Vocabulary warm-up", answer: "B", result: "Correct", timeUsed: "46s" },
+                { number: 2, question: "Listening clip 1", answer: "B", result: "Correct", timeUsed: "42s" }
+              ]
+            },
+            {
+              date: "2024-01-16",
+              score: 96,
+              totalTime: "34m 05s",
+              avgTime: "41s",
+              questionDetails: [
+                { number: 1, question: "Vocabulary warm-up", answer: "B", result: "Correct", timeUsed: "41s" },
+                { number: 2, question: "Listening clip 1", answer: "B", result: "Correct", timeUsed: "45s" },
+                { number: 3, question: "Grammar challenge", answer: "D", result: "Correct", timeUsed: "39s" },
+                { number: 4, question: "Reading summary", answer: "C", result: "Correct", timeUsed: "47s" }
+              ]
+            },
+            {
+              date: "2024-01-17",
+              score: 0,
+              totalTime: "0s",
+              avgTime: "0s",
+              questionDetails: []
+            },
+            {
+              date: "2024-01-18",
+              score: 88,
+              totalTime: "42m 30s",
+              avgTime: "51s",
+              questionDetails: [
+                { number: 1, question: "Vocabulary warm-up", answer: "B", result: "Correct", timeUsed: "52s" }
+              ]
+            }
+          ],
           questionDetails: [
             { number: 1, question: "Vocabulary warm-up", answer: "B", result: "Correct", timeUsed: "41s" },
             { number: 2, question: "Listening clip 1", answer: "B", result: "Correct", timeUsed: "45s" },
@@ -2859,25 +2924,144 @@ Người chơi có thể kiểm tra các phần thưởng của mình trong mụ
           return;
         }
 
+        // Set contest name
         document.getElementById('viewPrizeContest').textContent = prize.contestName || '-';
-        document.getElementById('viewPrizeRank').textContent = prize.rank || '-';
-        const amountNum = prize.prizeAmount ? Number(prize.prizeAmount) : null;
-        document.getElementById('viewPrizeAmount').textContent = amountNum ? amountNum.toLocaleString('vi-VN') + ' MMK' : '-';
-        document.getElementById('viewPrizeDescription').textContent = prize.description || '-';
-        document.getElementById('viewPrizeNote').textContent = prize.note || '-';
 
-        document.getElementById('viewWinnerNameDisplay').textContent = prize.recipientName || '-';
-        document.getElementById('viewWinnerSchoolDisplay').textContent = prize.recipientSchool || '-';
-        document.getElementById('viewWinnerIdDisplay').textContent = prize.recipientId || '-';
+        // Get all dates in the contest period (assuming 4 days for demo)
+        // In real app, this would come from contest start/end dates
+        const contestStartDate = new Date('2024-01-15');
+        const contestEndDate = new Date('2024-01-18');
+        const allDates = [];
+        for (let d = new Date(contestStartDate); d <= contestEndDate; d.setDate(d.getDate() + 1)) {
+          allDates.push(new Date(d).toISOString().split('T')[0]);
+        }
 
-        document.getElementById('viewPrizeScore').textContent = prize.summary?.score ?? '-';
-        document.getElementById('viewPrizeCorrect').textContent = prize.summary?.correct ?? '-';
-        document.getElementById('viewPrizeTotalTime').textContent = prize.summary?.totalTime ?? '-';
-        document.getElementById('viewPrizeAvgTime').textContent = prize.summary?.avgTime ?? '-';
+        // Helper function to parse time string (e.g., "32m 15s" or "35m 20s")
+        function parseTime(timeStr) {
+          if (!timeStr || timeStr === '0s') return 0;
+          let totalSeconds = 0;
+          const minutesMatch = timeStr.match(/(\d+)m/);
+          const secondsMatch = timeStr.match(/(\d+)s/);
+          if (minutesMatch) totalSeconds += parseInt(minutesMatch[1]) * 60;
+          if (secondsMatch) totalSeconds += parseInt(secondsMatch[1]);
+          return totalSeconds;
+        }
 
-        const questionBody = document.getElementById('viewPrizeQuestionBody');
-        if (prize.questionDetails && prize.questionDetails.length) {
-          questionBody.innerHTML = prize.questionDetails
+        // Helper function to format seconds to "Xm Ys"
+        function formatTime(totalSeconds) {
+          if (totalSeconds === 0) return '0s';
+          const minutes = Math.floor(totalSeconds / 60);
+          const seconds = totalSeconds % 60;
+          if (minutes > 0 && seconds > 0) {
+            return `${minutes}m ${seconds}s`;
+          } else if (minutes > 0) {
+            return `${minutes}m`;
+          } else {
+            return `${seconds}s`;
+          }
+        }
+
+        // Calculate total time
+        let totalTimeSeconds = 0;
+        if (prize.dailySessions && prize.dailySessions.length > 0) {
+          prize.dailySessions.forEach(session => {
+            if (session.totalTime && session.totalTime !== '0s') {
+              totalTimeSeconds += parseTime(session.totalTime);
+            }
+          });
+        }
+        document.getElementById('viewPrizeTotalTimeDisplay').textContent = formatTime(totalTimeSeconds);
+
+        // Build sessions list
+        const sessionsBody = document.getElementById('viewPrizeSessionsBody');
+        if (!prize.dailySessions || prize.dailySessions.length === 0) {
+          sessionsBody.innerHTML = `
+            <tr>
+              <td colspan="4" style="text-align: center; color: #999;">Không có dữ liệu phiên chơi</td>
+            </tr>
+          `;
+        } else {
+          // Create a map of sessions by date for quick lookup
+          const sessionsByDate = {};
+          prize.dailySessions.forEach(session => {
+            sessionsByDate[session.date] = session;
+          });
+
+          let html = '';
+          allDates.forEach(date => {
+            const session = sessionsByDate[date];
+            const dateObj = new Date(date);
+            const formattedDate = dateObj.toLocaleDateString('vi-VN', { 
+              day: '2-digit', 
+              month: '2-digit', 
+              year: 'numeric' 
+            });
+
+            if (session) {
+              html += `
+                <tr>
+                  <td>${formattedDate}</td>
+                  <td style="font-weight: 600; color: #007aff;">${session.score}</td>
+                  <td>${session.totalTime}</td>
+                  <td>
+                    <button class="btn-sm btn-view" onclick="viewPlaySessionDetail('${prizeId}', '${date}')">Xem chi tiết</button>
+                  </td>
+                </tr>
+              `;
+            } else {
+              html += `
+                <tr>
+                  <td>${formattedDate}</td>
+                  <td style="font-weight: 600; color: #999;">0</td>
+                  <td style="color: #999;">0s</td>
+                  <td>
+                    <button class="btn-sm btn-view" disabled style="opacity: 0.5; cursor: not-allowed;">Xem chi tiết</button>
+                  </td>
+                </tr>
+              `;
+            }
+          });
+          sessionsBody.innerHTML = html;
+        }
+
+        document.getElementById('viewPrizeModal').classList.add('show');
+      }
+
+      function closeViewPrizeModal() {
+        document.getElementById('viewPrizeModal').classList.remove('show');
+      }
+
+      // ========== VIEW PLAY SESSION DETAIL MODAL ==========
+      function viewPlaySessionDetail(prizeId, date) {
+        const prize = prizePlayDetails[prizeId];
+        if (!prize || !prize.dailySessions) {
+          alert('Không tìm thấy dữ liệu phiên chơi!');
+          return;
+        }
+
+        const session = prize.dailySessions.find(s => s.date === date);
+        if (!session) {
+          alert('Không tìm thấy phiên chơi cho ngày này!');
+          return;
+        }
+
+        // Format date
+        const dateObj = new Date(date);
+        const formattedDate = dateObj.toLocaleDateString('vi-VN', { 
+          day: '2-digit', 
+          month: '2-digit', 
+          year: 'numeric' 
+        });
+
+        document.getElementById('viewSessionDate').textContent = formattedDate;
+        document.getElementById('viewSessionScore').textContent = session.score || '0';
+        document.getElementById('viewSessionTotalTime').textContent = session.totalTime || '0s';
+        document.getElementById('viewSessionAvgTime').textContent = session.avgTime || '0s';
+
+        // Display question details
+        const questionBody = document.getElementById('viewSessionQuestionBody');
+        if (session.questionDetails && session.questionDetails.length > 0) {
+          questionBody.innerHTML = session.questionDetails
             .map(item => `
               <tr>
                 <td>${item.number}</td>
@@ -2890,31 +3074,16 @@ Người chơi có thể kiểm tra các phần thưởng của mình trong mụ
         } else {
           questionBody.innerHTML = `
             <tr>
-              <td colspan="5" style="text-align: center; color: #999;">No question breakdown available</td>
+              <td colspan="5" style="text-align: center; color: #999;">Không có dữ liệu câu hỏi (ngày không chơi)</td>
             </tr>
           `;
         }
 
-        const statusDisplay = document.getElementById('viewPrizeStatusDisplay');
-        if (prize.status === 'awarded') {
-          statusDisplay.textContent = 'Awarded';
-          statusDisplay.style.background = '#d4edda';
-          statusDisplay.style.color = '#155724';
-        } else if (prize.status === 'rejected') {
-          statusDisplay.textContent = 'Rejected';
-          statusDisplay.style.background = '#f8d7da';
-          statusDisplay.style.color = '#721c24';
-        } else {
-          statusDisplay.textContent = 'Pending Review';
-          statusDisplay.style.background = '#fff3cd';
-          statusDisplay.style.color = '#856404';
-        }
-
-        document.getElementById('viewPrizeModal').classList.add('show');
+        document.getElementById('viewPlaySessionDetailModal').classList.add('show');
       }
 
-      function closeViewPrizeModal() {
-        document.getElementById('viewPrizeModal').classList.remove('show');
+      function closeViewPlaySessionDetailModal() {
+        document.getElementById('viewPlaySessionDetailModal').classList.remove('show');
       }
 
       function handlePrizeAction(prizeId, action) {
@@ -2967,7 +3136,7 @@ Người chơi có thể kiểm tra các phần thưởng của mình trong mụ
       }
 
       // ========== EDIT PRIZE MODAL ==========
-      function openEditPrizeModal(contestId, contestName, rank, amount, currentWinner, currentWinnerId, currentWinnerSchool, status, note) {
+      function openEditPrizeModal(contestId, contestName, rank, amount, currentWinner, currentWinnerId, currentWinnerSchool, currentWinnerPhone, status, note) {
         // Set form values
         document.getElementById('editPrizeContest').value = contestName;
         document.getElementById('editPrizeRank').value = rank;
@@ -2978,13 +3147,16 @@ Người chơi có thể kiểm tra các phần thưởng của mình trong mụ
         // Display winner info
         const winnerNameDisplay = document.getElementById('winnerNameDisplay');
         const winnerSchoolDisplay = document.getElementById('winnerSchoolDisplay');
+        const winnerPhoneDisplay = document.getElementById('winnerPhoneDisplay');
         
         if (currentWinner && currentWinnerSchool) {
           winnerNameDisplay.textContent = currentWinner;
           winnerSchoolDisplay.textContent = currentWinnerSchool;
+          winnerPhoneDisplay.textContent = currentWinnerPhone || '-';
         } else {
           winnerNameDisplay.textContent = 'No recipient';
           winnerSchoolDisplay.textContent = '-';
+          winnerPhoneDisplay.textContent = '-';
         }
         
         // Show modal
@@ -3770,7 +3942,6 @@ Người chơi có thể kiểm tra các phần thưởng của mình trong mụ
       document.addEventListener('DOMContentLoaded', function() {
         updateAboutGamePreview();
         loadTransactions();
-        loadWinners();
       });
 
       // ========== TRANSACTION HISTORY ==========
@@ -4060,378 +4231,6 @@ Người chơi có thể kiểm tra các phần thưởng của mình trong mụ
         // In a real application, this would export to CSV/Excel
         alert('Exporting transaction report...\n\nThis feature will export all transactions to a CSV file.');
         console.log('Exporting transactions:', transactionData);
-      }
-
-      // ========== WINNERS INFORMATION MODULE ==========
-      const winnersData = [
-        {
-          id: 1,
-          studentId: 'STU-2024-001',
-          fullName: 'Nguyễn Văn An',
-          school: 'Đại học Bách Khoa Hà Nội',
-          contest: 'English Challenge 3',
-          rank: 1,
-          prizeAmount: 5000000,
-          accountNumber: '1234567890',
-          bank: 'Vietcombank',
-          status: 'completed'
-        },
-        {
-          id: 2,
-          studentId: 'STU-2024-002',
-          fullName: 'Trần Thị Bình',
-          school: 'Đại học Kinh tế Quốc dân',
-          contest: 'English Challenge 3',
-          rank: 2,
-          prizeAmount: 3000000,
-          accountNumber: '0987654321',
-          bank: 'BIDV',
-          status: 'completed'
-        },
-        {
-          id: 3,
-          studentId: 'STU-2024-003',
-          fullName: 'Lê Văn Cường',
-          school: 'Đại học Ngoại thương',
-          contest: 'English Challenge 3',
-          rank: 3,
-          prizeAmount: 3000000,
-          accountNumber: '1122334455',
-          bank: 'Techcombank',
-          status: 'processing'
-        },
-        {
-          id: 4,
-          studentId: 'STU-2024-004',
-          fullName: 'Phạm Thị Dung',
-          school: 'Đại học Sư phạm Hà Nội',
-          contest: 'English Challenge 3',
-          rank: 4,
-          prizeAmount: 2000000,
-          accountNumber: '5566778899',
-          bank: 'Vietinbank',
-          status: 'pending'
-        },
-        {
-          id: 5,
-          studentId: 'STU-2024-005',
-          fullName: 'Hoàng Văn Em',
-          school: 'Đại học Công nghệ',
-          contest: 'English Challenge 3',
-          rank: 5,
-          prizeAmount: 2000000,
-          accountNumber: '9988776655',
-          bank: 'ACB',
-          status: 'pending'
-        },
-        {
-          id: 6,
-          studentId: 'STU-2024-006',
-          fullName: 'Vũ Thị Phương',
-          school: 'Đại học Bách Khoa Hà Nội',
-          contest: 'English Challenge 2',
-          rank: 1,
-          prizeAmount: 5000000,
-          accountNumber: '4433221100',
-          bank: 'Vietcombank',
-          status: 'completed'
-        },
-        {
-          id: 7,
-          studentId: 'STU-2024-007',
-          fullName: 'Đỗ Văn Giang',
-          school: 'Đại học Kinh tế Quốc dân',
-          contest: 'English Challenge 2',
-          rank: 2,
-          prizeAmount: 3000000,
-          accountNumber: '6677889900',
-          bank: 'BIDV',
-          status: 'completed'
-        },
-        {
-          id: 8,
-          studentId: 'STU-2024-008',
-          fullName: 'Bùi Thị Hoa',
-          school: 'Đại học Ngoại thương',
-          contest: 'English Challenge 2',
-          rank: 3,
-          prizeAmount: 3000000,
-          accountNumber: '0011223344',
-          bank: 'Techcombank',
-          status: 'processing'
-        },
-        {
-          id: 9,
-          studentId: 'STU-2024-009',
-          fullName: 'Ngô Văn Ích',
-          school: 'Đại học Sư phạm Hà Nội',
-          contest: 'English Challenge 1',
-          rank: 1,
-          prizeAmount: 5000000,
-          accountNumber: '2233445566',
-          bank: 'Vietinbank',
-          status: 'completed'
-        },
-        {
-          id: 10,
-          studentId: 'STU-2024-010',
-          fullName: 'Đinh Thị Kim',
-          school: 'Đại học Công nghệ',
-          contest: 'English Challenge 1',
-          rank: 2,
-          prizeAmount: 3000000,
-          accountNumber: '7788990011',
-          bank: 'ACB',
-          status: 'completed'
-        },
-        {
-          id: 11,
-          studentId: 'STU-2024-011',
-          fullName: 'Lý Văn Long',
-          school: 'Đại học Bách Khoa Hà Nội',
-          contest: 'English Challenge 3',
-          rank: 6,
-          prizeAmount: 2000000,
-          accountNumber: '3344556677',
-          bank: 'Vietcombank',
-          status: 'pending'
-        },
-        {
-          id: 12,
-          studentId: 'STU-2024-012',
-          fullName: 'Mai Thị Mai',
-          school: 'Đại học Kinh tế Quốc dân',
-          contest: 'English Challenge 3',
-          rank: 7,
-          prizeAmount: 2000000,
-          accountNumber: '8899001122',
-          bank: 'BIDV',
-          status: 'pending'
-        },
-        {
-          id: 13,
-          studentId: 'STU-2024-013',
-          fullName: 'Phan Văn Nam',
-          school: 'Đại học Ngoại thương',
-          contest: 'English Challenge 3',
-          rank: 8,
-          prizeAmount: 2000000,
-          accountNumber: '4455667788',
-          bank: 'Techcombank',
-          status: 'processing'
-        },
-        {
-          id: 14,
-          studentId: 'STU-2024-014',
-          fullName: 'Võ Thị Oanh',
-          school: 'Đại học Sư phạm Hà Nội',
-          contest: 'English Challenge 3',
-          rank: 9,
-          prizeAmount: 2000000,
-          accountNumber: '9900112233',
-          bank: 'Vietinbank',
-          status: 'pending'
-        },
-        {
-          id: 15,
-          studentId: 'STU-2024-015',
-          fullName: 'Cao Văn Phúc',
-          school: 'Đại học Công nghệ',
-          contest: 'English Challenge 3',
-          rank: 10,
-          prizeAmount: 2000000,
-          accountNumber: '1122334455',
-          bank: 'ACB',
-          status: 'completed'
-        }
-      ];
-
-      function loadWinners() {
-        const tbody = document.getElementById('winnersTableBody');
-        if (!tbody) return;
-
-        if (winnersData.length === 0) {
-          tbody.innerHTML = `
-            <tr>
-              <td colspan="11" style="text-align: center; padding: 40px; color: #999;">
-                <div style="font-size: 48px; margin-bottom: 16px;">📭</div>
-                <div>Không có dữ liệu trúng thưởng</div>
-              </td>
-            </tr>
-          `;
-          return;
-        }
-
-        let html = '';
-        winnersData.forEach((winner, index) => {
-          const statusBadge = getWinnerStatusBadge(winner.status);
-          const rankDisplay = winner.rank === 1 ? '🥇 Hạng 1' : 
-                             winner.rank === 2 ? '🥈 Hạng 2' : 
-                             winner.rank === 3 ? '🥉 Hạng 3' : 
-                             `Hạng ${winner.rank}`;
-          html += `
-            <tr>
-              <td>${index + 1}</td>
-              <td style="font-family: monospace; font-weight: 600;">${winner.studentId}</td>
-              <td style="font-weight: 500;">${winner.fullName}</td>
-              <td>${winner.school}</td>
-              <td>${winner.contest}</td>
-              <td style="font-weight: 600;">${rankDisplay}</td>
-              <td style="font-weight: 600; color: #007aff;">${winner.prizeAmount.toLocaleString('vi-VN')} VNĐ</td>
-              <td style="font-family: monospace;">${winner.accountNumber}</td>
-              <td>${winner.bank}</td>
-              <td>${statusBadge}</td>
-              <td>
-                <div class="action-buttons">
-                  <button class="btn-sm btn-view" onclick="viewWinnerDetail(${winner.id})">View</button>
-                </div>
-              </td>
-            </tr>
-          `;
-        });
-        tbody.innerHTML = html;
-      }
-
-      function getWinnerStatusBadge(status) {
-        const badges = {
-          'completed': '<span class="status-badge status-active">Đã thanh toán</span>',
-          'processing': '<span class="status-badge status-pending">Đang xử lý</span>',
-          'pending': '<span class="status-badge status-pending">Chờ xử lý</span>',
-          'cancelled': '<span class="status-badge status-ended">Đã hủy</span>'
-        };
-        return badges[status] || '<span class="status-badge status-ended">Unknown</span>';
-      }
-
-      function viewWinnerDetail(winnerId) {
-        const winner = winnersData.find(w => w.id === winnerId);
-        if (!winner) {
-          alert('Không tìm thấy thông tin trúng thưởng!');
-          return;
-        }
-
-        // Create or update modal content
-        let modal = document.getElementById('viewWinnerModal');
-        if (!modal) {
-          modal = document.createElement('div');
-          modal.id = 'viewWinnerModal';
-          modal.className = 'modal-overlay';
-          modal.innerHTML = `
-            <div class="modal" style="max-width: 600px;">
-              <div class="modal-header">
-                <div class="modal-title">🎁 Chi tiết thông tin trúng thưởng</div>
-                <button class="modal-close" onclick="closeViewWinnerModal()">×</button>
-              </div>
-              <div class="modal-body">
-                <div class="form-group">
-                  <label class="form-label">Mã sinh viên</label>
-                  <div id="viewWinnerStudentId" style="padding: 10px; background: #f8f9fa; border-radius: 8px; font-family: monospace; font-weight: 600;"></div>
-                </div>
-                <div class="form-group">
-                  <label class="form-label">Họ và tên</label>
-                  <div id="viewWinnerFullName" style="padding: 10px; background: #f8f9fa; border-radius: 8px; font-weight: 500;"></div>
-                </div>
-                <div class="form-group">
-                  <label class="form-label">Trường</label>
-                  <div id="viewWinnerSchool" style="padding: 10px; background: #f8f9fa; border-radius: 8px;"></div>
-                </div>
-                <div class="form-group">
-                  <label class="form-label">Contest</label>
-                  <div id="viewWinnerContest" style="padding: 10px; background: #f8f9fa; border-radius: 8px;"></div>
-                </div>
-                <div class="form-group">
-                  <label class="form-label">Hạng</label>
-                  <div id="viewWinnerRank" style="padding: 10px; background: #f8f9fa; border-radius: 8px; font-weight: 600;"></div>
-                </div>
-                <div class="form-group">
-                  <label class="form-label">Số tiền thưởng</label>
-                  <div id="viewWinnerPrizeAmount" style="padding: 10px; background: #f8f9fa; border-radius: 8px; font-weight: 600; color: #007aff;"></div>
-                </div>
-                <div class="form-group">
-                  <label class="form-label">Số tài khoản</label>
-                  <div id="viewWinnerAccountNumber" style="padding: 10px; background: #f8f9fa; border-radius: 8px; font-family: monospace;"></div>
-                </div>
-                <div class="form-group">
-                  <label class="form-label">Ngân hàng</label>
-                  <div id="viewWinnerBank" style="padding: 10px; background: #f8f9fa; border-radius: 8px;"></div>
-                </div>
-                <div class="form-group">
-                  <label class="form-label">Trạng thái</label>
-                  <div id="viewWinnerStatusDisplay" style="padding: 10px; border-radius: 8px; display: inline-block; font-weight: 500;"></div>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="closeViewWinnerModal()">Đóng</button>
-              </div>
-            </div>
-          `;
-          document.body.appendChild(modal);
-        }
-
-        document.getElementById('viewWinnerStudentId').textContent = winner.studentId || '-';
-        document.getElementById('viewWinnerFullName').textContent = winner.fullName || '-';
-        document.getElementById('viewWinnerSchool').textContent = winner.school || '-';
-        document.getElementById('viewWinnerContest').textContent = winner.contest || '-';
-        const rankDisplay = winner.rank === 1 ? '🥇 Hạng 1' : 
-                           winner.rank === 2 ? '🥈 Hạng 2' : 
-                           winner.rank === 3 ? '🥉 Hạng 3' : 
-                           `Hạng ${winner.rank}`;
-        document.getElementById('viewWinnerRank').textContent = rankDisplay;
-        document.getElementById('viewWinnerPrizeAmount').textContent = winner.prizeAmount ? winner.prizeAmount.toLocaleString('vi-VN') + ' VNĐ' : '-';
-        document.getElementById('viewWinnerAccountNumber').textContent = winner.accountNumber || '-';
-        document.getElementById('viewWinnerBank').textContent = winner.bank || '-';
-
-        const statusDisplay = document.getElementById('viewWinnerStatusDisplay');
-        if (winner.status === 'completed') {
-          statusDisplay.textContent = 'Đã thanh toán';
-          statusDisplay.style.background = '#d4edda';
-          statusDisplay.style.color = '#155724';
-        } else if (winner.status === 'processing') {
-          statusDisplay.textContent = 'Đang xử lý';
-          statusDisplay.style.background = '#fff3cd';
-          statusDisplay.style.color = '#856404';
-        } else if (winner.status === 'pending') {
-          statusDisplay.textContent = 'Chờ xử lý';
-          statusDisplay.style.background = '#fff3cd';
-          statusDisplay.style.color = '#856404';
-        } else if (winner.status === 'cancelled') {
-          statusDisplay.textContent = 'Đã hủy';
-          statusDisplay.style.background = '#e2e3e5';
-          statusDisplay.style.color = '#383d41';
-        } else {
-          statusDisplay.textContent = 'Unknown';
-          statusDisplay.style.background = '#e2e3e5';
-          statusDisplay.style.color = '#383d41';
-        }
-
-        modal.classList.add('show');
-      }
-
-      function closeViewWinnerModal() {
-        const modal = document.getElementById('viewWinnerModal');
-        if (modal) {
-          modal.classList.remove('show');
-        }
-      }
-
-      function searchWinners() {
-        const searchTerm = document.getElementById('searchWinners')?.value.toLowerCase() || '';
-        const filterStatus = document.getElementById('filterWinnerStatus')?.value.toLowerCase() || '';
-        const filterContest = document.getElementById('filterWinnerContest')?.value.toLowerCase() || '';
-        const rows = document.querySelectorAll('#winners table tbody tr');
-        
-        rows.forEach(row => {
-          const text = row.textContent.toLowerCase();
-          const matchesSearch = text.includes(searchTerm);
-          const matchesStatus = !filterStatus || text.includes(filterStatus);
-          const matchesContest = !filterContest || text.includes(filterContest);
-          row.style.display = (matchesSearch && matchesStatus && matchesContest) ? '' : 'none';
-        });
-      }
-
-      function exportWinners() {
-        // In a real application, this would export to CSV/Excel
-        alert('Xuất báo cáo danh sách trúng thưởng...\n\nTính năng này sẽ xuất tất cả thông tin trúng thưởng ra file CSV.');
-        console.log('Exporting winners:', winnersData);
       }
 
       // Close modals when clicking outside
