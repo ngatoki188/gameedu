@@ -1505,7 +1505,7 @@
           <div style="padding: 20px;">
             <div id="aboutGamePreview" style="line-height: 1.8;">
               <div style="margin-bottom: 20px;">
-                <h3 style="color: #333; margin-bottom: 12px;" id="previewTitle">GameEDU - Educational Gaming Platform</h3>
+                <h3 style="color: #333; margin-bottom: 12px;" id="previewTitle">Who Is The Champion</h3>
                 <p style="color: #666; font-size: 15px; margin-bottom: 16px;" id="previewDescription">
                   GameEDU is an innovative educational gaming platform designed to make learning fun and engaging. 
                   Students can participate in exciting contests, test their knowledge, and compete for prizes while improving their skills.
@@ -2473,7 +2473,7 @@ Người chơi có thể kiểm tra các phần thưởng của mình trong mụ
           <form id="editAboutGameForm" onsubmit="handleSubmitAboutGame(event)">
             <div class="form-group">
               <label class="form-label required">Title</label>
-              <input type="text" class="form-input" id="aboutGameTitle" placeholder="E.g: GameEDU - Educational Gaming Platform" required>
+              <input type="text" class="form-input" id="aboutGameTitle" placeholder="E.g: Who Is The Champion" required>
             </div>
             
             <div class="form-group">
@@ -3753,7 +3753,7 @@ Người chơi có thể kiểm tra các phần thưởng của mình trong mụ
       // ========== ABOUT GAME CMS ==========
       // Sample data for About Game
       let aboutGameData = {
-        title: "GameEDU - Educational Gaming Platform",
+        title: "Who Is The Champion",
         description: "GameEDU is an innovative educational gaming platform designed to make learning fun and engaging. Students can participate in exciting contests, test their knowledge, and compete for prizes while improving their skills.",
         gameGoal: "Chơi – Tính điểm – Xếp hạng – Nhận thưởng.",
         howToPlay: "Chọn Sự kiện: Chọn một sự kiện (Event) đang diễn ra\n\nBắt đầu chơi: Nhấn vào Ngày hiện tại để bắt đầu phiên chơi.\n\nTrả lời Câu hỏi: Trả lời từng câu hỏi theo thứ tự trong thời gian quy định cho mỗi câu.\n\nKết thúc Phiên chơi: Phiên chơi kết thúc ngay lập tức nếu người chơi trả lời sai hoặc hết thời gian cho câu hỏi hiện tại.\n\nTính toán & Xếp hạng: Hệ thống tính toán tổng điểm và thời gian đạt được, sau đó so sánh kết quả để xếp hạng.",
@@ -3891,7 +3891,7 @@ Người chơi có thể kiểm tra các phần thưởng của mình trong mụ
 
       function updateAboutGamePreview() {
         // Update title
-        document.getElementById('previewTitle').textContent = aboutGameData.title || 'GameEDU - Educational Gaming Platform';
+        document.getElementById('previewTitle').textContent = aboutGameData.title || 'Who Is The Champion';
         
         // Update description
         document.getElementById('previewDescription').textContent = aboutGameData.description || '';
